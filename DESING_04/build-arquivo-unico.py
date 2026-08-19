@@ -51,9 +51,17 @@ css = css.replace(
     f'url("{data_uri("assets/fonts/GeistMono-Variable.woff2", "font/woff2")}")',
 )
 
-# --- foto vira data URI ---
-foto = data_uri("assets/images/emanuel-foto.jpg", "image/jpeg")
-html = html.replace('src="assets/images/emanuel-foto.jpg"', f'src="{foto}"')
+# --- toda imagem em assets/images/ (foto, ícones de tecnologia) vira data URI ---
+MIME_POR_EXTENSAO = {
+    ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+    ".png": "image/png", ".svg": "image/svg+xml",
+}
+for caminho_img in sorted(set(re.findall(r'src="(assets/images/[^"]+)"', html))):
+    extensao = pathlib.Path(caminho_img).suffix.lower()
+    mime = MIME_POR_EXTENSAO.get(extensao)
+    if not mime:
+        sys.exit(f"Extensão de imagem sem MIME mapeado: {caminho_img}")
+    html = html.replace(f'src="{caminho_img}"', f'src="{data_uri(caminho_img, mime)}"')
 
 # --- CSS entra no lugar do <link> ---
 html = html.replace(

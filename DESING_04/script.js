@@ -57,8 +57,11 @@
      --------------------------------------------------------- */
   var lenis = null;
   if (typeof window.Lenis !== 'undefined' && !reduced) {
-    lenis = new Lenis({ duration: 1.2, smoothWheel: true });
-    lenis.stop();
+    /* smoothWheel:false makes wheel scroll fully native/instant — no
+       easing curve sitting between the wheel and the page moving. Lenis
+       stays active only for its .scrollTo() calls (nav-link clicks), so
+       those still ease nicely without the constant wheel lag. */
+    lenis = new Lenis({ duration: 0.7, smoothWheel: false });
 
     if (hasGsap) {
       lenis.on('scroll', function () {
@@ -85,32 +88,54 @@
   });
 
   /* ---------------------------------------------------------
-     Cursor
+     Cursor (ported from DESING_02) — rAF-driven lerp toward the pointer
+     instead of a fixed-duration CSS transition per mousemove.
      --------------------------------------------------------- */
-  var cursor = document.getElementById('cursor');
-  if (cursor && finePointer && window.innerWidth >= 600) {
-    cursor.classList.remove('cursor-disable');
+  var cursorDot = document.getElementById('cursorDot');
+  if (cursorDot && !reduced && finePointer) {
+    document.body.classList.add('has-custom-cursor');
+    var cdTargetX = window.innerWidth / 2;
+    var cdTargetY = window.innerHeight / 2;
+    var cdX = cdTargetX;
+    var cdY = cdTargetY;
+    var cdRaf = null;
+
+    var cdTick = function () {
+      cdX += (cdTargetX - cdX) * 0.18;
+      cdY += (cdTargetY - cdY) * 0.18;
+      cursorDot.style.transform = 'translate(' + cdX + 'px, ' + cdY + 'px) translate(-50%, -50%) scale(' + (cursorDot.classList.contains('is-active') ? 2.4 : 1) + ')';
+      cdRaf = requestAnimationFrame(cdTick);
+    };
+
     document.addEventListener('mousemove', function (e) {
-      cursor.style.top = e.clientY + 'px';
-      cursor.style.left = e.clientX + 'px';
+      cdTargetX = e.clientX;
+      cdTargetY = e.clientY;
     }, { passive: true });
 
-    document.querySelectorAll('a, button, [data-link], .what-content, .techstack-item, #snowman')
-      .forEach(function (el) {
-        el.addEventListener('mouseenter', function () { cursor.classList.add('is-hover'); });
-        el.addEventListener('mouseleave', function () { cursor.classList.remove('is-hover'); });
-      });
+    var cdInteractiveSelector = "a, button, [data-link], .what-content, .tile--icon, #snowman";
+    document.addEventListener('mouseover', function (e) {
+      if (e.target.closest && e.target.closest(cdInteractiveSelector)) cursorDot.classList.add('is-active');
+    });
+    document.addEventListener('mouseout', function (e) {
+      if (e.target.closest && e.target.closest(cdInteractiveSelector)) cursorDot.classList.remove('is-active');
+    });
+
+    cdRaf = requestAnimationFrame(cdTick);
   }
 
   /* ---------------------------------------------------------
      Sequência de entrada
      --------------------------------------------------------- */
   function initialFX() {
-    document.body.classList.remove('is-locked');
-    if (lenis) lenis.start();
-
     var mainEl = document.getElementsByTagName('main')[0];
-    if (mainEl) mainEl.classList.add('main-active');
+    if (mainEl) {
+      /* driven directly instead of via the .main-active CSS keyframe —
+         that animation's own timeline wasn't reliably completing (main
+         stayed stuck at opacity:0 well after it should have finished),
+         so this sets the end state directly and lets a plain transition
+         (not a keyframe animation) handle the visual softness */
+      mainEl.style.opacity = '1';
+    }
     document.body.classList.add('character-loaded');
 
     if (!hasGsap || reduced) {
@@ -290,10 +315,10 @@
      --------------------------------------------------------- */
   function setStackReveal() {
     if (!hasGsap || reduced) return;
-    gsap.fromTo('.techstack-item',
+    gsap.fromTo('.tile--icon',
       { opacity: 0, y: 30, scale: 0.9 },
       { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: 'power2.out', stagger: 0.02,
-        scrollTrigger: { trigger: '.techstack-pyramid', start: 'top 80%' } });
+        scrollTrigger: { trigger: '.tile-grid--stack', start: 'top 80%' } });
 
     gsap.fromTo('.tool-card',
       { opacity: 0, y: 40 },
@@ -323,106 +348,217 @@
   });
 
   /* ---------------------------------------------------------
-     Boneco de neve
+     Boneco de neve (ported from DESING_02) — eyes track cursor, idles,
+     jumps on click, disassembles/reassembles every 3rd click, and
+     switches from hero companion to fixed floating mascot on scroll.
      --------------------------------------------------------- */
   var snowman = document.getElementById('snowman');
-  var clicks = 0, busy = false;
-
-  if (snowman && finePointer && !reduced) {
-    var eyes = snowman.querySelectorAll('.sm-eye');
-    var mx = 0, my = 0, pending = false;
-
-    document.addEventListener('mousemove', function (e) {
-      mx = e.clientX; my = e.clientY;
-      if (pending) return;
-      pending = true;
-      requestAnimationFrame(function () {
-        pending = false;
-        eyes.forEach(function (eye) {
-          var pupil = eye.querySelector('.sm-pupil');
-          if (!pupil) return;
-          var box = eye.getBoundingClientRect();
-          var dx = mx - (box.left + box.width / 2);
-          var dy = my - (box.top + box.height / 2);
-          var dist = Math.sqrt(dx * dx + dy * dy) || 1;
-          var max = 2.1;
-          pupil.style.transform = 'translate(' +
-            (dx / dist) * Math.min(max, dist / 26) + 'px,' +
-            (dy / dist) * Math.min(max, dist / 26) + 'px)';
-        });
-      });
-    }, { passive: true });
-  }
-
-  function reactSnowman() {
-    if (!snowman || busy || reduced) return;
-    clicks += 1;
-    busy = true;
-
-    if (clicks % 3 === 0) {
-      snowman.classList.add('is-scattering');
-      window.setTimeout(function () {
-        snowman.classList.remove('is-scattering');
-        window.setTimeout(function () { busy = false; }, 900);
-      }, 1000);
-    } else {
-      snowman.classList.add('is-jumping');
-      window.setTimeout(function () {
-        snowman.classList.remove('is-jumping');
-        busy = false;
-      }, 640);
-    }
-  }
-
   if (snowman) {
-    snowman.addEventListener('click', reactSnowman);
-    snowman.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-        e.preventDefault(); reactSnowman();
+    var pupils = snowman.querySelectorAll('.snowman__pupil');
+    var eyes = snowman.querySelectorAll('.snowman__eye');
+    var body = snowman.querySelector('.snowman__body');
+    var stackedLayout = window.matchMedia('(max-width: 900px)');
+
+    if (!reduced && finePointer) {
+      document.addEventListener('mousemove', function (e) {
+        eyes.forEach(function (eye, i) {
+          var r = eye.getBoundingClientRect();
+          var cx = r.left + r.width / 2;
+          var cy = r.top + r.height / 2;
+          var angle = Math.atan2(e.clientY - cy, e.clientX - cx);
+          var dist = Math.min(2, Math.hypot(e.clientX - cx, e.clientY - cy) / 40);
+          pupils[i].style.transform = 'translate(' + Math.cos(angle) * dist + 'px,' + Math.sin(angle) * dist + 'px)';
+        });
+      }, { passive: true });
+    }
+
+    var heroSectionEl = document.getElementById('inicio');
+    if (heroSectionEl && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!stackedLayout.matches) {
+            snowman.classList.toggle('is-floating', !entry.isIntersecting && entry.boundingClientRect.top < 0);
+          }
+        });
+      }, { threshold: 0, rootMargin: '-40px 0px 0px 0px' }).observe(heroSectionEl);
+    }
+
+    var clickCount = 0;
+    var play = function () {
+      if (reduced) return;
+      clickCount += 1;
+      if (clickCount % 3 === 0) {
+        snowman.classList.add('is-breaking');
+        window.setTimeout(function () { snowman.classList.remove('is-breaking'); }, 1650);
+      } else if (body) {
+        body.classList.remove('is-jumping');
+        void body.offsetWidth;
+        body.classList.add('is-jumping');
+        window.setTimeout(function () { body.classList.remove('is-jumping'); }, 650);
       }
+    };
+    snowman.addEventListener('click', play);
+    snowman.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); }
     });
   }
 
-  /* companheiro no herói → mascote fixo no canto */
-  var hero = document.getElementById('inicio');
-  var narrow = window.matchMedia('(max-width: 768px)');
-  if (hero && snowman && 'IntersectionObserver' in window) {
-    new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (narrow.matches) { document.body.classList.remove('snowman-docked'); return; }
-        document.body.classList.toggle('snowman-docked', !entry.isIntersecting);
-      });
-    }, { threshold: 0.15 }).observe(hero);
+  /* ---------------------------------------------------------
+     Boneco de neve 2 ("Sobre mim") — mesmos truques do herói: os olhos
+     seguem o cursor, pula ao clicar, desmonta a cada 3º clique, e ainda
+     inclina um pouco em direção ao mouse quando ele passa perto (o
+     "buzinar" do nariz e o "piscar" do olho já são hover puro em CSS).
+     Ele vive dentro de uma cena aria-hidden (é decoração, não repete
+     conteúdo do herói), então não ganha tabindex/keydown — só clique.
+     --------------------------------------------------------- */
+  var coderSnowman = document.getElementById('coderSnowman');
+  if (coderSnowman) {
+    var coderPupils = coderSnowman.querySelectorAll('.coder-snowman__pupil');
+    var coderEyes = coderSnowman.querySelectorAll('.coder-snowman__eye');
+
+    if (!reduced && finePointer) {
+      var coderTiltTarget = 0;
+      var coderTiltCurrent = 0;
+      var coderTiltTick = function () {
+        coderTiltCurrent += (coderTiltTarget - coderTiltCurrent) * 0.12;
+        coderSnowman.style.setProperty('--coder-tilt', coderTiltCurrent.toFixed(2) + 'deg');
+        requestAnimationFrame(coderTiltTick);
+      };
+      requestAnimationFrame(coderTiltTick);
+
+      document.addEventListener('mousemove', function (e) {
+        coderEyes.forEach(function (eye, i) {
+          var r = eye.getBoundingClientRect();
+          var cx = r.left + r.width / 2;
+          var cy = r.top + r.height / 2;
+          var angle = Math.atan2(e.clientY - cy, e.clientX - cx);
+          var dist = Math.min(4, Math.hypot(e.clientX - cx, e.clientY - cy) / 40);
+          coderPupils[i].style.transform = 'translate(' + Math.cos(angle) * dist + 'px,' + Math.sin(angle) * dist + 'px)';
+        });
+
+        /* inclina na direção do mouse só quando ele está perto — longe
+           disso, volta devagar (via lerp) pro -7deg de base */
+        var sr = coderSnowman.getBoundingClientRect();
+        var scx = sr.left + sr.width / 2;
+        var scy = sr.top + sr.height / 2;
+        var sdx = e.clientX - scx;
+        var proximity = 420;
+        var sdist = Math.hypot(sdx, e.clientY - scy);
+        coderTiltTarget = sdist < proximity ? Math.max(-6, Math.min(6, (sdx / proximity) * 6)) : 0;
+      }, { passive: true });
+    }
+
+    var coderClickCount = 0;
+    var playCoder = function () {
+      if (reduced) return;
+      coderClickCount += 1;
+      if (coderClickCount % 3 === 0) {
+        coderSnowman.classList.add('is-melting');
+        window.setTimeout(function () { coderSnowman.classList.remove('is-melting'); }, 2200);
+      } else {
+        coderSnowman.classList.remove('is-jumping');
+        void coderSnowman.offsetWidth;
+        coderSnowman.classList.add('is-jumping');
+        window.setTimeout(function () { coderSnowman.classList.remove('is-jumping'); }, 650);
+      }
+    };
+    coderSnowman.addEventListener('click', playCoder);
   }
 
   /* ---------------------------------------------------------
-     Tela de entrada
+     Foto do herói: inclina em direção ao cursor, como um cartão
+     flutuante (ported from DESING_02 — a mesma animação de mouse que já
+     existia lá, mas nunca tinha vindo junto com o resto da hero).
      --------------------------------------------------------- */
-  var loadingScreen = document.getElementById('loadingScreen');
-  var loadingButton = document.getElementById('loadingButton');
+  var heroPhoto = document.querySelector('.hero__mark-photo');
+  if (heroPhoto && !reduced && finePointer) {
+    var photoRaf = null;
+    var photoTargetRX = 0;
+    var photoTargetRY = 0;
+    var photoRX = 0;
+    var photoRY = 0;
+    var photoSettle = function () {
+      photoRX += (photoTargetRX - photoRX) * 0.12;
+      photoRY += (photoTargetRY - photoRY) * 0.12;
+      heroPhoto.style.transform = 'perspective(1000px) rotateX(' + photoRX + 'deg) rotateY(' + photoRY + 'deg)';
+      if (Math.abs(photoTargetRX - photoRX) > 0.01 || Math.abs(photoTargetRY - photoRY) > 0.01) {
+        photoRaf = requestAnimationFrame(photoSettle);
+      } else {
+        photoRaf = null;
+      }
+    };
+    var photoKick = function () {
+      if (!photoRaf) photoRaf = requestAnimationFrame(photoSettle);
+    };
+    window.addEventListener('pointermove', function (e) {
+      var rect = heroPhoto.getBoundingClientRect();
+      var px = (e.clientX - rect.left) / rect.width - 0.5;
+      var py = (e.clientY - rect.top) / rect.height - 0.5;
+      var inBounds = e.clientX >= rect.left - 120 && e.clientX <= rect.right + 120 && e.clientY >= rect.top - 120 && e.clientY <= rect.bottom + 120;
+      photoTargetRX = inBounds ? py * -10 : 0;
+      photoTargetRY = inBounds ? px * 10 : 0;
+      photoKick();
+    }, { passive: true });
+  }
 
-  document.body.classList.add('is-locked');
-
-  function enter() {
-    if (!loadingScreen) return;
-    loadingScreen.classList.add('is-out');
-    window.setTimeout(function () { loadingScreen.style.display = 'none'; }, 800);
-    initialFX();
-    setWorkScroll();
-    setSplitText();
-    setCareerTimeline();
-    setStackReveal();
+  /* ---------------------------------------------------------
+     Marca do herói (foto): paralaxe ao rolar (ported from DESING_02).
+     Driven by ScrollTrigger's own progress tracking rather than a
+     separate native `scroll` listener + getBoundingClientRect() read —
+     a duplicate read/write cycle like that fought Lenis/ScrollTrigger's
+     own rAF pipeline for the same frame and caused visible stutter when
+     tried that way on DESING_02; this avoids it from the start.
+     --------------------------------------------------------- */
+  function setHeroParallax() {
+    var heroMark = document.getElementById('heroMark');
+    var heroCopyEl = document.getElementById('heroCopy');
+    if (!heroMark || reduced) return;
+    var heroSectionEl = document.getElementById('inicio');
+    var stackedLayoutMark = window.matchMedia('(max-width: 900px)');
+    var apply = function (progress) {
+      var scale = 1 - progress * 0.18;
+      var translate = progress * 40;
+      var base = stackedLayoutMark.matches ? '' : 'translateY(-50%) ';
+      heroMark.style.transform = base + 'translateY(' + translate + 'px) scale(' + scale + ')';
+      if (heroCopyEl) {
+        heroCopyEl.style.opacity = String(1 - progress * 0.7);
+        heroCopyEl.style.transform = 'translateY(' + (progress * -24) + 'px)';
+      }
+    };
     if (hasGsap && window.ScrollTrigger) {
-      window.setTimeout(function () { ScrollTrigger.refresh(); }, 900);
+      ScrollTrigger.create({
+        trigger: heroSectionEl,
+        start: 'top top',
+        end: '+=90%',
+        scrub: true,
+        onUpdate: function (self) { apply(self.progress); },
+      });
+    } else {
+      var ticking = false;
+      var update = function () {
+        var rect = heroSectionEl.getBoundingClientRect();
+        apply(Math.min(Math.max(-rect.top / (rect.height * 0.9), 0), 1));
+        ticking = false;
+      };
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      }, { passive: true });
+      update();
     }
   }
 
-  if (loadingButton) loadingButton.addEventListener('click', enter);
-
-  /* se algo falhar no carregamento, entra sozinho depois de 6s */
-  window.setTimeout(function () {
-    if (loadingScreen && !loadingScreen.classList.contains('is-out')) enter();
-  }, 6000);
+  /* ---------------------------------------------------------
+     Inicialização — roda direto, sem tela de entrada
+     --------------------------------------------------------- */
+  initialFX();
+  setWorkScroll();
+  setSplitText();
+  setCareerTimeline();
+  setStackReveal();
+  setHeroParallax();
+  if (hasGsap && window.ScrollTrigger) {
+    window.setTimeout(function () { ScrollTrigger.refresh(); }, 900);
+  }
 
   window.addEventListener('resize', function () {
     if (hasGsap && window.ScrollTrigger) ScrollTrigger.refresh();

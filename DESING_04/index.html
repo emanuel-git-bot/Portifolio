@@ -10,17 +10,8 @@
 </head>
 <body>
 
-<!-- ===================== LOADING ===================== -->
-<div class="loading-screen" id="loadingScreen">
-  <div class="loading-wrap">
-    <button class="loading-button" id="loadingButton" type="button">
-      <span class="loading-button-text">ENTRAR</span>
-    </button>
-  </div>
-</div>
-
 <!-- ===================== CURSOR ===================== -->
-<div class="cursor-main cursor-disable" id="cursor" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
 
 <!-- ===================== LUZES DE FUNDO ===================== -->
 <div class="landing-circle1" aria-hidden="true"></div>
@@ -60,61 +51,81 @@
 <main class="main-body">
 <div class="container-main">
 
-  <!-- ===================== HERO ===================== -->
-  <section class="landing-section" id="inicio">
-    <div class="landing-container container1">
+  <!-- ===================== HERO (ported from DESING_02) ===================== -->
+  <section class="hero" id="inicio">
+    <div class="hero__mark" id="heroMark">
+      <span class="hero__mark-orb" aria-hidden="true"></span>
+      <img class="hero__mark-photo" src="assets/images/emanuel-foto.jpg" alt="Emanuel Roque" width="1599" height="1599">
+      <span class="hero__mark-caption">TERRA ROXA, SP — BRASIL</span>
+    </div>
 
-      <div class="landing-intro">
-        <h2>Olá! Eu sou</h2>
-        <h1>EMANUEL<br>ROQUE</h1>
-      </div>
-
-      <div class="landing-visual">
-        <div class="character-rim" aria-hidden="true"></div>
-        <div class="landing-photo">
-          <img src="assets/images/emanuel-foto.jpg" alt="Emanuel Roque" width="1599" height="1599">
+    <div class="snowman" id="snowman" role="button" tabindex="0" aria-label="Boneco de neve — clique para uma animação">
+      <div class="snowman__shadow" aria-hidden="true"></div>
+      <div class="snowman__body" aria-hidden="true">
+        <div class="snowman__part snowman__part--bottom"></div>
+        <div class="snowman__part snowman__part--middle">
+          <span class="snowman__arm snowman__arm--left"></span>
+          <span class="snowman__arm snowman__arm--right"></span>
+          <span class="snowman__button"></span>
+          <span class="snowman__button"></span>
+          <span class="snowman__button"></span>
         </div>
-
-        <div class="snowman-dock" id="snowmanDock">
-          <div class="snowman" id="snowman" role="button" tabindex="0"
-               aria-label="Boneco de neve interativo. Pressione Enter ou Espaço para fazê-lo pular.">
-            <span class="sm-shadow" aria-hidden="true"></span>
-            <span class="sm-part sm-base" aria-hidden="true"></span>
-            <span class="sm-part sm-torso" aria-hidden="true">
-              <span class="sm-btn sm-btn-1"></span>
-              <span class="sm-btn sm-btn-2"></span>
-            </span>
-            <span class="sm-part sm-arm sm-arm-l" aria-hidden="true"></span>
-            <span class="sm-part sm-arm sm-arm-r" aria-hidden="true"></span>
-            <span class="sm-part sm-head" aria-hidden="true">
-              <span class="sm-eye sm-eye-l"><span class="sm-pupil"></span></span>
-              <span class="sm-eye sm-eye-r"><span class="sm-pupil"></span></span>
-              <span class="sm-nose"></span>
-              <span class="sm-mouth"></span>
-            </span>
-            <span class="sm-part sm-scarf" aria-hidden="true"></span>
-            <span class="sm-part sm-hat" aria-hidden="true"></span>
-          </div>
+        <div class="snowman__part snowman__part--head">
+          <span class="snowman__hat-brim"></span>
+          <span class="snowman__hat-top"></span>
+          <span class="snowman__scarf"></span>
+          <span class="snowman__eye snowman__eye--left"><span class="snowman__pupil"></span></span>
+          <span class="snowman__eye snowman__eye--right"><span class="snowman__pupil"></span></span>
+          <span class="snowman__nose"></span>
         </div>
       </div>
+    </div>
 
-      <div class="landing-info">
-        <h3>Um</h3>
-        <h2 class="landing-info-h2">
-          <span class="landing-h2-1">DESENVOLVEDOR</span>
-          <span class="landing-h2-2">SERVIDOR</span>
-        </h2>
-        <h2 class="landing-info-sub">
-          <span class="landing-h2-info">FULLSTACK</span>
-          <span class="landing-h2-info-1">PÚBLICO</span>
-        </h2>
+    <div class="hero__copy" id="heroCopy">
+      <p class="hero__eyebrow">Olá! Eu sou</p>
+      <h1 class="hero__name">EMANUEL<br>ROQUE</h1>
+      <div class="hero__roles">
+        <span>Um <strong>Desenvolvedor Fullstack</strong></span>
+        <span><strong>Servidor Público</strong></span>
       </div>
-
+      <p class="hero__desc">Servidor da Câmara Municipal de Terra Roxa/SP e desenvolvedor autodidata. Construo sistemas de produção, apps mobile e ferramentas de automação, do sistema de tramitação legislativa da própria Câmara a produtos pessoais e de clientes.</p>
+      <div class="hero__actions">
+        <a class="btn-primary" href="#contato" data-link>FALE COMIGO</a>
+        <a class="btn-link" href="#projetos" data-link>Ver projetos ↓</a>
+      </div>
     </div>
   </section>
 
   <!-- ===================== SOBRE ===================== -->
   <section class="about-section" id="sobre">
+    <div class="coder-scene" aria-hidden="true">
+      <span class="coder-orb"></span>
+      <span class="coder-spark"></span>
+      <span class="coder-spark"></span>
+      <span class="coder-spark"></span>
+      <span class="coder-spark"></span>
+      <span class="coder-spark"></span>
+      <span class="coder-spark"></span>
+      <div class="coder-snowman" id="coderSnowman">
+        <span class="coder-snowman__shadow"></span>
+        <span class="coder-snowman__arm coder-snowman__arm--left"></span>
+        <span class="coder-snowman__arm coder-snowman__arm--right"></span>
+        <span class="coder-snowman__part coder-snowman__part--bottom"></span>
+        <span class="coder-snowman__part coder-snowman__part--middle">
+          <span class="coder-snowman__button"></span>
+          <span class="coder-snowman__button"></span>
+          <span class="coder-snowman__button"></span>
+        </span>
+        <span class="coder-snowman__part coder-snowman__part--head">
+          <span class="coder-snowman__hat-brim"></span>
+          <span class="coder-snowman__hat-top"></span>
+          <span class="coder-snowman__scarf"></span>
+          <span class="coder-snowman__eye coder-snowman__eye--left"><span class="coder-snowman__pupil"></span></span>
+          <span class="coder-snowman__eye coder-snowman__eye--right"><span class="coder-snowman__pupil"></span></span>
+          <span class="coder-snowman__nose"></span>
+        </span>
+      </div>
+    </div>
     <div class="about-me">
       <h3 class="title">SOBRE MIM</h3>
       <p class="para">
@@ -339,10 +350,10 @@
     </div>
   </section>
 
-  <!-- ===================== FERRAMENTAS E ESTUDOS ===================== -->
+  <!-- ===================== FERRAMENTAS ===================== -->
   <section class="tools-section" id="ferramentas">
     <div class="tools-container container1">
-      <h2 class="title">FERRAMENTAS <span>&amp; ESTUDOS</span></h2>
+      <h2 class="title">FERRAMENTAS</h2>
       <div class="tools-grid">
         <article class="tool-card"><span class="tool-num">06</span><h3>Financeiro App</h3><p>Scripts que leem extratos do Nubank e PicPay e calculam faturamento mensal, mais app mobile e desktop de acompanhamento financeiro.</p><span class="tool-stack">Python · React Native · Electron</span><a href="https://github.com/emanuel-git-bot/Financeiro" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
         <article class="tool-card"><span class="tool-num">07</span><h3>MediaFlow</h3><p>Web app para baixar vídeo e áudio sem anúncios, com suporte a múltiplas resoluções via FFmpeg.</p><span class="tool-stack">Django · FFmpeg</span><a href="https://github.com/emanuel-git-bot/MediaFlow" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
@@ -353,38 +364,92 @@
         <article class="tool-card"><span class="tool-num">12</span><h3>PyZapZure</h3><p>Ferramenta de automação de envio de mensagens no WhatsApp via Selenium.</p><span class="tool-stack">Python · Selenium</span><a href="https://github.com/emanuel-git-bot/pyzapzure" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
         <article class="tool-card"><span class="tool-num">13</span><h3>SecSpec Verify</h3><p>Skill de IA para agentes rodarem auditorias de segurança automatizadas em projetos baseados em OpenSpec.</p><span class="tool-stack">Node.js · Agentes de IA</span><a href="https://github.com/emanuel-git-bot/secspec-verify" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
         <article class="tool-card"><span class="tool-num">14</span><h3>StudioFlow</h3><p>App construído com Google AI Studio integrando a API do Gemini, com autenticação e dados via Firebase.</p><span class="tool-stack">Gemini API · Firebase</span><span class="work-nolink">Sem link público confirmado</span></article>
-        <article class="tool-card"><span class="tool-num">15</span><h3>PI 2026 — Loja TI</h3><p>Design de e-commerce como projeto integrador.</p><span class="tool-stack">Next.js</span><a href="https://github.com/emanuel-git-bot/PI-2026-Loja-Ti" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
-        <article class="tool-card"><span class="tool-num">16</span><h3>Tech Hub Manage</h3><p>Ferramenta de gestão em estágio inicial.</p><span class="tool-stack">Vite</span><a href="https://github.com/emanuel-git-bot/tech-hub-manage" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
-        <article class="tool-card"><span class="tool-num">17</span><h3>Loja Virtual — Atividade POO</h3><p>SOLID, Clean Code e dois padrões de projeto.</p><span class="tool-stack">C#</span><a href="https://github.com/emanuel-git-bot/P2_Atividade2025_LojaVirtual" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
-        <article class="tool-card"><span class="tool-num">18</span><h3>Estudos de POO</h3><p>Exercícios de programação orientada a objetos.</p><span class="tool-stack">—</span><a href="https://github.com/emanuel-git-bot/POO" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
       </div>
     </div>
   </section>
 
-  <!-- ===================== TECH STACK ===================== -->
-  <section class="techstack-new" id="stack">
-    <div class="techstack-glow" aria-hidden="true"></div>
-    <div class="techstack-content">
-      <h2 class="title no-split">TECH STACK</h2>
-      <div class="techstack-pyramid">
-        <div class="techstack-row">
-          <span class="techstack-item">Python</span><span class="techstack-item">JavaScript</span><span class="techstack-item">TypeScript</span><span class="techstack-item">C#</span>
+  <!-- ===================== SALA DE ESTUDOS (ported from DESING_02) ===================== -->
+  <section class="section" id="estudos">
+    <div class="wrap">
+      <div class="section__head">
+        <h2 class="section__title">Sala de Estudos</h2>
+        <p class="section__intro">Exercícios e protótipos iniciais, menor escopo, mas parte real do percurso.</p>
+      </div>
+      <div class="study-list">
+        <div class="study-row">
+          <span class="study-row__num">15</span>
+          <span class="study-row__name">PI 2026 — Loja TI<span class="study-row__desc">Design de e-commerce como projeto integrador</span></span>
+          <span class="study-row__stack">Next.js</span>
+          <a class="study-row__link" href="https://github.com/emanuel-git-bot/PI-2026-Loja-Ti" target="_blank" rel="noopener" data-link>Código</a>
         </div>
-        <div class="techstack-row">
-          <span class="techstack-item">HTML</span><span class="techstack-item">CSS</span><span class="techstack-item">React</span><span class="techstack-item">React Native</span><span class="techstack-item">Next.js</span>
+        <div class="study-row">
+          <span class="study-row__num">16</span>
+          <span class="study-row__name">Tech Hub Manage<span class="study-row__desc">Ferramenta de gestão em estágio inicial</span></span>
+          <span class="study-row__stack">Vite</span>
+          <a class="study-row__link" href="https://github.com/emanuel-git-bot/tech-hub-manage" target="_blank" rel="noopener" data-link>Código</a>
         </div>
-        <div class="techstack-row">
-          <span class="techstack-item">Expo</span><span class="techstack-item">tRPC</span><span class="techstack-item">Node.js</span><span class="techstack-item">Django</span><span class="techstack-item">DRF</span><span class="techstack-item">Fastify</span>
+        <div class="study-row">
+          <span class="study-row__num">17</span>
+          <span class="study-row__name">Loja Virtual — Atividade POO<span class="study-row__desc">SOLID, Clean Code e dois padrões de projeto</span></span>
+          <span class="study-row__stack">C#</span>
+          <a class="study-row__link" href="https://github.com/emanuel-git-bot/P2_Atividade2025_LojaVirtual" target="_blank" rel="noopener" data-link>Código</a>
         </div>
-        <div class="techstack-row">
-          <span class="techstack-item">Flask</span><span class="techstack-item">PostgreSQL</span><span class="techstack-item">MySQL</span><span class="techstack-item">SQLite</span><span class="techstack-item">Drizzle</span><span class="techstack-item">Prisma</span><span class="techstack-item">Docker</span>
+        <div class="study-row">
+          <span class="study-row__num">18</span>
+          <span class="study-row__name">Estudos de POO<span class="study-row__desc">Exercícios de programação orientada a objetos</span></span>
+          <span class="study-row__stack">—</span>
+          <a class="study-row__link" href="https://github.com/emanuel-git-bot/POO" target="_blank" rel="noopener" data-link>Código</a>
         </div>
-        <div class="techstack-row">
-          <span class="techstack-item">GitHub Actions</span><span class="techstack-item">Firebase</span><span class="techstack-item">Selenium</span><span class="techstack-item">FFmpeg</span><span class="techstack-item">Mercado Pago</span><span class="techstack-item">PagBank</span>
-        </div>
-        <div class="techstack-row">
-          <span class="techstack-item">Gemini API</span><span class="techstack-item">Git</span><span class="techstack-item">GitHub</span><span class="techstack-item">VS Code</span>
-        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TECH STACK (ported from DESING_02) ===================== -->
+  <section class="section stack-section" id="stack">
+    <div class="stack-portal" aria-hidden="true">
+      <span class="stack-portal__rays"></span>
+      <span class="stack-portal__ring stack-portal__ring--1"></span>
+      <span class="stack-portal__ring stack-portal__ring--2"></span>
+      <span class="stack-portal__ring stack-portal__ring--3"></span>
+      <span class="stack-portal__core"></span>
+    </div>
+    <div class="wrap">
+      <div class="section__head">
+        <h2 class="section__title">Tech Stack</h2>
+      </div>
+      <div class="tile-grid tile-grid--stack">
+        <a class="tile tile--icon" href="https://python.org" target="_blank" rel="noopener" title="Python"><img src="assets/images/python-original.svg" alt="Python" loading="lazy"><span>Python</span></a>
+        <a class="tile tile--icon" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noopener" title="JavaScript"><img src="assets/images/javascript-original.svg" alt="JavaScript" loading="lazy"><span>JavaScript</span></a>
+        <a class="tile tile--icon" href="https://typescriptlang.org" target="_blank" rel="noopener" title="TypeScript"><img src="assets/images/typescript-original.svg" alt="TypeScript" loading="lazy"><span>TypeScript</span></a>
+        <a class="tile tile--icon" href="https://learn.microsoft.com/dotnet/csharp/" target="_blank" rel="noopener" title="C#"><img src="assets/images/csharp-original.svg" alt="C#" loading="lazy"><span>C#</span></a>
+        <a class="tile tile--icon" href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" rel="noopener" title="HTML"><img src="assets/images/html5-original.svg" alt="HTML5" loading="lazy"><span>HTML</span></a>
+        <a class="tile tile--icon" href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" rel="noopener" title="CSS"><img src="assets/images/css3-original.svg" alt="CSS3" loading="lazy"><span>CSS</span></a>
+        <a class="tile tile--icon" href="https://react.dev" target="_blank" rel="noopener" title="React"><img src="assets/images/react-original.svg" alt="React" loading="lazy"><span>React</span></a>
+        <a class="tile tile--icon" href="https://reactnative.dev" target="_blank" rel="noopener" title="React Native"><img src="assets/images/react-original.svg" alt="React Native" loading="lazy"><span>React Native</span></a>
+        <a class="tile tile--icon" href="https://nextjs.org" target="_blank" rel="noopener" title="Next.js"><img src="assets/images/nextjs-original.svg" alt="Next.js" loading="lazy"><span>Next.js</span></a>
+        <a class="tile tile--icon" href="https://expo.dev" target="_blank" rel="noopener" title="Expo"><img src="assets/images/expo-original.svg" alt="Expo" loading="lazy"><span>Expo</span></a>
+        <a class="tile tile--icon" href="https://nodejs.org" target="_blank" rel="noopener" title="Node.js"><img src="assets/images/nodejs-original.svg" alt="Node.js" loading="lazy"><span>Node.js</span></a>
+        <a class="tile tile--icon" href="https://trpc.io" target="_blank" rel="noopener" title="tRPC"><img src="assets/images/trpc.svg" alt="tRPC" loading="lazy"><span>tRPC</span></a>
+        <a class="tile tile--icon" href="https://djangoproject.com" target="_blank" rel="noopener" title="Django"><img src="assets/images/django-plain.svg" alt="Django" loading="lazy"><span>Django</span></a>
+        <a class="tile tile--icon" href="https://www.django-rest-framework.org" target="_blank" rel="noopener" title="Django REST Framework"><img src="assets/images/django-plain.svg" alt="Django REST Framework" loading="lazy"><span>Django REST Framework</span></a>
+        <a class="tile tile--icon" href="https://fastify.dev" target="_blank" rel="noopener" title="Fastify"><img src="assets/images/fastify-original.svg" alt="Fastify" loading="lazy"><span>Fastify</span></a>
+        <a class="tile tile--icon" href="https://flask.palletsprojects.com" target="_blank" rel="noopener" title="Flask"><img src="assets/images/flask-original.svg" alt="Flask" loading="lazy"><span>Flask</span></a>
+        <a class="tile tile--icon" href="https://postgresql.org" target="_blank" rel="noopener" title="PostgreSQL"><img src="assets/images/postgresql-original.svg" alt="PostgreSQL" loading="lazy"><span>PostgreSQL</span></a>
+        <a class="tile tile--icon" href="https://mysql.com" target="_blank" rel="noopener" title="MySQL"><img src="assets/images/mysql-original.svg" alt="MySQL" loading="lazy"><span>MySQL</span></a>
+        <a class="tile tile--icon" href="https://sqlite.org" target="_blank" rel="noopener" title="SQLite"><img src="assets/images/sqlite-plain.svg" alt="SQLite" loading="lazy"><span>SQLite</span></a>
+        <a class="tile tile--icon" href="https://orm.drizzle.team" target="_blank" rel="noopener" title="Drizzle"><img src="assets/images/drizzle.svg" alt="Drizzle" loading="lazy"><span>Drizzle</span></a>
+        <a class="tile tile--icon" href="https://prisma.io" target="_blank" rel="noopener" title="Prisma"><img src="assets/images/prisma-original.svg" alt="Prisma" loading="lazy"><span>Prisma</span></a>
+        <a class="tile tile--icon" href="https://docker.com" target="_blank" rel="noopener" title="Docker"><img src="assets/images/docker-original.svg" alt="Docker" loading="lazy"><span>Docker</span></a>
+        <a class="tile tile--icon" href="https://github.com/features/actions" target="_blank" rel="noopener" title="GitHub Actions"><img src="assets/images/githubactions-plain.svg" alt="GitHub Actions" loading="lazy"><span>GitHub Actions</span></a>
+        <a class="tile tile--icon" href="https://firebase.google.com" target="_blank" rel="noopener" title="Firebase"><img src="assets/images/firebase-plain.svg" alt="Firebase" loading="lazy"><span>Firebase</span></a>
+        <a class="tile tile--icon" href="https://selenium.dev" target="_blank" rel="noopener" title="Selenium"><img src="assets/images/selenium-original.svg" alt="Selenium" loading="lazy"><span>Selenium</span></a>
+        <a class="tile tile--icon" href="https://ffmpeg.org" target="_blank" rel="noopener" title="FFmpeg"><img src="assets/images/ffmpeg.svg" alt="FFmpeg" loading="lazy"><span>FFmpeg</span></a>
+        <a class="tile tile--icon" href="https://www.mercadopago.com.br" target="_blank" rel="noopener" title="Mercado Pago"><img src="assets/images/mercadopago.svg" alt="Mercado Pago" loading="lazy"><span>Mercado Pago</span></a>
+        <a class="tile tile--icon" href="https://pagbank.com.br" target="_blank" rel="noopener" title="PagBank"><img src="assets/images/pagbank.svg" alt="PagBank" loading="lazy"><span>PagBank</span></a>
+        <a class="tile tile--icon" href="https://ai.google.dev/gemini-api" target="_blank" rel="noopener" title="Gemini API"><img src="assets/images/gemini.svg" alt="Gemini API" loading="lazy"><span>Gemini API</span></a>
+        <a class="tile tile--icon" href="https://git-scm.com" target="_blank" rel="noopener" title="Git"><img src="assets/images/git-original.svg" alt="Git" loading="lazy"><span>Git</span></a>
+        <a class="tile tile--icon" href="https://github.com" target="_blank" rel="noopener" title="GitHub"><img src="assets/images/github-original.svg" alt="GitHub" loading="lazy"><span>GitHub</span></a>
+        <a class="tile tile--icon" href="https://code.visualstudio.com" target="_blank" rel="noopener" title="VS Code"><img src="assets/images/vscode-original.svg" alt="VS Code" loading="lazy"><span>VS Code</span></a>
       </div>
     </div>
   </section>

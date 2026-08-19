@@ -38,6 +38,78 @@
         ],
         "createdAt": "2026-08-18T13:54:42.268Z",
         "reason": "hero__mark-glyph, monograma decorativo no lugar da foto/personagem 3D ainda não existente, não é hierarquia de conteúdo — documentado em DESIGN.md; re-registrado com caminho relativo à raiz"
+      },
+      {
+        "rule": "bounce-easing",
+        "value": "snowman-bounce",
+        "files": [
+          "DESING_02/styles.css"
+        ],
+        "createdAt": "2026-08-19T13:08:56.240Z",
+        "reason": "Snowman mascot idle animation is deliberate character motion (a soft breathing bounce), not a UI state-change transition — re-registered with root-relative path since the hook resolves files from the repo root, not from inside DESING_02."
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "DESING_02/styles.css"
+        ],
+        "createdAt": "2026-08-19T13:08:56.410Z",
+        "reason": "Ported verbatim from DESING_04's .work-note (single disclaimer callout: 'produto para vereadores, não confundir com o cargo do Emanuel') — exact-fidelity port. Rule has no extractable value, so wildcard is the correct convention. Re-registered with root-relative path."
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "DESING_02/styles.css"
+        ],
+        "createdAt": "2026-08-19T13:08:56.563Z",
+        "reason": "Ported verbatim from DESING_04's .career-section heading gradient — exact-fidelity port of the user-requested Meu Trabalho/Carreira port, single heading use. Rule has no extractable value, so wildcard is the correct convention. Re-registered with root-relative path."
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "files": [
+          "DESING_04/index.html"
+        ],
+        "createdAt": "2026-08-19T13:55:41.336Z",
+        "reason": "DESING_04 is explicitly modeled on redoyanulhaque.me (see its own LEIA-ME.md), which uses Geist as its real, confirmed typeface — not a default choice."
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "files": [
+          "DESING_04/styles.css"
+        ],
+        "createdAt": "2026-08-19T13:55:41.515Z",
+        "reason": "Same justification: Geist is the real typeface of the pinned reference site (redoyanulhaque.me), confirmed via its own computed CSS, not a default."
+      },
+      {
+        "rule": "bounce-easing",
+        "value": "snowman-bounce",
+        "files": [
+          "DESING_04/styles.css"
+        ],
+        "createdAt": "2026-08-19T13:55:41.670Z",
+        "reason": "Snowman mascot idle animation ported from DESING_02, where this was already established as deliberate character motion (soft breathing bounce), not a UI state-change transition."
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "DESING_04/styles.css"
+        ],
+        "createdAt": "2026-08-19T13:55:41.845Z",
+        "reason": "Pre-existing DESING_04 author's choice on .career-section h2 (not touched by this session's port work) — wildcard since gradient-text has no extractable value."
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist mono",
+        "files": [
+          "DESING_04/styles.css"
+        ],
+        "createdAt": "2026-08-19T14:14:06.289Z",
+        "reason": "Same pinned-reference justification as Geist itself: DESING_04 is modeled on redoyanulhaque.me's real computed CSS, not a default font choice. Registered at root too since the hook has resolved files from both scopes this session."
       }
     ]
   }

@@ -24,7 +24,48 @@ colors:
   snowman-hat-light: "#33363d"
   snowman-hat-dark: "#17191c"
   snowman-hat-brim: "#2a2d33"
+  accent-deep: "#7f40ff"
+  accent-glow: "#aa42ff"
+  line-color: "#363636"
+  bg-orb: "#fb8dff"
+  bg-orb-shadow: "rgba(84, 0, 255, 0.6)"
+  career-dot-glow-1: "#d29bff"
+  career-dot-glow-2: "#d097ff"
+  career-dot-glow-3: "#f2c0ff"
 typography:
+  # `scale` covers the header/whatIDO/work-section/career-section port from
+  # DESING_04 (see "DESING_04 Port" below): those components carry DESING_04's
+  # own literal px scale verbatim rather than being re-expressed in this
+  # file's clamp() roles, since exact visual fidelity to that port was the
+  # explicit goal, not a token-system unification.
+  scale:
+    ported-10: "10px"
+    ported-11: "11px"
+    ported-12: "12px"
+    ported-12-5: "12.5px"
+    ported-13: "13px"
+    ported-14: "14px"
+    ported-15: "15px"
+    ported-16: "16px"
+    ported-17: "17px"
+    ported-18: "18px"
+    ported-20: "20px"
+    ported-22: "22px"
+    ported-24: "24px"
+    ported-25: "25px"
+    ported-26: "26px"
+    ported-28: "28px"
+    ported-32: "32px"
+    ported-35: "35px"
+    ported-36: "36px"
+    ported-38: "38px"
+    ported-40: "40px"
+    ported-45: "45px"
+    ported-48: "48px"
+    ported-50: "50px"
+    ported-55: "55px"
+    ported-56: "56px"
+    ported-70: "70px"
   display:
     fontFamily: "Geist, 'Segoe UI', system-ui, sans-serif"
     fontSize: "clamp(3rem, 9vw, 7rem)"
@@ -99,6 +140,8 @@ rounded:
   snowman-trim: "3px"
   snowman-hat: "4px"
   tooltip: "6px"
+  ported-card: "14px"
+  ported-dot: "50px"
 spacing:
   gutter: "clamp(1.25rem, 6vw, 6rem)"
   section: "clamp(4rem, 12vh, 9rem)"

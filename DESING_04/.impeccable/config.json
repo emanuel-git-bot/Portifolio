@@ -1,0 +1,53 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "geist mono",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-19T14:14:06.141Z",
+        "reason": "Same pinned-reference justification as Geist itself: DESING_04 is modeled on redoyanulhaque.me's real computed CSS, not a default font choice."
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-19T14:14:30.370Z",
+        "reason": "DESING_04 is explicitly modeled on redoyanulhaque.me (see its own LEIA-ME.md), which uses Geist as its real, confirmed typeface — not a default choice."
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-08-19T14:14:30.533Z",
+        "reason": "Same justification: Geist is the real typeface of the pinned reference site (redoyanulhaque.me), confirmed via its own computed CSS, not a default."
+      },
+      {
+        "rule": "bounce-easing",
+        "value": "snowman-bounce",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-19T14:14:30.693Z",
+        "reason": "Snowman mascot idle animation ported from DESING_02, where this was already established as deliberate character motion (soft breathing bounce), not a UI state-change transition."
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-19T14:17:49.782Z",
+        "reason": "Pre-existing DESING_04 author's choice on .career-section h2 (not touched by this session's port work) — wildcard since gradient-text has no extractable value."
+      }
+    ]
+  }
+}

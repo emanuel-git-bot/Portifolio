@@ -74,6 +74,42 @@
         ],
         "createdAt": "2026-08-18T17:25:05.631Z",
         "reason": "Same compact nav label, shrunk further at the 640px breakpoint for the narrowest phones — narrow, breakpoint-specific tweak, not a recurring type-scale step."
+      },
+      {
+        "rule": "side-tab",
+        "value": "border-left: 2px solid var(--accent)",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-19T13:01:38.551Z",
+        "reason": "Ported verbatim from DESING_04's .work-note (a single disclaimer callout: 'produto para vereadores, não confundir com o cargo do Emanuel') — exact-fidelity port, not a repeated card pattern."
+      },
+      {
+        "rule": "gradient-text",
+        "value": "background-clip: text gradient",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-19T13:01:38.718Z",
+        "reason": "Ported verbatim from DESING_04's .career-section heading gradient — exact-fidelity port of the user-requested Meu Trabalho/Carreira port, single heading use."
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-19T13:04:12.120Z",
+        "reason": "Ported verbatim from DESING_04's .work-note (a single disclaimer callout: 'produto para vereadores, não confundir com o cargo do Emanuel') — exact-fidelity port, not a repeated card pattern. (Rule has no extractable value; wildcard is the documented convention for side-tab/gradient-text.)"
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-19T13:04:12.272Z",
+        "reason": "Ported verbatim from DESING_04's .career-section heading gradient — exact-fidelity port of the user-requested Meu Trabalho/Carreira port, single heading use. (Rule has no extractable value; wildcard is the documented convention for side-tab/gradient-text.)"
       }
     ]
   }
