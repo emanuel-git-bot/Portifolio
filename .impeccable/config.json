@@ -1,0 +1,44 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "files": [
+          "DESING_02/styles.css"
+        ],
+        "createdAt": "2026-08-18T13:54:00.652Z",
+        "reason": "user confirmed: pediu para replicar redoyanulhaque.me 'do mesmo jeito', que usa Geist como fonte única do site (confirmado via CSS computado real) — re-registrado com o caminho relativo à raiz do projeto, já que o hook resolve o arquivo a partir daqui, não de dentro de DESING_02"
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "files": [
+          "DESING_02/index.html"
+        ],
+        "createdAt": "2026-08-18T13:54:21.825Z",
+        "reason": "mesma justificativa: Geist é a fonte real do site de referência pinado, confirmada via CSS computado — registrado também com caminho relativo à raiz para cobrir o contexto em que o hook roda"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "2px",
+        "files": [
+          "DESING_02/styles.css"
+        ],
+        "createdAt": "2026-08-18T13:54:42.110Z",
+        "reason": "anel de foco do teclado (:focus-visible), detalhe de acessibilidade do navegador, não é forma de componente — documentado em DESIGN.md Shapes; re-registrado com caminho relativo à raiz"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "4rem",
+        "files": [
+          "DESING_02/styles.css"
+        ],
+        "createdAt": "2026-08-18T13:54:42.268Z",
+        "reason": "hero__mark-glyph, monograma decorativo no lugar da foto/personagem 3D ainda não existente, não é hierarquia de conteúdo — documentado em DESIGN.md; re-registrado com caminho relativo à raiz"
+      }
+    ]
+  }
+}

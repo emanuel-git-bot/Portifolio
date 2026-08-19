@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-17T01:00:00Z",
+  "title": "Design System: Emanuel Roque — Portfólio",
+  "extensions": {
+    "colorMeta": {
+      "panel-black": { "role": "neutral", "displayName": "Painel Slate", "canonical": "#0f172a", "tonalRamp": ["#050810", "#0f172a", "#182338", "#223047", "#2c3b52", "#5a6b85", "#8a97ab", "#d3dae5"] },
+      "accent": { "role": "primary", "displayName": "Azul-Elétrico", "canonical": "#38bdf8", "tonalRamp": ["#0c2f42", "#0e4a68", "#0ea5e9", "#38bdf8", "#7dd3fc", "#a6e2fd", "#c9edfe", "#e6f8ff"] },
+      "stamp-producao": { "role": "status", "displayName": "Verde de Produção", "canonical": "#4ade80" },
+      "stamp-prototipo": { "role": "status", "displayName": "Laranja de Protótipo", "canonical": "#fdba74" },
+      "stamp-estudo": { "role": "status", "displayName": "Violeta de Estudo", "canonical": "#c4b5fd" }
+    },
+    "typographyMeta": {
+      "display-hero": { "displayName": "Display Hero", "purpose": "Título do projeto em destaque no herói." },
+      "data-hero": { "displayName": "Dado Hero", "purpose": "Número de protocolo monumental — só o item nº 001." },
+      "data": { "displayName": "Dado Tabular", "purpose": "Números de protocolo nas demais linhas — a única aplicação legítima de monospace fora dos rótulos." }
+    },
+    "shadows": [
+      { "name": "card-hover-glow", "value": "0 18px 40px -24px rgba(56, 189, 248, 0.35)", "purpose": "Glow sob .panel:hover/:focus-within — confirma leitura ativa, nunca aparece em repouso." },
+      { "name": "topbar-scrolled-glow", "value": "0 10px 30px -18px rgba(56, 189, 248, 0.4)", "purpose": "Glow sob .topbar.is-scrolled — sinaliza conteúdo passando por baixo do topo fixo." }
+    ],
+    "motion": [
+      { "name": "ease-signage", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Easing padrão para toda transição de estado (hover de link, reveal de seção)." },
+      { "name": "split-flap-tick", "value": "45ms por dígito, 6-20 ticks", "purpose": "Assinatura de motion: números de protocolo giram como um painel mecânico antes de assentar." },
+      { "name": "split-flap-settle", "value": "500ms, flash para paper com text-shadow em accent", "purpose": "Confirma o travamento de cada dígito ao final do split-flap." },
+      { "name": "scanfield-glow", "value": "radial-gradient 560px, rgba(56,189,248,0.14), segue --mx/--my via pointermove + rAF", "purpose": "Foco autoral do passe de animação: o visitante 'ilumina' o painel com o cursor. Desativado sob prefers-reduced-motion e pointer:coarse." },
+      { "name": "panel-tilt", "value": "rotateX/rotateY até 8deg, perspective(900px) + glow local 220px", "purpose": "Feedback de hover nos cartões do Terminal Geral, ecoando o scanfield em escala menor. Restrito a pointer:fine." },
+      { "name": "reveal-stagger", "value": "0-140ms, passos de 70ms em lotes de 3", "purpose": "Cartões/linhas de lista revelam em cascata, não todos de uma vez." },
+      { "name": "reveal-row-slide", "value": "translateX(-28px)", "purpose": "Linhas de painel em destaque deslizam do lado do número de protocolo, como se estivessem sendo impressas." }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "900px" },
+      { "name": "mobile", "value": "640px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Selo de Status (Produção)",
+      "kind": "chip",
+      "refersTo": "stamp",
+      "description": "Badge contornado indicando o estágio real do projeto (produção/protótipo/estudo).",
+      "html": "<span class=\"ds-stamp ds-stamp--producao\">Em produção</span>",
+      "css": ".ds-stamp { font-family: 'Overpass Mono', ui-monospace, monospace; font-weight: 700; font-size: 0.72rem; letter-spacing: 0.06em; padding: 0.3rem 0.65rem; border-radius: 2px; white-space: nowrap; border: 1.5px solid currentColor; background: transparent; } .ds-stamp--producao { color: #4ade80; }"
+    },
+    {
+      "name": "Tag de Stack",
+      "kind": "chip",
+      "refersTo": "tag",
+      "description": "Rótulo de tecnologia usada no projeto — puramente informativo.",
+      "html": "<span class=\"ds-tag\">Django</span>",
+      "css": ".ds-tag { font-family: 'Overpass Mono', ui-monospace, monospace; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.03em; padding: 0.3rem 0.6rem; border: 1px solid #2c3b52; color: #a9b4c4; border-radius: 3px; }"
+    },
+    {
+      "name": "Link de Ação (Gate Link)",
+      "kind": "button",
+      "refersTo": "gate-link",
+      "description": "Único tipo de call-to-action do sistema — texto azul-elétrico com seta que desliza no hover, nunca um botão preenchido.",
+      "html": "<a class=\"ds-gate-link\" href=\"#\">Ver código<span class=\"ds-gate-link__arrow\">→</span></a>",
+      "css": ".ds-gate-link { display: inline-flex; align-items: center; gap: 0.4rem; text-decoration: none; font-weight: 700; font-size: 0.85rem; color: #38bdf8; } .ds-gate-link__arrow { transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1); display: inline-block; } .ds-gate-link:hover .ds-gate-link__arrow, .ds-gate-link:focus-visible .ds-gate-link__arrow { transform: translateX(4px); }"
+    },
+    {
+      "name": "Card de Terminal Geral",
+      "kind": "card",
+      "refersTo": "panel-card",
+      "description": "Card compacto usado no grid secundário de projetos — cantos retos, sem sombra, elevação só por mudança de fundo no hover.",
+      "html": "<article class=\"ds-panel\"><div class=\"ds-panel__num\">Nº 006</div><h3 class=\"ds-panel__title\">Financeiro App</h3><p class=\"ds-panel__desc\">Scripts que leem extratos e calculam faturamento mensal.</p></article>",
+      "css": ".ds-panel { background: #0f172a; padding: 1.6rem; display: flex; flex-direction: column; gap: 0.85rem; transition: background 0.2s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid #2c3b52; } .ds-panel:hover { background: #182338; } .ds-panel__num { font-family: 'Overpass Mono', ui-monospace, monospace; color: #38bdf8; font-weight: 700; font-size: 0.85rem; } .ds-panel__title { font-family: Overpass, sans-serif; font-size: 1.05rem; font-weight: 800; text-transform: uppercase; color: #e2e8f0; margin: 0; } .ds-panel__desc { color: #a9b4c4; font-size: 0.9rem; margin: 0; }"
+    },
+    {
+      "name": "Navegação (Topbar)",
+      "kind": "nav",
+      "refersTo": "gate-nav",
+      "description": "Barra escura fixa com borda inferior de 1px em azul-elétrico, wordmark e links de seção.",
+      "html": "<header class=\"ds-topbar\"><a class=\"ds-wordmark\">EMANUEL ROQUE<span>Desenvolvedor Fullstack</span></a><nav class=\"ds-nav\"><a href=\"#\">Painel Principal</a><a href=\"#\">Contato</a></nav></header>",
+      "css": ".ds-topbar { background: #0f172a; color: #e2e8f0; border-bottom: 1px solid #38bdf8; padding: 0.85rem 1.5rem; display: flex; align-items: center; justify-content: space-between; } .ds-wordmark { display: flex; flex-direction: column; font-weight: 800; font-size: 1.05rem; text-decoration: none; color: #e2e8f0; } .ds-wordmark span { font-weight: 500; font-size: 0.7rem; color: #a9b4c4; } .ds-nav a { text-decoration: none; font-weight: 700; font-size: 0.9rem; color: #a9b4c4; border-bottom: 2px solid transparent; margin-left: 1.5rem; } .ds-nav a:hover { border-color: #38bdf8; color: #e2e8f0; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "A Torre de Controle",
+    "overview": "O portfólio é o painel visto do ponto de vista de quem opera a torre: cada projeto é uma linha registrada, com número de protocolo, categoria e status, e o visitante lê o site como quem consulta um painel de embarque real, não como quem rola uma galeria genérica de cards. O sistema nasceu da fusão entre a sinalização de terminais/aeroportos e o próprio ofício de Emanuel: servidor da Câmara Municipal de Terra Roxa/SP que lida com protocolo e prazo de perto, e desenvolvedor que construiu o sistema real de tramitação legislativa que aparece como carro-chefe do painel. Revisão de paleta a pedido do usuário: a versão original usava amarelo-sinal sobre preto puro; trocada para 'Modern Dark' — registro de editor de código — com azul-elétrico assumindo o papel estrutural do amarelo, sempre em linha/texto/detalhe, nunca em preenchimento de área grande. Não há sombras: profundidade vem de degraus de escuro e bordas finas de 1px, como divisórias reais de um painel físico.",
+    "keyCharacteristics": [
+      "Fundo slate bem escuro (não preto puro); azul-elétrico como acento estrutural fino — nunca como campo de página ou barra inteira.",
+      "Zero sombras; profundidade por degraus de escuro e linhas finas de 1px.",
+      "Numerais tabulares monumentais para o item em destaque; discretos para os secundários.",
+      "Pictogramas desenhados (SVG próprio, uma cor, traço consistente) — nunca emoji ou glifo Unicode.",
+      "Selos de status contornados (não preenchidos) para manter contraste alto sobre fundo escuro."
+    ],
+    "rules": [
+      { "name": "The Accent-as-Line Rule", "body": "O azul-elétrico vive em bordas finas, texto e detalhes — nunca em preenchimento de barra ou seção inteira. Substitui a regra anterior (amarelo em barras sólidas), retirada porque um preenchimento sólido de accent brilhante lê como alerta num tema escuro de editor, não como identidade.", "section": "colors" },
+      { "name": "The Data-Only-Mono Rule", "body": "Overpass Mono aparece apenas em números de protocolo, tags de tecnologia e rótulos de fato — nunca em títulos, corpo de texto ou navegação.", "section": "typography" },
+      { "name": "The Density Ladder Rule", "body": "A densidade cai em degraus conforme a prioridade: herói → Painel Principal → Terminal Geral → Sala de Estudos. Nunca pular um degrau.", "section": "layout" },
+      { "name": "The Flat-at-Rest Rule", "body": "Nenhum elemento recebe sombra em repouso. Sombra existe só como resposta a um estado real (hover, scroll) — substitui a regra anterior (nenhuma sombra em nenhum estado), retirada porque o passe de animação encontrou um uso genuíno para profundidade como feedback.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do usar Overpass Mono exclusivamente para dado tabular real — nunca para títulos ou corpo de texto.",
+      "Do manter o azul-elétrico em linhas finas, texto e detalhes — nunca como fundo de barra ou seção inteira.",
+      "Do adicionar min-width: 0 em todo item de CSS grid ou flex que possa receber texto longo.",
+      "Do desenhar novos pictogramas como SVG sólido de uma cor só, no mesmo peso visual dos existentes.",
+      "Do contornar (nunca preencher) selos de status, para manter contraste ≥4.5:1 sobre o fundo escuro.",
+      "Do usar box-shadow como glow suave em resposta a hover/scroll reais — nunca em repouso.",
+      "Do manter todo efeito de mouse atrás de prefers-reduced-motion e pointer:fine."
+    ],
+    "donts": [
+      "Don't usar box-shadow em qualquer elemento no seu estado de repouso.",
+      "Don't colocar um rótulo pequeno (kicker/eyebrow) imediatamente acima de um heading.",
+      "Don't usar border-radius acima de 4px em qualquer componente de conteúdo.",
+      "Don't preencher um selo de status com cor sólida — já causou falha de contraste real neste projeto.",
+      "Don't preencher uma barra ou seção inteira com o azul-elétrico — já foi tentado no topo e no rodapé e lia como alerta, não como chrome.",
+      "Don't empilhar mais de um efeito de mouse por elemento — tilt + glow local já é o teto do cartão do Terminal Geral."
+    ]
+  }
+}

@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-18T01:00:00Z",
+  "title": "Design System: Emanuel Roque — Portfólio (DESING_02)",
+  "extensions": {
+    "colorMeta": {
+      "bg": { "role": "neutral", "displayName": "Preto", "canonical": "#000000" },
+      "text": { "role": "neutral", "displayName": "Texto Lavanda-Branco", "canonical": "#eae5ec" },
+      "text-muted": { "role": "neutral", "displayName": "Texto Esmaecido (revisado p/ contraste)", "canonical": "#9ca3af" },
+      "accent": { "role": "primary", "displayName": "Lilás-Acento", "canonical": "#c2a4ff", "tonalRamp": ["#2a2140", "#4a3a6e", "#6f579e", "#8b6fd6", "#c2a4ff", "#d3bfff", "#e2d5ff", "#f0e9ff"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Nome no herói, único uso do maior degrau da escala." },
+      "display-compact": { "displayName": "Display Compact", "purpose": "Headline de fechamento no rodapé — mesma família do Display, menor porque fecha a página." },
+      "title-large": { "displayName": "Title Large", "purpose": "Título de item na lista Meu Trabalho — maior que Title porque projetos são o conteúdo principal." },
+      "lead": { "displayName": "Lead", "purpose": "Texto secundário logo abaixo do nome no herói." },
+      "label": { "displayName": "Label / Ghost Link", "purpose": "Navegação e links fantasma — tracking 4px é a assinatura tipográfica do mundo." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "cursor-lerp", "value": "interpolação suave (~0.15) por frame", "purpose": "Cursor customizado segue o ponteiro com atraso, nunca 1:1 instantâneo." },
+      { "name": "text-swap-hover", "value": "translateY(-100%), 300ms ease-out", "purpose": "Links de navegação revelam uma segunda cópia do texto deslizando de baixo para cima." },
+      { "name": "reveal-fade-up", "value": "translateY(20px) -> 0, opacity 0 -> 1, 600ms", "purpose": "Entrada de seção ao rolar — mais lenta e cinematográfica que o DESING_01." }
+    ],
+    "breakpoints": [
+      { "name": "tablet", "value": "900px" },
+      { "name": "mobile", "value": "640px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botão Primário",
+      "kind": "button",
+      "refersTo": "cta-primary",
+      "description": "CTA preenchido em lilás, texto preto, único uso de preenchimento sólido do acento.",
+      "html": "<a class=\"ds-cta\" href=\"#contato\">FALE COMIGO</a>",
+      "css": ".ds-cta { display: inline-block; background: #c2a4ff; color: #000; font-weight: 600; font-size: 0.9rem; letter-spacing: 2px; padding: 12px 28px; border-radius: 8px; text-decoration: none; transition: background 0.2s ease; } .ds-cta:hover { background: #8b6fd6; }"
+    },
+    {
+      "name": "Link Fantasma (Text-Swap)",
+      "kind": "nav",
+      "refersTo": "ghost-link",
+      "description": "Link de navegação com efeito de texto duplicado deslizando no hover.",
+      "html": "<a class=\"ds-ghost\" href=\"#sobre\"><span class=\"ds-ghost__track\"><span>SOBRE</span><span>SOBRE</span></span></a>",
+      "css": ".ds-ghost { text-decoration: none; color: #9ca3af; font-weight: 600; font-size: 0.9rem; letter-spacing: 4px; overflow: hidden; display: inline-block; height: 1.2em; } .ds-ghost__track { display: flex; flex-direction: column; transition: transform 0.3s cubic-bezier(0.65,0,0.35,1); } .ds-ghost:hover .ds-ghost__track { transform: translateY(-1.2em); color: #eae5ec; }"
+    },
+    {
+      "name": "Pill de Skill",
+      "kind": "chip",
+      "refersTo": "skill-pill",
+      "description": "Cápsula de vidro para tags de skill dentro dos cards 'O que eu faço'.",
+      "html": "<span class=\"ds-pill\">Django</span>",
+      "css": ".ds-pill { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.31); color: #eae5ec; border-radius: 30px; padding: 2px 12px; font-size: 0.75rem; }"
+    },
+    {
+      "name": "Tile de Stack (texto)",
+      "kind": "chip",
+      "refersTo": "tech-tile",
+      "description": "Tile de vidro sutil para tecnologias sem ícone de marca disponível ou confirmado.",
+      "html": "<span class=\"ds-tile\">Prisma</span>",
+      "css": ".ds-tile { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); color: #eae5ec; border-radius: 8px; padding: 8px 14px; font-size: 0.85rem; }"
+    },
+    {
+      "name": "Tile de Stack (ícone)",
+      "kind": "chip",
+      "refersTo": "tech-tile",
+      "description": "Tile de vidro quadrado com ícone de marca real, link para o site oficial — só para tecnologias confirmadas no repertório de Emanuel.",
+      "html": "<a class=\"ds-tile-icon\" href=\"https://python.org\" title=\"Python\"><img src=\"python-original.svg\" alt=\"Python\"></a>",
+      "css": ".ds-tile-icon { display: flex; align-items: center; justify-content: center; width: 54px; height: 54px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; } .ds-tile-icon img { width: 26px; height: 26px; filter: grayscale(1) brightness(1.6); transition: filter 0.2s ease; } .ds-tile-icon:hover img { filter: none; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "O Dev Internacional",
+    "overview": "Segundo sistema visual completo do portfólio, pinado pelo usuário a partir de um site de referência real (redoyanulhaque.me): preto absoluto, tipografia Geist gigante em peso médio, componentes de vidro (glassmorphism), acento lilás único usado com disciplina extrema, cursor customizado, links com texto duplicado deslizante. Cada token tem origem em leitura direta do CSS computado da referência. Duas peças do original ficaram de fora por decisão do usuário: a foto de perfil recortada (sem asset ainda) e a tela de carregamento animada (pulada). O cinza fantasma original (#5e5e5e, ~3.2:1) foi corrigido para #9ca3af (~8.3:1) por não passar contraste.",
+    "keyCharacteristics": [
+      "Preto absoluto como único fundo da página — sem escala de cinzas de seção como no DESING_01.",
+      "Um único acento lilás, usado no máximo em dois lugares por viewport.",
+      "Glass (opacidade + borda translúcida) como único mecanismo de elevação — nunca box-shadow escuro.",
+      "Geist em peso médio (nunca acima de 600) carregando hierarquia por tamanho, não por peso.",
+      "Cursor customizado e links com texto duplicado deslizante como assinaturas de interação."
+    ],
+    "rules": [
+      { "name": "The One Accent Rule", "body": "O lilás aparece no máximo em dois lugares por viewport — nunca vira paleta.", "section": "colors" },
+      { "name": "The No-Fake-Photo Rule", "body": "O espaço da foto de perfil nunca recebe uma foto de banco ou ilustração genérica como substituto.", "section": "components" },
+      { "name": "The Weight-Never-Size Rule", "body": "Hierarquia vem de tamanho, nunca de peso de fonte acima de 600.", "section": "typography" },
+      { "name": "The Single Column Rule", "body": "Fora do herói, nenhuma seção usa duas colunas de conteúdo lado a lado.", "section": "layout" },
+      { "name": "The Glass-Not-Shadow Rule", "body": "Elevação vem de transparência e blur, não de box-shadow escuro.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do manter o lilás em no máximo dois usos por viewport.",
+      "Do usar glass para toda elevação — nunca box-shadow escuro como recurso principal.",
+      "Do manter text-muted em #9ca3af ou mais claro sobre preto puro.",
+      "Do deixar o espaço da foto como marca gráfica até existir uma foto real.",
+      "Do desligar cursor customizado e efeitos de mouse sob prefers-reduced-motion e pointer:coarse."
+    ],
+    "donts": [
+      "Don't usar peso de fonte acima de 600 em qualquer texto.",
+      "Don't usar cantos retos em componentes de UI.",
+      "Don't inventar datas na timeline de carreira.",
+      "Don't adicionar um segundo tom de fundo de seção.",
+      "Don't misturar o vocabulário deste mundo com o do DESING_01."
+    ]
+  }
+}

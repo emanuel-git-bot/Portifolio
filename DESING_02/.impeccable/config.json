@@ -1,0 +1,80 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-radius",
+        "value": "2px",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-18T12:31:36.023Z",
+        "reason": "anel de foco do teclado (:focus-visible), detalhe de acessibilidade do navegador, não é forma de componente — documentado em DESIGN.md Shapes como exceção explícita"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "5rem",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-18T12:31:36.217Z",
+        "reason": "hero__mark-glyph é o monograma decorativo no lugar da foto de perfil ainda não existente, não é hierarquia de conteúdo — documentado em DESIGN.md Typography como exceção decorativa explícita"
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-18T12:31:45.746Z",
+        "reason": "user confirmed: pediu explicitamente para replicar redoyanulhaque.me 'do mesmo jeito', que usa Geist como fonte única de todo o site — confirmado via CSS computado real do site de referência, não escolha por padrão"
+      },
+      {
+        "rule": "overused-font",
+        "value": "geist",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-08-18T12:36:42.302Z",
+        "reason": "user confirmed: mesma justificativa do styles.css — Geist é a fonte real do site de referência pinado (redoyanulhaque.me), confirmada via CSS computado, não escolha por padrão"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "4rem",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-18T13:00:03.883Z",
+        "reason": "hero__mark-glyph aumentado (monograma decorativo, não hierarquia de conteúdo) para dar mais presença à marca gráfica no lugar da foto/personagem 3D do site de referência — documentado em DESIGN.md como exceção decorativa"
+      },
+      {
+        "rule": "bounce-easing",
+        "value": "snowman-bounce",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-18T15:46:17.512Z",
+        "reason": "Snowman mascot idle animation is deliberate character motion (a soft breathing bounce), not a UI state-change transition — the anti-pattern targets interface easing, not character/mascot animation."
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.52rem",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-18T17:25:05.477Z",
+        "reason": "Compact nav label for the icon-only bottom bar at the 900px breakpoint (5 links must fit one row) — narrow, breakpoint-specific tweak, not a recurring type-scale step."
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.46rem",
+        "files": [
+          "styles.css"
+        ],
+        "createdAt": "2026-08-18T17:25:05.631Z",
+        "reason": "Same compact nav label, shrunk further at the 640px breakpoint for the narrowest phones — narrow, breakpoint-specific tweak, not a recurring type-scale step."
+      }
+    ]
+  }
+}

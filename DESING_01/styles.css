@@ -1,0 +1,434 @@
+/* ==========================================================================
+   Painel de Embarque — design system (Modern Dark revision)
+   Electric-blue accent over slate-dark panel. Wayfinding grammar unchanged:
+   numbered rows, pictograms, tabular figures, status stamps — only the
+   color system moved from signal-yellow to a code-editor-at-night palette.
+   See index.html direction contract for the full brief.
+   ========================================================================== */
+
+:root {
+  /* ground — slate-dark, not pure black: pairs with the blue accent */
+  --panel-black: #0f172a;
+  --panel-black-2: #182338;
+  --panel-black-3: #223047;
+  --hairline: #2c3b52;
+
+  /* accent — electric blue, used sparingly (chrome, links, protocol numbers) */
+  --accent: #38bdf8;
+  --accent-dim: #0ea5e9;
+
+  /* text */
+  --paper: #e2e8f0;
+  --paper-dim: #a9b4c4;
+  --paper-faint: #8a97ab;
+
+  /* status stamps — ink color on dark ground, bordered like a real carimbo */
+  --stamp-producao: #4ade80;
+  --stamp-prototipo: #fdba74;
+  --stamp-estudo: #c4b5fd;
+
+  --measure: 68ch;
+  --ease-signage: cubic-bezier(0.16, 1, 0.3, 1);
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+}
+
+/* ---- reset ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; background: var(--panel-black); }
+body {
+  margin: 0;
+  background: transparent;
+  color: var(--paper);
+  font-family: "Overpass", "Segoe UI", system-ui, sans-serif;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- scanfield: fixed grid + cursor-tracked glow, the page's ambient light ---- */
+.scanfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--panel-black);
+  background-image:
+    radial-gradient(560px circle at var(--mx, 50%) var(--my, 20%), rgba(56, 189, 248, 0.14), transparent 60%),
+    linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.055) 1px, transparent 1px);
+  background-size: auto, 56px 56px, 56px 56px;
+  background-position: 0 0, center, center;
+  transition: background-position 0.1s linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scanfield { background-image:
+    radial-gradient(560px circle at 50% 20%, rgba(56, 189, 248, 0.1), transparent 60%),
+    linear-gradient(rgba(148, 163, 184, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.055) 1px, transparent 1px);
+  }
+}
+
+.topbar, main, .exit-gate, .status-strip { position: relative; z-index: 1; }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+ul { margin: 0; padding: 0; list-style: none; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+/* browser surfaces carry the design too */
+::selection { background: var(--accent); color: var(--panel-black); }
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--panel-black); }
+::-webkit-scrollbar-thumb {
+  background: var(--panel-black-3);
+  border: 3px solid var(--panel-black);
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--accent-dim); }
+html { scrollbar-color: var(--panel-black-3) var(--panel-black); }
+
+.mono { font-family: "Overpass Mono", ui-monospace, monospace; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0; padding: 0; margin: -1px;
+}
+.skip-link {
+  position: absolute; left: 1rem; top: -4rem;
+  background: var(--accent); color: var(--panel-black);
+  padding: 0.75rem 1.25rem; font-weight: 700; z-index: 200;
+  transition: top 0.2s var(--ease-signage);
+}
+.skip-link:focus { top: 1rem; }
+
+/* ---- pictograms ---- */
+.pictogram-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.pictogram { width: 2.25rem; height: 2.25rem; fill: currentColor; flex: none; }
+.pictogram--sm { width: 1.5rem; height: 1.5rem; }
+
+/* ---- status strip: page-level chrome, not a section kicker ---- */
+.status-strip {
+  background: var(--panel-black-2);
+  color: var(--paper-faint);
+  border-bottom: 1px solid var(--hairline);
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: 0.72rem; letter-spacing: 0.06em;
+  padding: 0.5rem var(--gutter);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.status-strip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--stamp-producao); flex: none; box-shadow: 0 0 0 3px rgba(74,222,128,0.18); }
+
+/* ---- topbar ---- */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--panel-black);
+  color: var(--paper);
+  border-bottom: 1px solid var(--accent);
+  transition: box-shadow 0.3s var(--ease-signage);
+}
+.topbar.is-scrolled { box-shadow: 0 10px 30px -18px rgba(56, 189, 248, 0.4); }
+.progress-bar {
+  position: absolute; left: 0; bottom: -1px; height: 2px; width: 0%;
+  background: var(--accent); transition: width 0.1s linear;
+}
+.topbar__inner {
+  max-width: 88rem; margin: 0 auto;
+  padding: 0.85rem var(--gutter);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1.5rem;
+}
+.wordmark {
+  display: flex; flex-direction: column; line-height: 1.1;
+  font-weight: 800; letter-spacing: -0.01em; font-size: 1.05rem;
+  text-decoration: none; color: var(--paper);
+}
+.wordmark span { font-weight: 500; font-size: 0.7rem; letter-spacing: 0.04em; color: var(--paper-faint); }
+
+.gate-nav { display: flex; gap: clamp(1rem, 2vw, 2.25rem); }
+.gate-nav a {
+  text-decoration: none; font-weight: 700; font-size: 0.9rem;
+  letter-spacing: 0.02em; padding: 0.35rem 0; color: var(--paper-dim);
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.18s var(--ease-signage), color 0.18s var(--ease-signage);
+}
+.gate-nav a:hover, .gate-nav a:focus-visible { border-color: var(--accent); color: var(--paper); }
+
+.nav-toggle { display: none; }
+
+/* ---- board row: shared component for hero + featured ---- */
+.board-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  align-items: start;
+  padding: clamp(1.75rem, 4vw, 3rem) var(--gutter);
+  margin: 0 calc(var(--gutter) * -1);
+  border-bottom: 1px solid var(--hairline);
+  border-left: 1px solid transparent;
+  transition: background 0.25s var(--ease-signage), border-color 0.25s var(--ease-signage);
+}
+.board-row:hover, .board-row:focus-within {
+  background: var(--panel-black-2);
+  border-left-color: var(--accent);
+}
+.hero .board-row:hover, .hero .board-row:focus-within {
+  background: transparent; border-left-color: transparent;
+}
+.board-row > div { min-width: 0; }
+.board-row__num {
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  padding-top: 0.35em;
+}
+.board-row__num small { display: block; font-size: 0.55em; color: var(--paper-faint); font-weight: 500; letter-spacing: 0.08em; }
+
+.board-row__head { display: flex; align-items: flex-start; gap: 0.85rem; margin-bottom: 0.6rem; }
+.board-row__title {
+  font-size: clamp(1.35rem, 2.6vw, 2rem);
+  font-weight: 800; letter-spacing: -0.01em; text-transform: uppercase;
+  min-width: 0; flex: 1 1 auto;
+}
+.board-row__desc { max-width: var(--measure); color: var(--paper-dim); font-size: 1rem; }
+.board-row__desc + .board-row__desc { margin-top: 0.6rem; }
+
+.board-row__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+.tag {
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.03em;
+  padding: 0.3rem 0.6rem; border: 1px solid var(--hairline); color: var(--paper-dim);
+  border-radius: 3px;
+}
+
+.board-row__side { display: flex; flex-direction: column; align-items: flex-end; gap: 0.75rem; text-align: right; }
+
+.stamp {
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-weight: 700; font-size: 0.72rem; letter-spacing: 0.06em;
+  padding: 0.3rem 0.65rem; border-radius: 2px; white-space: nowrap;
+  border: 1.5px solid currentColor; background: transparent;
+}
+.stamp--producao { color: var(--stamp-producao); }
+.stamp--prototipo { color: var(--stamp-prototipo); }
+.stamp--estudo { color: var(--stamp-estudo); }
+
+.gate-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  text-decoration: none; font-weight: 700; font-size: 0.85rem;
+  color: var(--accent); white-space: nowrap;
+}
+.gate-link::after { content: "→"; transition: transform 0.18s var(--ease-signage); display: inline-block; }
+.gate-link:hover::after, .gate-link:focus-visible::after { transform: translateX(4px); }
+
+/* ---- hero ---- */
+.hero {
+  padding: clamp(2.5rem, 8vh, 5rem) var(--gutter) clamp(2rem, 6vh, 3.5rem);
+  max-width: 88rem; margin: 0 auto;
+}
+.hero .board-row { border-bottom: none; padding-top: clamp(1.5rem, 4vh, 2.5rem); }
+.hero .board-row__num {
+  font-size: clamp(3.25rem, 9vw, 6.5rem);
+  line-height: 0.85;
+}
+.hero .board-row__num small { font-size: 0.22em; margin-top: 0.3em; }
+.hero .board-row__title { font-size: clamp(1.75rem, 4vw, 3.25rem); }
+.hero__media {
+  margin-top: clamp(1.5rem, 4vh, 2.5rem);
+  border: 1px solid var(--hairline);
+  background: var(--panel-black-2);
+  padding: clamp(1rem, 3vw, 1.75rem);
+}
+.hero__media-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 0.75rem; font-family: "Overpass Mono", ui-monospace, monospace; font-size: 0.85rem;
+}
+.hero__media-grid dt { color: var(--paper-faint); font-size: 0.72rem; letter-spacing: 0.05em; }
+.hero__media-grid dd { margin: 0.15rem 0 0; color: var(--paper); font-weight: 600; }
+
+/* ---- section headers ---- */
+.section {
+  padding: clamp(3rem, 8vh, 5.5rem) var(--gutter);
+  max-width: 88rem; margin: 0 auto;
+}
+.section__head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 1.5rem; margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
+  border-bottom: 4px solid var(--accent); padding-bottom: 0.85rem;
+}
+.section__title {
+  font-size: clamp(1.6rem, 3.4vw, 2.5rem); font-weight: 800;
+  letter-spacing: -0.01em; text-transform: uppercase;
+}
+.section__count {
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  color: var(--paper-faint); font-size: 0.85rem; white-space: nowrap;
+}
+.section__intro { max-width: var(--measure); color: var(--paper-dim); margin-bottom: clamp(1.5rem, 4vh, 2.5rem); }
+
+/* ---- secondary grid (Terminal Geral) ---- */
+.grid-terminal {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  background: var(--hairline); border: 1px solid var(--hairline);
+}
+.panel {
+  position: relative; overflow: hidden;
+  background: var(--panel-black); padding: clamp(1.35rem, 2.5vw, 1.85rem);
+  display: flex; flex-direction: column; gap: 0.85rem;
+  transition: background 0.2s var(--ease-signage), transform 0.25s var(--ease-signage), box-shadow 0.25s var(--ease-signage);
+  transform: perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0);
+  will-change: transform;
+}
+.panel::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: radial-gradient(220px circle at var(--lx, 50%) var(--ly, 50%), rgba(56, 189, 248, 0.14), transparent 70%);
+  opacity: 0; transition: opacity 0.3s var(--ease-signage);
+}
+.panel > * { position: relative; z-index: 1; }
+.panel:hover, .panel:focus-within { background: var(--panel-black-2); box-shadow: 0 18px 40px -24px rgba(56, 189, 248, 0.35); }
+.panel.is-tilting::before { opacity: 1; }
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .panel { transform: none !important; }
+}
+.panel__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+.panel__num { font-family: "Overpass Mono", ui-monospace, monospace; color: var(--accent); font-weight: 700; font-size: 0.85rem; }
+.panel__icon { color: var(--paper-faint); transition: color 0.2s var(--ease-signage); }
+.panel:hover .panel__icon { color: var(--accent); }
+.panel__title { font-size: 1.05rem; font-weight: 800; text-transform: uppercase; letter-spacing: -0.005em; }
+.panel__desc { color: var(--paper-dim); font-size: 0.9rem; flex-grow: 1; }
+.panel__shot { border: 1px solid var(--hairline); }
+.panel__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.panel__tags .tag { font-size: 0.66rem; padding: 0.22rem 0.5rem; }
+.panel__foot { display: flex; align-items: center; justify-content: space-between; margin-top: 0.25rem; }
+.panel__foot .gate-link { font-size: 0.78rem; }
+
+/* ---- study hall (Sala de Estudos) ---- */
+.study-list { border-top: 1px solid var(--hairline); }
+.study-row {
+  display: grid; grid-template-columns: 3.5rem 1fr auto auto;
+  gap: 1rem; align-items: center;
+  padding: 0.9rem var(--gutter); margin: 0 calc(var(--gutter) * -1);
+  border-bottom: 1px solid var(--hairline);
+  border-left: 1px solid transparent;
+  font-size: 0.92rem;
+  transition: background 0.2s var(--ease-signage), border-color 0.2s var(--ease-signage);
+}
+.study-row:hover, .study-row:focus-within { background: var(--panel-black-2); border-left-color: var(--accent); }
+.study-row__num { font-family: "Overpass Mono", ui-monospace, monospace; color: var(--paper-faint); font-size: 0.8rem; }
+.study-row__name { font-weight: 700; }
+.study-row__desc { color: var(--paper-faint); font-size: 0.82rem; display: block; margin-top: 0.15rem; font-weight: 400; }
+.study-row__stack { font-family: "Overpass Mono", ui-monospace, monospace; color: var(--paper-faint); font-size: 0.78rem; white-space: nowrap; }
+
+/* ---- control tower (about) ---- */
+.tower {
+  display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(2rem, 5vw, 4rem); align-items: start;
+}
+.tower__lead { font-size: clamp(1.15rem, 2vw, 1.4rem); font-weight: 600; color: var(--paper); max-width: 40ch; }
+.tower__body { color: var(--paper-dim); max-width: var(--measure); }
+.tower__body p + p { margin-top: 1rem; }
+.tower__panel {
+  border: 1px solid var(--hairline); background: var(--panel-black-2);
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+}
+.tower__panel h3 {
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: 0.78rem; letter-spacing: 0.06em; color: var(--paper-faint);
+  text-transform: uppercase; margin-bottom: 1rem;
+}
+.tower__list { display: flex; flex-direction: column; gap: 0.9rem; }
+.tower__list li { display: flex; gap: 0.75rem; align-items: flex-start; font-size: 0.92rem; color: var(--paper-dim); }
+.tower__list .pictogram { color: var(--accent); margin-top: 0.1rem; }
+
+/* ---- exit gate (footer/contact) ---- */
+.exit-gate {
+  background: var(--panel-black-2); color: var(--paper);
+  padding: clamp(3rem, 8vh, 5rem) var(--gutter);
+  border-top: 1px solid var(--accent);
+}
+.exit-gate__inner { max-width: 88rem; margin: 0 auto; }
+.exit-gate__title {
+  font-size: clamp(2rem, 6vw, 3.75rem); font-weight: 800;
+  letter-spacing: -0.02em; text-transform: uppercase; max-width: 22ch;
+  color: var(--paper);
+}
+.exit-gate__row {
+  display: flex; flex-wrap: wrap; gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: clamp(1.75rem, 4vh, 2.5rem);
+  padding-top: clamp(1.5rem, 4vh, 2rem);
+  border-top: 1px solid var(--hairline);
+}
+.exit-gate__item { display: flex; flex-direction: column; gap: 0.25rem; }
+.exit-gate__item span { font-family: "Overpass Mono", ui-monospace, monospace; font-size: 0.72rem; letter-spacing: 0.06em; color: var(--paper-faint); }
+.exit-gate__item a {
+  font-weight: 800; font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+  text-decoration: none; border-bottom: 2px solid transparent; color: var(--accent);
+  transition: border-color 0.18s var(--ease-signage);
+}
+.exit-gate__item a:hover, .exit-gate__item a:focus-visible { border-color: var(--accent); }
+.exit-gate__foot {
+  margin-top: clamp(2rem, 5vh, 3rem);
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: 0.75rem; color: var(--paper-faint); display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+}
+
+/* ---- split-flap number (signature motion) ---- */
+.flap {
+  display: inline-flex;
+}
+.flap__digit {
+  display: inline-block;
+  min-width: 0.62em;
+  text-align: center;
+}
+.flap__digit--settled { animation: flap-settle 0.5s var(--ease-signage); }
+@keyframes flap-settle {
+  0% { color: var(--paper); text-shadow: 0 0 18px var(--accent), 0 0 4px var(--accent); }
+  100% { color: inherit; text-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flap__digit--settled { animation: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+/* reveal-on-scroll: a row prints onto the board — slides in from the
+   protocol-number side, siblings stagger like a list of destinations
+   populating one after another. Applied via JS-added class + inline delay. */
+.reveal { opacity: 0; transform: translateY(14px); }
+.reveal--row { transform: translateX(-28px); }
+.reveal.is-visible {
+  opacity: 1; transform: none;
+  transition: opacity 0.6s var(--ease-signage), transform 0.6s var(--ease-signage);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* ---- responsive ---- */
+@media (max-width: 900px) {
+  .grid-terminal { grid-template-columns: repeat(2, 1fr); }
+  .tower { grid-template-columns: 1fr; }
+  .board-row { grid-template-columns: auto 1fr; }
+  .board-row__side { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; text-align: left; margin-top: 0.5rem; }
+}
+
+@media (max-width: 640px) {
+  .gate-nav { position: fixed; inset: 4.1rem 0 auto 0; background: var(--panel-black-2); flex-direction: column; padding: 0.5rem var(--gutter) 1.25rem; gap: 0; border-bottom: 1px solid var(--accent); transform: translateY(-120%); transition: transform 0.25s var(--ease-signage); }
+  .gate-nav.is-open { transform: translateY(0); }
+  .gate-nav a { padding: 0.75rem 0; border-bottom: 1px solid var(--hairline); width: 100%; }
+  .nav-toggle {
+    display: flex; align-items: center; justify-content: center;
+    width: 2.5rem; height: 2.5rem; border: 2px solid var(--hairline);
+    flex-direction: column; gap: 4px;
+  }
+  .nav-toggle span { width: 1.1rem; height: 2px; background: var(--paper); display: block; }
+  .grid-terminal { grid-template-columns: 1fr; }
+  .study-row { grid-template-columns: 2.5rem 1fr; row-gap: 0.35rem; }
+  .study-row__stack, .study-row__num { grid-column: 2; }
+  .study-row__num { grid-row: 1; order: -1; grid-column: 1; }
+  .exit-gate__row { flex-direction: column; gap: 1.25rem; }
+}

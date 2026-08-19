@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emanuel Roque — Desenvolvedor Fullstack</title>
+<meta name="description" content="Portfólio de Emanuel Roque: sistemas de produção, apps mobile, automação e e-commerce — do sistema de tramitação legislativa da Câmara de Terra Roxa/SP a ferramentas pessoais e experimentos de estudo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;500;600;700;800&family=Overpass+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<!--
+THESIS: O portfólio como painel de embarque real, não como galeria de cards — recusa a grade genérica de screenshot+título+tags que todo portfólio de dev usa.
+OWN-WORLD: Revisado a pedido do usuário (Modern Dark) — azul-elétrico #38BDF8 sobre painel slate-escuro #0F172A (era amarelo-sinal #F7C600/#101112); Overpass/Overpass Mono; pictogramas desenhados estilo AIGA; numerais tabulares de protocolo; selos de status (produção/protótipo/estudo). Estrutura de wayfinding (linhas de painel, números monumentais, split-flap) preservada integralmente — só a cor mudou.
+STORY: o visitante (recrutador/cliente) lê Emanuel como o operador por trás de um terminal real: acha o projeto relevante em segundos, entende o mecanismo do carro-chefe (sistema legislativo em produção real) e sai sabendo por onde falar com ele.
+FIRST VIEWPORT: linha de embarque em tela cheia — Nº 001, "Sistema de Tramitação Legislativa" em tipo monumental, pictograma de balança, selo EM PRODUÇÃO, link de saída.
+FORM: Painel de Embarque (sinalização/wayfinding de terminal) — venceu na fusão contra a mesa de blueprint sorteada (índice 4); seed key 3b2891ec.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance.
+-->
+<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+<div class="scanfield" aria-hidden="true"></div>
+
+<svg class="pictogram-sprite" aria-hidden="true">
+<defs>
+  <symbol id="icon-scale" viewBox="0 0 48 48">
+    <rect x="22.5" y="4" width="3" height="32"/>
+    <rect x="6" y="9" width="36" height="3"/>
+    <rect x="6" y="39" width="36" height="4"/>
+    <path d="M6 12 L14 12 L10 23 Z"/>
+    <path d="M34 12 L42 12 L38 23 Z"/>
+  </symbol>
+  <symbol id="icon-shield" viewBox="0 0 48 48">
+    <path d="M24 4 L42 10 V22 C42 33 34 41 24 44 C14 41 6 33 6 22 V10 Z"/>
+  </symbol>
+  <symbol id="icon-cart" viewBox="0 0 48 48">
+    <path d="M4 6 H10 L14 28 H38 L44 12 H12"/>
+    <circle cx="17" cy="38" r="4"/>
+    <circle cx="35" cy="38" r="4"/>
+  </symbol>
+  <symbol id="icon-note" viewBox="0 0 48 48">
+    <rect x="26" y="6" width="3" height="26"/>
+    <path d="M29 6 C36 8 40 12 40 18 L37 18 C37 13 34 10 29 9 Z"/>
+    <circle cx="19" cy="34" r="8"/>
+  </symbol>
+  <symbol id="icon-megaphone" viewBox="0 0 48 48">
+    <path d="M6 18 V28 H12 L30 38 V8 L12 18 Z"/>
+    <rect x="6" y="18" width="6" height="10"/>
+    <path d="M12 30 L16 42 H21 L18 30 Z"/>
+  </symbol>
+  <symbol id="icon-wallet" viewBox="0 0 48 48">
+    <rect x="4" y="12" width="40" height="28" rx="3"/>
+    <rect x="4" y="12" width="40" height="8" rx="3"/>
+    <circle cx="34" cy="30" r="4"/>
+  </symbol>
+  <symbol id="icon-download" viewBox="0 0 48 48">
+    <rect x="21" y="4" width="6" height="20"/>
+    <path d="M12 20 L24 33 L36 20 Z"/>
+    <rect x="6" y="38" width="36" height="5"/>
+  </symbol>
+  <symbol id="icon-search" viewBox="0 0 48 48">
+    <circle cx="20" cy="20" r="14" fill="none" stroke="currentColor" stroke-width="5"/>
+    <rect x="31" y="34" width="18" height="6" transform="rotate(-45 31 34)"/>
+  </symbol>
+  <symbol id="icon-briefcase" viewBox="0 0 48 48">
+    <rect x="4" y="14" width="40" height="26" rx="2"/>
+    <path d="M17 14 V9 C17 7 18 6 20 6 H28 C30 6 31 7 31 9 V14" fill="none" stroke="currentColor" stroke-width="4"/>
+    <rect x="4" y="24" width="40" height="4"/>
+  </symbol>
+  <symbol id="icon-bot" viewBox="0 0 48 48">
+    <rect x="8" y="16" width="32" height="24" rx="4"/>
+    <rect x="22" y="6" width="4" height="8"/>
+    <circle cx="24" cy="6" r="3"/>
+    <circle cx="18" cy="28" r="4"/>
+    <circle cx="30" cy="28" r="4"/>
+    <rect x="16" y="36" width="16" height="3"/>
+  </symbol>
+  <symbol id="icon-city" viewBox="0 0 48 48">
+    <rect x="4" y="20" width="10" height="22"/>
+    <rect x="16" y="8" width="12" height="34"/>
+    <rect x="30" y="16" width="14" height="26"/>
+    <rect x="19" y="14" width="3" height="3"/>
+    <rect x="24" y="14" width="3" height="3"/>
+    <rect x="19" y="21" width="3" height="3"/>
+    <rect x="24" y="21" width="3" height="3"/>
+  </symbol>
+  <symbol id="icon-spark" viewBox="0 0 48 48">
+    <path d="M24 4 L28 20 L44 24 L28 28 L24 44 L20 28 L4 24 L20 20 Z"/>
+  </symbol>
+  <symbol id="icon-cap" viewBox="0 0 48 48">
+    <path d="M24 8 L44 18 L24 28 L4 18 Z"/>
+    <rect x="10" y="22" width="3" height="12"/>
+    <path d="M38 20 V32 C38 36 32 40 24 40 C16 40 10 36 10 32 V20 L24 27 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+  </symbol>
+  <symbol id="icon-gear" viewBox="0 0 48 48">
+    <circle cx="24" cy="24" r="8"/>
+    <path d="M24 4 L27 4 L28 11 L20 11 L21 4 Z"/>
+    <path d="M24 44 L21 44 L20 37 L28 37 L27 44 Z"/>
+    <path d="M4 24 L4 21 L11 20 L11 28 L4 27 Z"/>
+    <path d="M44 24 L44 27 L37 28 L37 20 L44 21 Z"/>
+    <path d="M9 9 L11 7 L17 11 L11 17 L7 11 Z"/>
+    <path d="M39 39 L37 41 L31 37 L37 31 L41 37 Z"/>
+    <path d="M9 39 L7 37 L11 31 L17 37 L11 41 Z"/>
+    <path d="M39 9 L41 11 L37 17 L31 11 L37 7 Z"/>
+  </symbol>
+</defs>
+</svg>
+
+<p class="status-strip"><span class="dot" aria-hidden="true"></span> Painel ativo — 18 projetos registrados · atualizado em 2026</p>
+
+<header class="topbar">
+  <div class="topbar__inner">
+    <a class="wordmark" href="#topo">EMANUEL ROQUE<span>Desenvolvedor Fullstack</span></a>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="gateNav" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="gate-nav" id="gateNav">
+      <a href="#projetos">Painel Principal</a>
+      <a href="#terminal-geral">Terminal Geral</a>
+      <a href="#estudos">Sala de Estudos</a>
+      <a href="#formacao">Formação</a>
+      <a href="#sobre">Torre de Controle</a>
+      <a href="#contato">Embarque</a>
+    </nav>
+  </div>
+  <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+</header>
+
+<main id="conteudo">
+
+<section class="hero" id="topo">
+  <div class="board-row">
+    <div class="board-row__num" data-flap="001">Nº<br><span class="flap" data-flap-target>001</span><small>PROTOCOLO</small></div>
+    <div>
+      <div class="board-row__head">
+        <svg class="pictogram" aria-hidden="true"><use href="#icon-scale"></use></svg>
+        <h1 class="board-row__title">Sistema de Tramitação Legislativa</h1>
+      </div>
+      <p class="board-row__desc">Sistema completo de tramitação de proposições para a Câmara Municipal de Terra Roxa/SP, em Django e React: protocolo automático, despacho da presidência, comissões com prazos reais do Regimento Interno, parecer jurídico, plenário com votação, sanção e veto do prefeito, portal de transparência público e painel de auditoria de segurança.</p>
+      <p class="board-row__desc">Cada transição de status passa por uma máquina de estados auditável — <span class="mono">django-fsm</span> registrando quem fez o quê e quando, exigida por qualquer órgão sujeito à Lei de Acesso à Informação.</p>
+      <div class="board-row__tags">
+        <span class="tag">Django</span><span class="tag">React</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">GitHub Actions</span>
+      </div>
+    </div>
+    <div class="board-row__side">
+      <span class="stamp stamp--producao">Em produção</span>
+      <span class="mono" style="color:var(--paper-faint);font-size:.8rem">Câmara Municipal de Terra Roxa/SP</span>
+      <a class="gate-link" href="#projetos">Ver painel principal</a>
+    </div>
+  </div>
+
+  <div class="hero__media">
+    <dl class="hero__media-grid">
+      <div><dt>MECANISMO</dt><dd>Máquina de estados com log automático (django-fsm-log)</dd></div>
+      <div><dt>ESCOPO</dt><dd>13 tipos de proposição, comissões, plenário, sanção/veto</dd></div>
+      <div><dt>DOCUMENTOS</dt><dd>Papel timbrado oficial preenchido via docxtpl → PDF</dd></div>
+      <div><dt>INFRAESTRUTURA</dt><dd>Backup diário em 2 camadas (local + SFTP isolado) + CI/CD self-hosted</dd></div>
+      <div><dt>SEGURANÇA</dt><dd>Ciclo de auditoria documentado (secspec.md) — falhas reais encontradas e corrigidas</dd></div>
+      <div><dt>ACESSO PÚBLICO</dt><dd>Portal de transparência sem login, comentário moderável com soft-delete</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="section" id="projetos">
+  <div class="section__head">
+    <h2 class="section__title">Painel Principal</h2>
+    <span class="section__count mono">004 DESTINOS</span>
+  </div>
+  <p class="section__intro">Os projetos que melhor mostram a amplitude do trabalho: de plataforma paga com integração de pagamento a app mobile em uso real e loja com checkout via WhatsApp.</p>
+
+  <div class="board-row reveal reveal--row">
+    <div class="board-row__num" data-flap="002">Nº<br><span class="flap" data-flap-target>002</span><small>PROTOCOLO</small></div>
+    <div>
+      <div class="board-row__head">
+        <svg class="pictogram" aria-hidden="true"><use href="#icon-shield"></use></svg>
+        <h2 class="board-row__title">SafeTrain</h2>
+      </div>
+      <p class="board-row__desc">Plataforma de treinamento e certificação em segurança do trabalho (Normas Regulamentadoras): catálogo dinâmico de cursos, compra por voucher, painel B2B para gestão de alunos, controle de tempo de tela em sala, geração de certificado e login com Google.</p>
+      <p class="board-row__desc">Checkout de verdade — integração com Mercado Pago e PagBank, não um formulário decorativo.</p>
+      <div class="board-row__tags">
+        <span class="tag">React</span><span class="tag">Vite</span><span class="tag">Fastify</span><span class="tag">Prisma</span><span class="tag">Mercado Pago</span>
+      </div>
+    </div>
+    <div class="board-row__side">
+      <span class="stamp stamp--prototipo">Protótipo avançado</span>
+      <a class="gate-link" href="https://github.com/emanuel-git-bot/SafeTrain" target="_blank" rel="noopener">Ver código</a>
+    </div>
+  </div>
+
+  <div class="board-row reveal reveal--row">
+    <div class="board-row__num" data-flap="003">Nº<br><span class="flap" data-flap-target>003</span><small>PROTOCOLO</small></div>
+    <div>
+      <div class="board-row__head">
+        <svg class="pictogram" aria-hidden="true"><use href="#icon-cart"></use></svg>
+        <h2 class="board-row__title">Mundo das Coisas</h2>
+      </div>
+      <p class="board-row__desc">Loja virtual de ferragens e material de construção: catálogo por categoria com carrossel, página de produto, carrinho com subtotal, modo escuro completo e finalização de pedido direto pelo WhatsApp — o fluxo real que um pequeno comércio usa.</p>
+      <div class="board-row__tags">
+        <span class="tag">React</span><span class="tag">Checkout via WhatsApp</span><span class="tag">Dark mode</span>
+      </div>
+    </div>
+    <div class="board-row__side">
+      <span class="stamp stamp--prototipo">Protótipo funcional</span>
+    </div>
+  </div>
+  <div class="hero__media reveal" style="margin-top:-1px;">
+    <div class="hero__media-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(11rem,1fr));gap:0.75rem;">
+      <img src="assets/images/mundo-das-coisas-home.jpeg" alt="Mundo das Coisas — catálogo por categoria em modo claro" loading="lazy">
+      <img src="assets/images/mundo-das-coisas-dark.jpeg" alt="Mundo das Coisas — mesmo catálogo em modo escuro" loading="lazy">
+      <img src="assets/images/mundo-das-coisas-produto.jpeg" alt="Mundo das Coisas — página de produto com botão Solicitar Pedido via WhatsApp" loading="lazy">
+      <img src="assets/images/mundo-das-coisas-carrinho.jpeg" alt="Mundo das Coisas — carrinho de compras com subtotal e envio pelo Zap" loading="lazy">
+    </div>
+  </div>
+
+  <div class="board-row reveal reveal--row">
+    <div class="board-row__num" data-flap="004">Nº<br><span class="flap" data-flap-target>004</span><small>PROTOCOLO</small></div>
+    <div>
+      <div class="board-row__head">
+        <svg class="pictogram" aria-hidden="true"><use href="#icon-note"></use></svg>
+        <h2 class="board-row__title">Harpa com Cifra</h2>
+      </div>
+      <p class="board-row__desc">App mobile (Expo/React Native) para visualizar hinos com letra e cifra em imagem — busca, favoritos e zoom por pinça (pinch-to-zoom). Sem download automático: como não existe API pública de cifras, o app foi desenhado para o próprio usuário importar suas imagens.</p>
+      <div class="board-row__tags">
+        <span class="tag">Expo</span><span class="tag">React Native</span><span class="tag">TypeScript</span><span class="tag">AsyncStorage</span>
+      </div>
+    </div>
+    <div class="board-row__side">
+      <span class="stamp stamp--producao">Em uso</span>
+      <a class="gate-link" href="https://github.com/emanuel-git-bot/Harpa-Crista-Cifrada-App-mobile" target="_blank" rel="noopener">Ver código</a>
+    </div>
+  </div>
+
+  <div class="board-row reveal reveal--row">
+    <div class="board-row__num" data-flap="005">Nº<br><span class="flap" data-flap-target>005</span><small>PROTOCOLO</small></div>
+    <div>
+      <div class="board-row__head">
+        <svg class="pictogram" aria-hidden="true"><use href="#icon-megaphone"></use></svg>
+        <h2 class="board-row__title">Plataforma Cívica para Vereadores</h2>
+      </div>
+      <p class="board-row__desc">Produto SaaS B2B2C pensado a partir do contato direto com a rotina da Câmara: site público personalizado por mandato + área do cidadão para indicar problemas com foto e localização, reivindicar soluções e sugerir projetos de lei, com painel administrativo completo para gestão do mandato.</p>
+      <div class="board-row__tags">
+        <span class="tag">Next.js</span><span class="tag">B2B2C</span>
+      </div>
+    </div>
+    <div class="board-row__side">
+      <span class="stamp stamp--prototipo">Em construção</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="terminal-geral">
+  <div class="section__head">
+    <h2 class="section__title">Terminal Geral</h2>
+    <span class="section__count mono">009 PROJETOS</span>
+  </div>
+  <p class="section__intro">Ferramentas, bots e produtos menores — cada um resolvendo um problema específico e real, próprio ou de terceiros.</p>
+
+  <div class="grid-terminal">
+    <article class="panel reveal">
+      <div class="panel__top">
+        <span class="panel__num mono">Nº 006</span>
+        <svg class="pictogram pictogram--sm panel__icon" aria-hidden="true"><use href="#icon-wallet"></use></svg>
+      </div>
+      <h3 class="panel__title">Financeiro App</h3>
+      <p class="panel__desc">Scripts que leem extratos do Nubank e PicPay e calculam faturamento mensal contra uma meta anual, mais app mobile e desktop de acompanhamento financeiro pessoal.</p>
+      <div class="panel__tags"><span class="tag">Python</span><span class="tag">pandas</span><span class="tag">React Native</span><span class="tag">Electron</span></div>
+      <div class="panel__foot">
+        <span class="stamp stamp--producao">Uso pessoal</span>
+        <a class="gate-link" href="https://github.com/emanuel-git-bot/Financeiro" target="_blank" rel="noopener">Código</a>
+      </div>
+    </article>
+
+    <article class="panel reveal">
+      <div class="panel__top">
+        <span class="panel__num mono">Nº 007</span>
+        <svg class="pictogram pictogram--sm panel__icon" aria-hidden="true"><use href="#icon-download"></use></svg>
+      </div>
+      <h3 class="panel__title">MediaFlow</h3>
+      <p class="panel__desc">Web app para baixar vídeo e áudio sem anúncios, com suporte a múltiplas resoluções via FFmpeg. Versões web e desktop.</p>
+      <img class="panel__shot" src="assets/images/mediaflow-home.png" alt="Tela inicial do MediaFlow, com campo para colar o link da mídia" loading="lazy">
+      <div class="panel__tags"><span class="tag">Django</span><span class="tag">FFmpeg</span></div>
+      <div class="panel__foot">
+        <span class="stamp stamp--prototipo">Protótipo</span>
+        <a class="gate-link" href="https://github.com/emanuel-git-bot/MediaFlow" target="_blank" rel="noopener">Código</a>
+      </div>
+    </article>
+
+    <article class="panel reveal">
+      <div class="panel__top">
+        <span class="panel__num mono">Nº 008</span>
+        <svg class="pictogram pictogram--sm panel__icon" aria-hidden="true"><use href="#icon-search"></use></svg>
+      </div>
+      <h3 class="panel__title">Robô de Diários OAB</h3>
+      <p class="panel__desc">Robô que pesquisa publicações por número de OAB no Comunica PJe/DJEN, Querido Diário e DOU, gera relatório em PDF, HTML e CSV, e evita alertas duplicados. Roda local, agendável no Windows.</p>
+      <div class="panel__tags"><span class="tag">Python</span><span class="tag">Flask local</span><span class="tag">API do CNJ</span></div>
+      <div class="panel__foot">
+        <span class="stamp stamp--producao">Uso pessoal</span>
+      </div>
+    </article>
+
+    <article class="panel reveal">
+      <div class="panel__top">
+        <span class="panel__num mono">Nº 009</span>
+        <svg class="pictogram pictogram--sm panel__icon" aria-hidden="true"><use href="#icon-briefcase"></use></svg>
+      </div>
+      <h3 class="panel__title">Cervi e Gabriel Advogados</h3>
+      <p class="panel__desc">Site institucional para escritório de advocacia, com autenticação e banco de dados próprios — entregue como projeto de cliente.</p>
+      <div class="panel__tags"><span class="tag">React</span><span class="tag">tRPC</span><span class="tag">Drizzle</span></div>
+      <div class="panel__foot">
+        <span class="stamp stamp--producao">Entregue</span>
+      </div>
+    </article>
+
+    <article class="panel reveal">
+      <div class="panel__top">
+        <span class="panel__num mono">Nº 010</span>
+        <svg class="pictogram pictogram--sm panel__icon" aria-hidden="true"><use href="#icon-note"></use></svg>
+      </div>
+      <h3 class="panel__title">Spacefy</h3>
+      <p class="panel__desc">Rede social para compartilhar cifras musicais sincronizadas — projeto de estudo aplicando a metodologia Spec Driven Development do início ao fim, com documentação completa do processo.</p>
+      <div class="panel__tags"><span class="tag">Next.js</span><span class="tag">SDD</span></div>
+      <div class="panel__foot">
+        <span class="stamp stamp--estudo">Estudo</span>
+        <a class="gate-link" href="https://github.com/emanuel-git-bot/spacefy" target="_blank" rel="noopener">Código</a>
+      </div>
+    </article>
+
+    <article class="panel reveal">
+      <div class="panel__top">
+        <span class="panel__num mono">Nº 011</span>
+        <svg class="pictogram pictogram--sm panel__icon" aria-hidden="true"><use href="#icon-city"></use></svg>
+      </div>
+      <h3 class="panel__title">Cidade Hype</h3>
+      <p class="panel__desc">Backend e API de administração para um jogo de construção de cidades: loja com categorias, eventos com imagem, atualizações do jogo e sistema de reporte de bugs.</p>
+      <div class="panel__tags"><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">PostgreSQL</span></div>
+      <div class="panel__foot">
+        <span class="stamp stamp--prototipo">Protótipo</span>
+        <a class="gate-link" href="https://github.com/emanuel-git-bot/cidade-hype" target="_blank" rel="noopener">Código</a>
+      </div>
+    </article>
+
+    <article class="panel reveal">
+      <div class="panel__top">
+        <span class="panel__num mono">Nº 012</span>
+        <svg class="pictogram pictogram--sm panel__icon" aria-hidden="true"><use href="#icon-bot"></use></svg>
+      </div>
+      <h3 class="panel__title">PyZapZure</h3>
+      <p class="panel__desc">Ferramenta de automação de envio de mensagens no WhatsApp via Selenium, com exemplos de uso simples, complexo e reutilizável.</p>
+      <div class="panel__tags"><span class="tag">Python</span><span class="tag">Selenium</span></div>
+      <div class="panel__foot">
+        <span class="stamp stamp--prototipo">Primeira versão</span>
+        <a class="gate-link" href="https://github.com/emanuel-git-bot/pyzapzure" target="_blank" rel="noopener">Código</a>
+      </div>
+    </article>
+
+    <article class="panel reveal">
+      <div class="panel__top">
+        <span class="panel__num mono">Nº 013</span>
+        <svg class="pictogram pictogram--sm panel__icon" aria-hidden="true"><use href="#icon-shield"></use></svg>
+      </div>
+      <h3 class="panel__title">SecSpec Verify</h3>
+      <p class="panel__desc">Skill de IA para agentes rodarem auditorias de segurança automatizadas em projetos baseados em OpenSpec — análise estática seguida de checagem dinâmica opcional.</p>
+      <div class="panel__tags"><span class="tag">Node.js</span><span class="tag">OpenSpec</span><span class="tag">Agentes de IA</span></div>
+      <div class="panel__foot">
+        <span class="stamp stamp--producao">Ferramenta interna</span>
+        <a class="gate-link" href="https://github.com/emanuel-git-bot/secspec-verify" target="_blank" rel="noopener">Código</a>
+      </div>
+    </article>
+
+    <article class="panel reveal">
+      <div class="panel__top">
+        <span class="panel__num mono">Nº 014</span>
+        <svg class="pictogram pictogram--sm panel__icon" aria-hidden="true"><use href="#icon-spark"></use></svg>
+      </div>
+      <h3 class="panel__title">StudioFlow</h3>
+      <p class="panel__desc">App construído com Google AI Studio integrando a API do Gemini, com autenticação e dados via Firebase.</p>
+      <div class="panel__tags"><span class="tag">Gemini API</span><span class="tag">Firebase</span></div>
+      <div class="panel__foot">
+        <span class="stamp stamp--prototipo">Protótipo</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section" id="estudos">
+  <div class="section__head">
+    <h2 class="section__title">Sala de Estudos</h2>
+    <span class="section__count mono">004 REGISTROS</span>
+  </div>
+  <p class="section__intro">Exercícios, atividades avaliativas e protótipos iniciais — menor escopo, mas parte real do percurso.</p>
+
+  <div class="study-list">
+    <div class="study-row reveal">
+      <span class="study-row__num mono">015</span>
+      <span class="study-row__name">PI 2026 — Loja TI<span class="study-row__desc">Design de e-commerce como projeto integrador, sincronizado via v0.app</span></span>
+      <span class="study-row__stack mono">Next.js</span>
+      <a class="gate-link" href="https://github.com/emanuel-git-bot/PI-2026-Loja-Ti" target="_blank" rel="noopener">Código</a>
+    </div>
+    <div class="study-row reveal">
+      <span class="study-row__num mono">016</span>
+      <span class="study-row__name">Tech Hub Manage<span class="study-row__desc">Ferramenta de gestão em estágio inicial, gerada via Lovable</span></span>
+      <span class="study-row__stack mono">Vite · shadcn/ui</span>
+      <a class="gate-link" href="https://github.com/emanuel-git-bot/tech-hub-manage" target="_blank" rel="noopener">Código</a>
+    </div>
+    <div class="study-row reveal">
+      <span class="study-row__num mono">017</span>
+      <span class="study-row__name">Loja Virtual — Atividade de POO<span class="study-row__desc">Atividade avaliativa: SOLID, Clean Code e dois padrões de projeto</span></span>
+      <span class="study-row__stack mono">C#</span>
+      <a class="gate-link" href="https://github.com/emanuel-git-bot/P2_Atividade2025_LojaVirtual" target="_blank" rel="noopener">Código</a>
+    </div>
+    <div class="study-row reveal">
+      <span class="study-row__num mono">018</span>
+      <span class="study-row__name">Estudos de POO<span class="study-row__desc">Exercícios de programação orientada a objetos</span></span>
+      <span class="study-row__stack mono">—</span>
+      <a class="gate-link" href="https://github.com/emanuel-git-bot/POO" target="_blank" rel="noopener">Código</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="formacao">
+  <div class="section__head">
+    <h2 class="section__title">Formação e Eventos</h2>
+    <span class="section__count mono">002 REGISTROS</span>
+  </div>
+  <div class="tower__panel">
+    <ul class="tower__list">
+      <li><svg class="pictogram pictogram--sm" aria-hidden="true"><use href="#icon-cap"></use></svg> Graduação em Sistemas de Informação pela UNIFEB (Barretos, SP), 2023–2027 <span class="stamp stamp--estudo">Em andamento</span></li>
+      <li><svg class="pictogram pictogram--sm" aria-hidden="true"><use href="#icon-megaphone"></use></svg> Presença ativa em eventos acadêmicos, como a XXII SESINFO (Semana de Sistemas de Informação do UNIFEB), buscando sempre o alinhamento entre o mercado de trabalho e as inovações tecnológicas.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="sobre">
+  <div class="section__head">
+    <h2 class="section__title">Torre de Controle</h2>
+  </div>
+  <div class="tower">
+    <div>
+      <p class="tower__lead">Servidor da Câmara Municipal de Terra Roxa/SP e desenvolvedor fullstack — na prática, a mesma disciplina aplicada a dois ofícios.</p>
+      <div class="tower__body">
+        <p>O trabalho na Câmara exige acompanhar prazo, protocolo e rito com precisão — e foi esse contato direto com a burocracia legislativa real que virou o Sistema de Tramitação: não um exercício acadêmico sobre "como funciona uma câmara", mas um sistema construído com acesso ao Regimento Interno de verdade, prazo por prazo.</p>
+        <p>O restante do painel mostra a outra metade: mobile, e-commerce, automação, ferramentas de linha de comando — construído sozinho, projeto por projeto, aprendendo o que cada stack exige na prática em vez de ficar em um único ecossistema confortável.</p>
+      </div>
+    </div>
+    <div class="tower__panel">
+      <h3>Como trabalho</h3>
+      <ul class="tower__list">
+        <li><svg class="pictogram pictogram--sm" aria-hidden="true"><use href="#icon-scale"></use></svg> Rigor de quem lida com prazo legal — prazo perdido em uma câmara não é reagendável.</li>
+        <li><svg class="pictogram pictogram--sm" aria-hidden="true"><use href="#icon-gear"></use></svg> Stack escolhida pelo problema, não pela moda: Django para workflow com estado, Expo para mobile rápido, scripts Python quando o trabalho é só dados.</li>
+        <li><svg class="pictogram pictogram--sm" aria-hidden="true"><use href="#icon-shield"></use></svg> Segurança tratada como processo contínuo, não checklist único — o próprio sistema legislativo tem um ciclo de auditoria documentado.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="exit-gate" id="contato">
+  <div class="exit-gate__inner">
+    <h2 class="exit-gate__title">Fim da linha. Fale com o operador.</h2>
+    <div class="exit-gate__row">
+      <div class="exit-gate__item">
+        <span>E-MAIL</span>
+        <a href="mailto:roqueemanuel2018@gmail.com">roqueemanuel2018@gmail.com</a>
+      </div>
+      <div class="exit-gate__item">
+        <span>GITHUB</span>
+        <a href="https://github.com/emanuel-git-bot" target="_blank" rel="noopener">github.com/emanuel-git-bot</a>
+      </div>
+    </div>
+    <div class="exit-gate__foot">
+      <span>PAINEL DE EMBARQUE — PORTFÓLIO</span>
+      <span>EMANUEL ROQUE © 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

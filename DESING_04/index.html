@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emanuel Roque — Desenvolvedor Fullstack</title>
+<meta name="description" content="Emanuel Roque — Desenvolvedor Fullstack e servidor da Câmara Municipal de Terra Roxa/SP. Sistemas de produção, apps mobile e ferramentas de automação.">
+<meta name="theme-color" content="#0b080c">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===================== LOADING ===================== -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-wrap">
+    <button class="loading-button" id="loadingButton" type="button">
+      <span class="loading-button-text">ENTRAR</span>
+    </button>
+  </div>
+</div>
+
+<!-- ===================== CURSOR ===================== -->
+<div class="cursor-main cursor-disable" id="cursor" aria-hidden="true"></div>
+
+<!-- ===================== LUZES DE FUNDO ===================== -->
+<div class="landing-circle1" aria-hidden="true"></div>
+<div class="landing-circle2" aria-hidden="true"></div>
+<div class="nav-fade" aria-hidden="true"></div>
+
+<a class="skip-link" href="#sobre">Pular para o conteúdo</a>
+
+<!-- ===================== NAVBAR ===================== -->
+<header class="header" id="header">
+  <a class="navbar-title hover-link" href="#inicio" data-link>
+    <span class="hover-in">Emanuel Roque<div>Emanuel Roque</div></span>
+  </a>
+  <a class="navbar-connect hover-link" href="mailto:roqueemanuel2018@gmail.com" data-link>
+    <span class="hover-in">Vamos conversar<div>Vamos conversar</div></span>
+  </a>
+  <ul>
+    <li><a class="hover-link" href="#sobre" data-link><span class="hover-in">SOBRE<div>SOBRE</div></span></a></li>
+    <li><a class="hover-link" href="#atuacao" data-link><span class="hover-in">ATUAÇÃO<div>ATUAÇÃO</div></span></a></li>
+    <li><a class="hover-link" href="#projetos" data-link><span class="hover-in">PROJETOS<div>PROJETOS</div></span></a></li>
+    <li><a class="hover-link" href="#stack" data-link><span class="hover-in">STACK<div>STACK</div></span></a></li>
+    <li><a class="hover-link" href="#carreira" data-link><span class="hover-in">CARREIRA<div>CARREIRA</div></span></a></li>
+    <li><a class="hover-link" href="#contato" data-link><span class="hover-in">CONTATO<div>CONTATO</div></span></a></li>
+  </ul>
+</header>
+
+<!-- ===================== BARRA FIXA INFERIOR ===================== -->
+<div class="icons-section">
+  <div class="social-icons">
+    <a href="https://github.com/emanuel-git-bot" target="_blank" rel="noopener" aria-label="GitHub de Emanuel Roque" data-link>
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.55v-2.1c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.1-.75.4-1.27.73-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.2-3.1-.12-.3-.52-1.47.1-3.07 0 0 .98-.31 3.2 1.18a11.1 11.1 0 0 1 5.83 0c2.22-1.5 3.2-1.18 3.2-1.18.63 1.6.23 2.78.11 3.07.75.81 1.2 1.84 1.2 3.1 0 4.43-2.7 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .3.2.66.8.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+    </a>
+  </div>
+  <a class="resume-button" href="mailto:roqueemanuel2018@gmail.com" data-link><span>&#9993;</span> CONTATO</a>
+</div>
+
+<main class="main-body">
+<div class="container-main">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="landing-section" id="inicio">
+    <div class="landing-container container1">
+
+      <div class="landing-intro">
+        <h2>Olá! Eu sou</h2>
+        <h1>EMANUEL<br>ROQUE</h1>
+      </div>
+
+      <div class="landing-visual">
+        <div class="character-rim" aria-hidden="true"></div>
+        <div class="landing-photo">
+          <img src="assets/images/emanuel-foto.jpg" alt="Emanuel Roque" width="1599" height="1599">
+        </div>
+
+        <div class="snowman-dock" id="snowmanDock">
+          <div class="snowman" id="snowman" role="button" tabindex="0"
+               aria-label="Boneco de neve interativo. Pressione Enter ou Espaço para fazê-lo pular.">
+            <span class="sm-shadow" aria-hidden="true"></span>
+            <span class="sm-part sm-base" aria-hidden="true"></span>
+            <span class="sm-part sm-torso" aria-hidden="true">
+              <span class="sm-btn sm-btn-1"></span>
+              <span class="sm-btn sm-btn-2"></span>
+            </span>
+            <span class="sm-part sm-arm sm-arm-l" aria-hidden="true"></span>
+            <span class="sm-part sm-arm sm-arm-r" aria-hidden="true"></span>
+            <span class="sm-part sm-head" aria-hidden="true">
+              <span class="sm-eye sm-eye-l"><span class="sm-pupil"></span></span>
+              <span class="sm-eye sm-eye-r"><span class="sm-pupil"></span></span>
+              <span class="sm-nose"></span>
+              <span class="sm-mouth"></span>
+            </span>
+            <span class="sm-part sm-scarf" aria-hidden="true"></span>
+            <span class="sm-part sm-hat" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="landing-info">
+        <h3>Um</h3>
+        <h2 class="landing-info-h2">
+          <span class="landing-h2-1">DESENVOLVEDOR</span>
+          <span class="landing-h2-2">SERVIDOR</span>
+        </h2>
+        <h2 class="landing-info-sub">
+          <span class="landing-h2-info">FULLSTACK</span>
+          <span class="landing-h2-info-1">PÚBLICO</span>
+        </h2>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===================== SOBRE ===================== -->
+  <section class="about-section" id="sobre">
+    <div class="about-me">
+      <h3 class="title">SOBRE MIM</h3>
+      <p class="para">
+        Sou servidor da Câmara Municipal de Terra Roxa/SP e desenvolvedor fullstack
+        autodidata, na prática a mesma disciplina aplicada a dois ofícios. O trabalho na
+        Câmara exige acompanhar prazo, protocolo e rito legislativo com precisão, e foi esse
+        contato direto com a burocracia real que virou o Sistema de Tramitação Legislativa:
+        não um exercício acadêmico, mas um sistema construído com acesso ao Regimento Interno
+        de verdade. O restante do meu trabalho mostra a outra metade — mobile, e-commerce,
+        automação e ferramentas de linha de comando — construído sozinho, projeto por projeto.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== O QUE EU FAÇO ===================== -->
+  <section class="whatIDO" id="atuacao">
+    <div class="what-box">
+      <h2 class="title">O QUE<br>EU <span class="do-h2">FAÇO</span></h2>
+    </div>
+    <div class="what-box">
+      <div class="what-box-in">
+        <div class="what-border1" aria-hidden="true"></div>
+        <div class="what-border2" aria-hidden="true"></div>
+
+        <div class="what-content what-noTouch" tabindex="0">
+          <span class="what-corner" aria-hidden="true"></span>
+          <div class="what-content-in">
+            <h5>01</h5>
+            <h3>Sistemas &amp; Backend</h3>
+            <p>
+              Workflows com estado, regras de negócio reais e dados que não podem se perder:
+              o tipo de sistema que um órgão público ou uma operação de verdade exige.
+              Exemplo direto: o Sistema de Tramitação Legislativa da Câmara Municipal de
+              Terra Roxa/SP — protocolo automático, máquina de estados auditável, controle de
+              acesso por papel e backup em duas camadas, em uso real todos os dias.
+            </p>
+            <div class="what-content-flex">
+              <h4 class="what-tags">Python</h4>
+              <h4 class="what-tags">Django</h4>
+              <h4 class="what-tags">PostgreSQL</h4>
+              <h4 class="what-tags">Docker</h4>
+              <h4 class="what-tags">GitHub Actions</h4>
+              <h4 class="what-tags">RBAC</h4>
+            </div>
+          </div>
+          <span class="what-arrow" aria-hidden="true"></span>
+        </div>
+
+        <div class="what-content what-noTouch" tabindex="0">
+          <span class="what-corner" aria-hidden="true"></span>
+          <div class="what-content-in">
+            <h5>02</h5>
+            <h3>Produtos Web &amp; Mobile</h3>
+            <p>
+              Aplicações responsivas e apps mobile com experiência de usuário cuidada, do
+              protótipo rápido ao produto que um cliente real usa todo dia. Exemplo direto:
+              Mundo das Coisas (e-commerce com checkout via WhatsApp) e Harpa com Cifra
+              (app mobile em uso pessoal, Expo/React Native) — dois produtos com usuário real
+              na outra ponta, não protótipos de vitrine.
+            </p>
+            <div class="what-content-flex">
+              <h4 class="what-tags">React</h4>
+              <h4 class="what-tags">Next.js</h4>
+              <h4 class="what-tags">React Native</h4>
+              <h4 class="what-tags">TypeScript</h4>
+              <h4 class="what-tags">Node.js</h4>
+              <h4 class="what-tags">tRPC</h4>
+            </div>
+          </div>
+          <span class="what-arrow" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PROJETOS (rolagem horizontal) ===================== -->
+  <section class="work-section" id="projetos">
+    <div class="work-container">
+      <h2 class="title">MEU <span>TRABALHO</span></h2>
+      <div class="work-flex" id="workFlex">
+
+        <article class="work-box">
+          <div class="work-title">
+            <h3>01</h3>
+            <div>
+              <h4>Legislativo · Governo</h4>
+              <p>Django · React · PostgreSQL</p>
+            </div>
+          </div>
+          <div class="work-info">
+            <h4>Sistema de Tramitação Legislativa</h4>
+            <p>
+              Tramitação completa de proposições para a Câmara Municipal de Terra Roxa/SP:
+              protocolo automático, despacho da presidência, comissões com prazos reais do
+              Regimento Interno, parecer jurídico, plenário com votação, sanção e veto do
+              prefeito, portal de transparência e painel de auditoria.
+            </p>
+          </div>
+          <div class="work-card work-card-lead">
+            <span class="work-flag">CARRO-CHEFE</span>
+            <ul class="work-points">
+              <li>Máquina de estados auditável</li>
+              <li>Controle de acesso por papel (RBAC)</li>
+              <li>Backup em duas camadas</li>
+              <li>CI/CD para runner self-hosted</li>
+            </ul>
+            <a class="work-cta" href="mailto:roqueemanuel2018@gmail.com" data-link>Código privado — falar por e-mail &rarr;</a>
+          </div>
+        </article>
+
+        <article class="work-box">
+          <div class="work-title">
+            <h3>02</h3>
+            <div>
+              <h4>Segurança do Trabalho</h4>
+              <p>React · Vite · Fastify · Prisma</p>
+            </div>
+          </div>
+          <div class="work-info">
+            <h4>SafeTrain</h4>
+            <p>
+              Plataforma de treinamento e certificação em segurança do trabalho (Normas
+              Regulamentadoras), com checkout de verdade usando Mercado Pago e PagBank.
+            </p>
+          </div>
+          <div class="work-card">
+            <ul class="work-points">
+              <li>Catálogo dinâmico de cursos</li>
+              <li>Compra por voucher</li>
+              <li>Painel B2B</li>
+              <li>Geração de certificado</li>
+            </ul>
+            <a class="work-cta" href="https://github.com/emanuel-git-bot/SafeTrain" target="_blank" rel="noopener" data-link>Ver no GitHub &rarr;</a>
+          </div>
+        </article>
+
+        <article class="work-box">
+          <div class="work-title">
+            <h3>03</h3>
+            <div>
+              <h4>E-commerce</h4>
+              <p>React · Dark mode</p>
+            </div>
+          </div>
+          <div class="work-info">
+            <h4>Mundo das Coisas</h4>
+            <p>
+              Loja virtual de ferragens e material de construção, com finalização de pedido
+              direto pelo WhatsApp.
+            </p>
+          </div>
+          <div class="work-card">
+            <ul class="work-points">
+              <li>Catálogo por categoria</li>
+              <li>Carrinho com subtotal</li>
+              <li>Modo escuro completo</li>
+              <li>Checkout via WhatsApp</li>
+            </ul>
+            <span class="work-nolink">Sem link público confirmado</span>
+          </div>
+        </article>
+
+        <article class="work-box">
+          <div class="work-title">
+            <h3>04</h3>
+            <div>
+              <h4>Mobile</h4>
+              <p>Expo · React Native · TypeScript</p>
+            </div>
+          </div>
+          <div class="work-info">
+            <h4>Harpa com Cifra</h4>
+            <p>
+              App mobile para visualizar hinos com letra e cifra em imagem. Em uso pessoal.
+            </p>
+          </div>
+          <div class="work-card">
+            <ul class="work-points">
+              <li>Busca de hinos</li>
+              <li>Favoritos</li>
+              <li>Zoom por pinça</li>
+            </ul>
+            <a class="work-cta" href="https://github.com/emanuel-git-bot/Harpa-Crista-Cifrada-App-mobile" target="_blank" rel="noopener" data-link>Ver no GitHub &rarr;</a>
+          </div>
+        </article>
+
+        <article class="work-box">
+          <div class="work-title">
+            <h3>05</h3>
+            <div>
+              <h4>SaaS Cívico</h4>
+              <p>Next.js · B2B2C</p>
+            </div>
+          </div>
+          <div class="work-info">
+            <h4>Plataforma Cívica para Vereadores</h4>
+            <p>
+              Site público personalizado por mandato + área do cidadão para indicar problemas,
+              reivindicar soluções e sugerir projetos de lei. Em construção.
+            </p>
+          </div>
+          <div class="work-card">
+            <p class="work-note">Produto <em>para</em> vereadores — eles são os clientes do SaaS.</p>
+            <ul class="work-points">
+              <li>Site público por mandato</li>
+              <li>Área do cidadão</li>
+              <li>Painel administrativo</li>
+            </ul>
+            <span class="work-nolink">Sem link público confirmado</span>
+          </div>
+        </article>
+
+        <article class="work-box work-box-cta">
+          <div class="see-all-works">
+            <h3>Mais 13 projetos</h3>
+            <p>Ferramentas, bots e exercícios — escopo menor, reais do mesmo jeito.</p>
+            <a class="see-all-btn" href="#ferramentas" data-link>Ver todos</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FERRAMENTAS E ESTUDOS ===================== -->
+  <section class="tools-section" id="ferramentas">
+    <div class="tools-container container1">
+      <h2 class="title">FERRAMENTAS <span>&amp; ESTUDOS</span></h2>
+      <div class="tools-grid">
+        <article class="tool-card"><span class="tool-num">06</span><h3>Financeiro App</h3><p>Scripts que leem extratos do Nubank e PicPay e calculam faturamento mensal, mais app mobile e desktop de acompanhamento financeiro.</p><span class="tool-stack">Python · React Native · Electron</span><a href="https://github.com/emanuel-git-bot/Financeiro" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
+        <article class="tool-card"><span class="tool-num">07</span><h3>MediaFlow</h3><p>Web app para baixar vídeo e áudio sem anúncios, com suporte a múltiplas resoluções via FFmpeg.</p><span class="tool-stack">Django · FFmpeg</span><a href="https://github.com/emanuel-git-bot/MediaFlow" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
+        <article class="tool-card"><span class="tool-num">08</span><h3>Robô de Diários OAB</h3><p>Robô que pesquisa publicações por número de OAB em diários oficiais, gera relatório em PDF/HTML/CSV e evita alertas duplicados.</p><span class="tool-stack">Python · Flask local</span><span class="work-nolink">Sem link público confirmado</span></article>
+        <article class="tool-card"><span class="tool-num">09</span><h3>Cervi e Gabriel Advogados</h3><p>Site institucional para escritório de advocacia, com autenticação e banco de dados próprios. Entregue como projeto de cliente.</p><span class="tool-stack">React · tRPC · Drizzle</span><span class="work-nolink">Projeto de cliente — sem link público</span></article>
+        <article class="tool-card"><span class="tool-num">10</span><h3>Spacefy</h3><p>Rede social para compartilhar cifras musicais sincronizadas, estudo aplicando Spec Driven Development do início ao fim.</p><span class="tool-stack">Next.js · SDD</span><a href="https://github.com/emanuel-git-bot/spacefy" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
+        <article class="tool-card"><span class="tool-num">11</span><h3>Cidade Hype</h3><p>Backend e API de administração para um jogo de construção de cidades: loja, eventos, atualizações e sistema de bugs.</p><span class="tool-stack">Django · DRF</span><a href="https://github.com/emanuel-git-bot/cidade-hype" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
+        <article class="tool-card"><span class="tool-num">12</span><h3>PyZapZure</h3><p>Ferramenta de automação de envio de mensagens no WhatsApp via Selenium.</p><span class="tool-stack">Python · Selenium</span><a href="https://github.com/emanuel-git-bot/pyzapzure" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
+        <article class="tool-card"><span class="tool-num">13</span><h3>SecSpec Verify</h3><p>Skill de IA para agentes rodarem auditorias de segurança automatizadas em projetos baseados em OpenSpec.</p><span class="tool-stack">Node.js · Agentes de IA</span><a href="https://github.com/emanuel-git-bot/secspec-verify" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
+        <article class="tool-card"><span class="tool-num">14</span><h3>StudioFlow</h3><p>App construído com Google AI Studio integrando a API do Gemini, com autenticação e dados via Firebase.</p><span class="tool-stack">Gemini API · Firebase</span><span class="work-nolink">Sem link público confirmado</span></article>
+        <article class="tool-card"><span class="tool-num">15</span><h3>PI 2026 — Loja TI</h3><p>Design de e-commerce como projeto integrador.</p><span class="tool-stack">Next.js</span><a href="https://github.com/emanuel-git-bot/PI-2026-Loja-Ti" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
+        <article class="tool-card"><span class="tool-num">16</span><h3>Tech Hub Manage</h3><p>Ferramenta de gestão em estágio inicial.</p><span class="tool-stack">Vite</span><a href="https://github.com/emanuel-git-bot/tech-hub-manage" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
+        <article class="tool-card"><span class="tool-num">17</span><h3>Loja Virtual — Atividade POO</h3><p>SOLID, Clean Code e dois padrões de projeto.</p><span class="tool-stack">C#</span><a href="https://github.com/emanuel-git-bot/P2_Atividade2025_LojaVirtual" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
+        <article class="tool-card"><span class="tool-num">18</span><h3>Estudos de POO</h3><p>Exercícios de programação orientada a objetos.</p><span class="tool-stack">—</span><a href="https://github.com/emanuel-git-bot/POO" target="_blank" rel="noopener" data-link>GitHub &rarr;</a></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TECH STACK ===================== -->
+  <section class="techstack-new" id="stack">
+    <div class="techstack-glow" aria-hidden="true"></div>
+    <div class="techstack-content">
+      <h2 class="title no-split">TECH STACK</h2>
+      <div class="techstack-pyramid">
+        <div class="techstack-row">
+          <span class="techstack-item">Python</span><span class="techstack-item">JavaScript</span><span class="techstack-item">TypeScript</span><span class="techstack-item">C#</span>
+        </div>
+        <div class="techstack-row">
+          <span class="techstack-item">HTML</span><span class="techstack-item">CSS</span><span class="techstack-item">React</span><span class="techstack-item">React Native</span><span class="techstack-item">Next.js</span>
+        </div>
+        <div class="techstack-row">
+          <span class="techstack-item">Expo</span><span class="techstack-item">tRPC</span><span class="techstack-item">Node.js</span><span class="techstack-item">Django</span><span class="techstack-item">DRF</span><span class="techstack-item">Fastify</span>
+        </div>
+        <div class="techstack-row">
+          <span class="techstack-item">Flask</span><span class="techstack-item">PostgreSQL</span><span class="techstack-item">MySQL</span><span class="techstack-item">SQLite</span><span class="techstack-item">Drizzle</span><span class="techstack-item">Prisma</span><span class="techstack-item">Docker</span>
+        </div>
+        <div class="techstack-row">
+          <span class="techstack-item">GitHub Actions</span><span class="techstack-item">Firebase</span><span class="techstack-item">Selenium</span><span class="techstack-item">FFmpeg</span><span class="techstack-item">Mercado Pago</span><span class="techstack-item">PagBank</span>
+        </div>
+        <div class="techstack-row">
+          <span class="techstack-item">Gemini API</span><span class="techstack-item">Git</span><span class="techstack-item">GitHub</span><span class="techstack-item">VS Code</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CARREIRA ===================== -->
+  <section class="career-section" id="carreira">
+    <div class="career-container container1">
+      <h2 class="title no-split">MINHA <span>CARREIRA</span></h2>
+      <div class="career-info">
+        <div class="career-timeline" aria-hidden="true"><span class="career-dot"></span></div>
+
+        <div class="career-info-box">
+          <div class="career-info-in">
+            <h4>Câmara Municipal de Terra Roxa/SP</h4>
+            <h3>AGORA</h3>
+          </div>
+          <div class="career-text">
+            <h5>Desenvolvedor Fullstack</h5>
+            <p>
+              Trabalhando na Câmara e construindo sistemas próprios e de clientes, incluindo
+              os ~18 projetos deste portfólio, do sistema de tramitação legislativa a
+              ferramentas pessoais de automação.
+            </p>
+          </div>
+        </div>
+
+        <div class="career-info-box">
+          <div class="career-info-in">
+            <h4>UNIFEB — Barretos/SP</h4>
+            <h3>2023</h3>
+          </div>
+          <div class="career-text">
+            <h5>Graduação em Sistemas de Informação</h5>
+            <p>Em andamento, com conclusão prevista para 2027.</p>
+          </div>
+        </div>
+
+        <div class="career-info-box">
+          <div class="career-info-in">
+            <h4>Semana de Sistemas de Informação</h4>
+            <h3>XXII</h3>
+          </div>
+          <div class="career-text">
+            <h5>SESINFO — UNIFEB</h5>
+            <p>
+              Presença ativa em eventos acadêmicos, buscando sempre o alinhamento entre o
+              mercado de trabalho e as inovações tecnológicas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section class="cta-section">
+    <div class="cta-buttons">
+      <a class="cta-btn cta-btn-hire" href="mailto:roqueemanuel2018@gmail.com" data-link>ENVIAR E-MAIL</a>
+      <a class="cta-btn cta-btn-play" href="https://github.com/emanuel-git-bot" target="_blank" rel="noopener" data-link>Ver GitHub &rarr;</a>
+    </div>
+  </section>
+
+  <!-- ===================== CONTATO ===================== -->
+  <footer class="contact-section" id="contato">
+    <div class="contact-container container1">
+      <h3 class="title">VAMOS CONSTRUIR ALGO JUNTOS?</h3>
+      <div class="contact-flex">
+        <div class="contact-box">
+          <h4>E-MAIL</h4>
+          <a class="contact-social" href="mailto:roqueemanuel2018@gmail.com" data-link>roqueemanuel2018@gmail.com</a>
+        </div>
+        <div class="contact-box">
+          <h4>LOCALIZAÇÃO</h4>
+          <h2>Terra Roxa, SP <span>—</span> Brasil</h2>
+        </div>
+        <div class="contact-box">
+          <h4>SOCIAL</h4>
+          <a class="contact-social" href="https://github.com/emanuel-git-bot" target="_blank" rel="noopener" data-link>GitHub</a>
+        </div>
+      </div>
+      <div class="contact-base">
+        <h5>Emanuel Roque — Portfólio</h5>
+        <h5>Desenvolvido por Emanuel Roque © 2026</h5>
+      </div>
+    </div>
+  </footer>
+
+</div>
+</main>
+
+<script src="assets/vendor/gsap.min.js"></script>
+<script src="assets/vendor/ScrollTrigger.min.js"></script>
+<script src="assets/vendor/lenis.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
