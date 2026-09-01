@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>html,body{margin:0;padding:0;background:#0b080c;width:900px;height:900px;overflow:hidden;}</style>
+</head>
+<body>
+<div id="status" style="position:fixed;top:0;left:0;color:#fff;font:12px monospace;z-index:9;background:#000;padding:4px;"></div>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.169.0/build/three.module.js",
+    "three/examples/jsm/environments/RoomEnvironment.js": "https://unpkg.com/three@0.169.0/examples/jsm/environments/RoomEnvironment.js",
+    "three/examples/jsm/postprocessing/EffectComposer.js": "https://unpkg.com/three@0.169.0/examples/jsm/postprocessing/EffectComposer.js",
+    "three/examples/jsm/postprocessing/RenderPass.js": "https://unpkg.com/three@0.169.0/examples/jsm/postprocessing/RenderPass.js",
+    "three/examples/jsm/postprocessing/BokehPass.js": "https://unpkg.com/three@0.169.0/examples/jsm/postprocessing/BokehPass.js",
+    "three/examples/jsm/postprocessing/UnrealBloomPass.js": "https://unpkg.com/three@0.169.0/examples/jsm/postprocessing/UnrealBloomPass.js",
+    "three/examples/jsm/postprocessing/ShaderPass.js": "https://unpkg.com/three@0.169.0/examples/jsm/postprocessing/ShaderPass.js",
+    "three/examples/jsm/shaders/CopyShader.js": "https://unpkg.com/three@0.169.0/examples/jsm/shaders/CopyShader.js",
+    "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.169.0/examples/jsm/controls/OrbitControls.js"
+  }
+}
+</script>
+<script type="module">
+const status = document.getElementById('status');
+function log(msg) { status.textContent += msg + '\n'; console.log(msg); }
+try {
+  const THREE = await import('three');
+  const mod = await import('./src/createSnowmanModel.js?v=' + Date.now());
+  log('module loaded: ' + Object.keys(mod).join(', '));
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0b080c);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
+  renderer.setSize(900, 900);
+  renderer.setPixelRatio(1);
+  if (mod.configureStylizedSnowmanFigureRenderer) mod.configureStylizedSnowmanFigureRenderer(renderer);
+  document.body.appendChild(renderer.domElement);
+
+  const model = mod.createStylizedSnowmanFigureModel({ castShadow: true, receiveShadow: true });
+  scene.add(model);
+  log('model added, children: ' + model.children.length);
+
+  // The generator's "box" primitive path does not wire dimensions.width/
+  // height/depth into geometry scale (hardcoded unit cube) -- root is meant
+  // to be a non-rendered transform container, so hide its mesh by name
+  // rather than patch the generator for a single throwaway container part.
+  const rootMesh = model.getObjectByName('Stylized Snowman Figure (root)');
+  if (rootMesh && rootMesh.isMesh) { rootMesh.visible = false; log('root mesh hidden'); }
+
+  if (mod.createStylizedSnowmanFigureEnvironment) {
+    scene.environment = mod.createStylizedSnowmanFigureEnvironment(renderer);
+    log('environment map set');
+  }
+
+  if (mod.createStylizedSnowmanFigureLookDevLights) {
+    const lights = mod.createStylizedSnowmanFigureLookDevLights(THREE);
+    if (Array.isArray(lights)) lights.forEach(l => scene.add(l));
+    else if (lights) scene.add(lights);
+    log('lights added');
+  } else {
+    const key = new THREE.DirectionalLight(0xffffff, 2.0);
+    key.position.set(2, 3, 3);
+    scene.add(key);
+    scene.add(new THREE.AmbientLight(0x8866ff, 0.6));
+  }
+
+  const camera = new THREE.PerspectiveCamera(40, 1, 0.01, 100);
+  const box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  log('bbox size: ' + size.x.toFixed(2) + ',' + size.y.toFixed(2) + ',' + size.z.toFixed(2) + ' center: ' + center.x.toFixed(2) + ',' + center.y.toFixed(2) + ',' + center.z.toFixed(2));
+  const maxDim = Math.max(size.x, size.y, size.z);
+  const dist = (maxDim / 2) / Math.tan((40 * Math.PI / 180) / 2) * 1.4;
+  camera.position.set(center.x, center.y, center.z + dist);
+  camera.lookAt(center);
+
+  const meshNames = [];
+  model.traverse((obj) => { if (obj.isMesh) meshNames.push(obj.name + '@' + obj.position.toArray().map(v=>v.toFixed(2)).join(',')); });
+  log('meshes(' + meshNames.length + '): ' + meshNames.join(' | '));
+
+  renderer.render(scene, camera);
+  window.__renderDone = true;
+  log('RENDER_OK');
+} catch (err) {
+  log('RENDER_ERROR: ' + err.message + '\n' + err.stack);
+  window.__renderError = err.message;
+}
+</script>
+</body>
+</html>

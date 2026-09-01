@@ -1,0 +1,191 @@
+{
+  "sourceImage": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\reference-snowman.png",
+  "zonesDir": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\detail-inventory",
+  "detailInventory": {
+    "scanMethod": "grid-3x3",
+    "targetMinDetails": 6,
+    "details": [
+      {
+        "id": "zone-r0c0",
+        "kind": "background",
+        "description": "empty dark background with a large purple ambient dot (decorative particle), not part of the subject",
+        "region": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 0.3333,
+          "height": 0.3333,
+          "units": "normalized"
+        },
+        "scale": "n/a",
+        "affects": "n/a",
+        "mapsTo": {
+          "type": "component",
+          "ref": "component.halo (particle system, not this snowman's own geometry)"
+        },
+        "evidenceRef": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\detail-inventory\\zone-r0c0.png",
+        "confidence": 0.9
+      },
+      {
+        "id": "zone-r0c1",
+        "kind": "hat-top-tip",
+        "description": "very top of the black cylindrical hat crown just entering frame; mostly background above it",
+        "region": {
+          "x": 0.3333,
+          "y": 0.0,
+          "width": 0.3333,
+          "height": 0.3333,
+          "units": "normalized"
+        },
+        "scale": "small",
+        "affects": "silhouette/material",
+        "mapsTo": {
+          "type": "component",
+          "ref": "component.hatTop"
+        },
+        "evidenceRef": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\detail-inventory\\zone-r0c1.png",
+        "confidence": 0.85
+      },
+      {
+        "id": "zone-r0c2",
+        "kind": "background",
+        "description": "empty dark background, a small purple ambient particle dot",
+        "region": {
+          "x": 0.6667,
+          "y": 0.0,
+          "width": 0.3333,
+          "height": 0.3333,
+          "units": "normalized"
+        },
+        "scale": "n/a",
+        "affects": "n/a",
+        "mapsTo": {
+          "type": "component",
+          "ref": "component.halo"
+        },
+        "evidenceRef": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\detail-inventory\\zone-r0c2.png",
+        "confidence": 0.9
+      },
+      {
+        "id": "zone-r1c0",
+        "kind": "arm-left + halo-edge",
+        "description": "left stick arm (brown gradient, angled outward-down from the shoulder) against the purple ambient halo fringe",
+        "region": {
+          "x": 0.0,
+          "y": 0.3333,
+          "width": 0.3333,
+          "height": 0.3333,
+          "units": "normalized"
+        },
+        "scale": "medium",
+        "affects": "silhouette/material",
+        "mapsTo": {
+          "type": "component",
+          "ref": "component.armLeft"
+        },
+        "evidenceRef": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\detail-inventory\\zone-r1c0.png",
+        "confidence": 0.9
+      },
+      {
+        "id": "zone-r1c1",
+        "kind": "head + face + scarf-top",
+        "description": "head sphere with hat brim above, two laterally-offset eyes (black sockets with light pupils) and an orange triangular nose, purple scarf band wrapping the neck seam with its darker tail flap visible on the right",
+        "region": {
+          "x": 0.3333,
+          "y": 0.3333,
+          "width": 0.3333,
+          "height": 0.3333,
+          "units": "normalized"
+        },
+        "scale": "large, identity-defining",
+        "affects": "silhouette/material",
+        "mapsTo": {
+          "type": "component",
+          "ref": "component.head, component.faceAssembly, component.scarfBand, component.scarfTail"
+        },
+        "evidenceRef": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\detail-inventory\\zone-r1c1.png",
+        "confidence": 0.95
+      },
+      {
+        "id": "zone-r1c2",
+        "kind": "arm-right + halo-edge",
+        "description": "right stick arm (brown gradient, mirrored angle from the left) against the purple ambient halo fringe",
+        "region": {
+          "x": 0.6667,
+          "y": 0.3333,
+          "width": 0.3333,
+          "height": 0.3333,
+          "units": "normalized"
+        },
+        "scale": "medium",
+        "affects": "silhouette/material",
+        "mapsTo": {
+          "type": "component",
+          "ref": "component.armRight"
+        },
+        "evidenceRef": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\detail-inventory\\zone-r1c2.png",
+        "confidence": 0.9
+      },
+      {
+        "id": "zone-r2c0",
+        "kind": "background + UI chrome",
+        "description": "dark background; a GitHub icon is visible in the extreme corner — this is page UI chrome from the screenshot, NOT part of the snowman subject, excluded from the spec",
+        "region": {
+          "x": 0.0,
+          "y": 0.6667,
+          "width": 0.3333,
+          "height": 0.3333,
+          "units": "normalized"
+        },
+        "scale": "n/a",
+        "affects": "n/a",
+        "mapsTo": {
+          "type": "excluded",
+          "ref": "excluded (screenshot artifact)"
+        },
+        "evidenceRef": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\detail-inventory\\zone-r2c0.png",
+        "confidence": 0.95
+      },
+      {
+        "id": "zone-r2c1",
+        "kind": "body-middle + body-bottom",
+        "description": "middle sphere with 2 of the 3 coal buttons visible in a vertical row, transitioning into the top of the largest (bottom) sphere; strong soft highlight upper-left, purple rim-light glow along the lateral edges",
+        "region": {
+          "x": 0.3333,
+          "y": 0.6667,
+          "width": 0.3333,
+          "height": 0.3333,
+          "units": "normalized"
+        },
+        "scale": "large",
+        "affects": "silhouette/material",
+        "mapsTo": {
+          "type": "component",
+          "ref": "component.bodyMiddle, component.bodyBottom, component.buttonRow"
+        },
+        "evidenceRef": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\detail-inventory\\zone-r2c1.png",
+        "confidence": 0.95
+      },
+      {
+        "id": "zone-r2c2",
+        "kind": "background",
+        "description": "empty dark background, halo fringe fading out",
+        "region": {
+          "x": 0.6667,
+          "y": 0.6667,
+          "width": 0.3333,
+          "height": 0.3333,
+          "units": "normalized"
+        },
+        "scale": "n/a",
+        "affects": "n/a",
+        "mapsTo": {
+          "type": "component",
+          "ref": "component.halo"
+        },
+        "evidenceRef": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\detail-inventory\\zone-r2c2.png",
+        "confidence": 0.85
+      }
+    ]
+  },
+  "authoringInstruction": "Open each zone crop under zonesDir and replace every detail stub's kind, description, scale, affects, mapsTo, and confidence with what is actually observed. Add more detail entries per zone if a single zone contains multiple distinct marks; do not leave stubs unfilled or unlinked (mapsTo must reference a real component.localFeatures or material.localOverrides entry)."
+}

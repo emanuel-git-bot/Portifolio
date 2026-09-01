@@ -6,6 +6,18 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "5500"],
       "port": 5500
+    },
+    {
+      "name": "vereadores",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "C:\\Users\\Camara\\Desktop\\Projetos\\Vereador\\frontend", "run", "dev"],
+      "port": 3000
+    },
+    {
+      "name": "threejs-snowman",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "5544", "--directory", "DESING_05/threejs-snowman"],
+      "port": 5544
     }
   ]
 }

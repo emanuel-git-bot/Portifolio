@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>html,body{margin:0;padding:0;background:#0b080c;width:900px;height:900px;overflow:hidden;}</style>
+</head>
+<body>
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.169.0/build/three.module.js" } }
+</script>
+<script type="module">
+const THREE = await import('three');
+const mod = await import('./src/createSnowmanModel.js?v=' + Date.now());
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x1a1a1a);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(900, 900);
+document.body.appendChild(renderer.domElement);
+const model = mod.createStylizedSnowmanFigureModel({});
+model.traverse((o) => { if (o.isMesh) o.material = new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: false }); });
+scene.add(model);
+const rootMesh = model.getObjectByName('Stylized Snowman Figure (root)');
+if (rootMesh && rootMesh.isMesh) rootMesh.visible = false;
+const box = new THREE.Box3().setFromObject(model);
+const size = box.getSize(new THREE.Vector3());
+const center = box.getCenter(new THREE.Vector3());
+const maxDim = Math.max(size.x, size.y, size.z);
+const dist = (maxDim / 2) / Math.tan((40 * Math.PI / 180) / 2) * 1.4;
+const camera = new THREE.PerspectiveCamera(40, 1, 0.01, 100);
+camera.position.set(center.x, center.y, center.z + dist);
+camera.lookAt(center);
+renderer.render(scene, camera);
+window.__renderDone = true;
+</script>
+</body>
+</html>

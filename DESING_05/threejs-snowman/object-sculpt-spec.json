@@ -1,0 +1,5357 @@
+{
+  "targetName": "Stylized Snowman Figure",
+  "targetId": "stylized-snowman-figure",
+  "schemaVersion": "2.1",
+  "terminologyProfile": {
+    "domain": "real-time procedural Three.js asset",
+    "geometryTerms": [
+      "silhouette",
+      "topology",
+      "primitive",
+      "bevel",
+      "chamfer",
+      "taper",
+      "bend",
+      "boolean cut",
+      "edge loop",
+      "surface normal",
+      "displacement"
+    ],
+    "materialTerms": [
+      "albedo",
+      "baseColor",
+      "roughness",
+      "metalness",
+      "normal map",
+      "bump map",
+      "ambient occlusion",
+      "cavity dirt",
+      "edge wear",
+      "clearcoat"
+    ],
+    "lightingTerms": [
+      "key light",
+      "fill light",
+      "rim light",
+      "HDRI/environment reflection",
+      "contact shadow"
+    ],
+    "descriptionRule": "Use measurable 3D graphics terms. Avoid vague words unless they are paired with concrete geometry/material/shader parameters."
+  },
+  "sourceImage": "reference-snowman.png",
+  "referenceCamera": {
+    "solved": false,
+    "fovDegrees": 40.0,
+    "aspect": 1.0,
+    "orientation": {
+      "yaw": 0.0,
+      "pitch": 0.0,
+      "roll": 0.0
+    },
+    "positionHint": [
+      0.0,
+      0.0,
+      3.0
+    ],
+    "note": "For likeness work, solve the reference camera (forge/stage1_intake/solve_camera_pose.py) so the review render aligns with the photo and the reference can be projected. Confirm by overlay review."
+  },
+  "suitability": "pass",
+  "scores": {
+    "object_isolation": 3,
+    "silhouette_readability": 3,
+    "depth_inference": 2,
+    "primitive_decomposition": 3,
+    "material_procedurality": 3,
+    "occlusion_risk": 1,
+    "interaction_fit": 3
+  },
+  "preSpecAssessment": {
+    "objectClass": {
+      "primaryType": "stylized snowman figure",
+      "primaryDomain": "object",
+      "formLanguage": [
+        "geometric",
+        "stylized"
+      ],
+      "structureKind": [
+        "stacked-primitive-assembly"
+      ],
+      "motionPotential": [
+        "idle-sway",
+        "click-jump",
+        "click-melt-and-reform"
+      ],
+      "materialFamilies": [
+        "satin-dielectric-body",
+        "matte-dielectric-hat",
+        "satin-accent-scarf",
+        "satin-wood-arms"
+      ],
+      "notes": "Three-tier stacked-sphere snowman with hat, scarf, stick arms and a laterally offset face; own source CSS available as confirmed material evidence (see image-analysis.md)."
+    },
+    "complexity": {
+      "tier": "moderate",
+      "scores": {
+        "silhouetteComplexity": 2,
+        "componentCount": 3,
+        "hierarchyDepth": 3,
+        "repetitionDensity": 1,
+        "materialLayerCount": 3,
+        "localDetailDensity": 2,
+        "occlusionRisk": 1,
+        "actionReadinessNeed": 2
+      },
+      "estimatedCounts": {
+        "macroComponents": 6,
+        "mesoComponents": 4,
+        "microFeatureGroups": 4,
+        "materialLayers": 6,
+        "repetitionSystems": 2
+      },
+      "reasoning": [
+        "3 macro body spheres in a fixed diameter ratio (1.95:1.4:1) form the primary silhouette.",
+        "Head sphere carries 2 meso sub-assemblies (hat: brim+top; scarf: band+tail) plus a micro faceAssembly (2 eyes+pupils, nose).",
+        "Middle sphere carries a 3-button repetition system (vertical row) and sockets the 2 mirrored arms (repetition system).",
+        "6 visually distinct materials: body gradient, hat dark, scarf accent gradient, arm wood gradient, near-black buttons/eyes, orange nose.",
+        "No fine surface micro-texture (procedural noise) beyond the CSS-gradient-derived shading bands, so localDetailDensity is low-moderate."
+      ]
+    },
+    "specDepthDecision": {
+      "requiredDepth": "moderate",
+      "minimumComponentLevels": [
+        "macro",
+        "meso",
+        "micro"
+      ],
+      "needsRepetitionSystems": true,
+      "needsMaterialLocalOverrides": true,
+      "needsMultipleReviewViews": true,
+      "needsActionReadyHierarchy": true,
+      "rationale": "6 macro parts, meso hat/scarf/face sub-assemblies, micro button-row + face features, 2 repetition systems (arms mirror, button row), and a signature rim-light/halo local override on the body material justify moderate depth with all three component levels."
+    },
+    "unknownsToResolveBeforeImplementation": [],
+    "detailInventory": {
+      "scanMethod": "component-zones",
+      "targetMinDetails": 8,
+      "note": "Enumerate every identity-defining small detail before authoring the spec. Each detail must map to a component.localFeatures entry or material.localOverrides entry, never prose only. Use forge/stage1_intake/build_detail_inventory.py to scan zones.",
+      "details": [
+        {
+          "id": "d1",
+          "kind": "gloss",
+          "description": "Inset gloss catchlight on the upper-inner rim of each eye mark",
+          "mapsTo": {
+            "type": "material",
+            "ref": "darkAccent/eyeHighlight"
+          },
+          "confidence": 0.85
+        },
+        {
+          "id": "d2",
+          "kind": "emissive",
+          "description": "Lavender rim-light glow along the lateral edge of every body sphere",
+          "mapsTo": {
+            "type": "material",
+            "ref": "bodySnow/rimLight"
+          },
+          "confidence": 0.9
+        },
+        {
+          "id": "d3",
+          "kind": "seam",
+          "description": "Visible overlap seam where bodyBottom meets bodyMiddle",
+          "mapsTo": {
+            "type": "component",
+            "ref": "bodyMiddle"
+          },
+          "confidence": 0.9
+        },
+        {
+          "id": "d4",
+          "kind": "seam",
+          "description": "Visible overlap seam where bodyMiddle meets head",
+          "mapsTo": {
+            "type": "component",
+            "ref": "head"
+          },
+          "confidence": 0.9
+        },
+        {
+          "id": "d5",
+          "kind": "contour",
+          "description": "Domed convex top edge of the scarf band (vs a flat ribbon)",
+          "mapsTo": {
+            "type": "component",
+            "ref": "scarfBand"
+          },
+          "confidence": 0.85
+        },
+        {
+          "id": "d6",
+          "kind": "seam",
+          "description": "Brim-to-crown seam on the hat",
+          "mapsTo": {
+            "type": "component",
+            "ref": "hatTop"
+          },
+          "confidence": 0.85
+        },
+        {
+          "id": "d7",
+          "kind": "decal",
+          "description": "3 coal buttons applied flush to the middle sphere's front surface",
+          "mapsTo": {
+            "type": "component",
+            "ref": "button1"
+          },
+          "confidence": 0.85
+        },
+        {
+          "id": "d8",
+          "kind": "gloss",
+          "description": "Small satin highlight catchlight on the nose tip",
+          "mapsTo": {
+            "type": "material",
+            "ref": "noseOrange"
+          },
+          "confidence": 0.7
+        }
+      ]
+    },
+    "anatomy": {
+      "applies": false,
+      "styleHeads": 0.0,
+      "proportions": {
+        "headUnit": 0.0,
+        "torso": 0.0,
+        "legs": 0.0,
+        "shoulderWidth": 0.0,
+        "hipWidth": 0.0
+      },
+      "pose": {
+        "type": "unassessed",
+        "jointAngles": {}
+      },
+      "faceLandmarks": {
+        "eyeLine": 0.0,
+        "eyeSpacing": 0.0,
+        "noseBase": 0.0,
+        "mouthLine": 0.0,
+        "hairline": 0.0
+      },
+      "features": [],
+      "confidence": 0.0,
+      "note": "Only meaningful when objectClass.primaryDomain is character or hybrid. Set applies=true and fill from forge/stage1_intake/extract_landmarks.py. See grimoire/character/reconstruction.md and grimoire/character/likeness_maximization.md."
+    },
+    "sourceImage": "reference-snowman.png"
+  },
+  "qualityContract": {
+    "qualityBar": "moderate",
+    "definitionOfDone": [
+      "The rendered model matches the reference silhouette, primary proportions, visible component hierarchy, material response, and most recognizable local features for the selected fidelity tier."
+    ],
+    "minimumSpecDepth": {
+      "macroComponents": 2,
+      "mesoComponents": 3,
+      "microFeatureGroups": 2,
+      "materialLayers": 2,
+      "repetitionSystems": 0,
+      "reviewViewpoints": 3
+    },
+    "featureGroups": [
+      {
+        "id": "overall-silhouette",
+        "name": "Overall silhouette and proportions",
+        "required": true,
+        "qualityCriteria": [
+          "Bounding shape, dominant curves, negative spaces, and scale relationships are explicitly described."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "model reads as a generic placeholder instead of the reference object",
+          "major proportions are guessed without evidence"
+        ]
+      },
+      {
+        "id": "primary-structure",
+        "name": "Primary structure and hierarchy",
+        "required": true,
+        "qualityCriteria": [
+          "Major parts, joints, seams, contact points, and parent-child relationships are named before code generation."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "large visible parts are merged into one mesh",
+          "component hierarchy is too shallow for the observed complexity"
+        ]
+      },
+      {
+        "id": "attachment-joint-correctness",
+        "name": "Attachment and joint correctness",
+        "required": true,
+        "qualityCriteria": [
+          "Every visible child appendage, branch, limb, handle, connector, tube, cable, horn, wing, leg, or hinged part has an attachment contract with parent socket, localStart/localEnd, contact type, embed/overlap, and gap tolerance."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "child part root floats away from the parent",
+          "branch/limb/tube is centered in space instead of pivoting from its root",
+          "parent-child transform mixes world and local coordinates"
+        ]
+      },
+      {
+        "id": "surface-material-response",
+        "name": "Surface material response",
+        "required": true,
+        "qualityCriteria": [
+          "Albedo zones, roughness, normal/bump/displacement intent, cavity dirt, edge wear, and local overrides are specified where visible.",
+          "Important materials define independent albedo, roughness, height/normal, and AO responses instead of reusing one texture for unrelated PBR channels.",
+          "Surface response is decomposed into macro, meso, and micro frequency bands with scale and amplitude tied to object scale."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "surface looks like flat plastic",
+          "local material variation is missing or not tied to image evidence"
+        ]
+      },
+      {
+        "id": "reference-lookdev",
+        "name": "Reference color, material, and lighting response",
+        "required": true,
+        "qualityCriteria": [
+          "Material-pass names the reference-derived albedo palette, roughness variation, tactile normal/bump/displacement response, and local masks.",
+          "When a source image is available, run reference PBR extraction and require confidence >= 0.7 before treating maps as implementation-ready.",
+          "Lighting-pass names key/fill/rim or environment light, exposure, tone mapping, background, and contact shadow behavior.",
+          "Neutral, grazing-angle, and reference-matched renders prove that surface relief survives relighting and is not painted into albedo."
+        ],
+        "evidenceRefs": [
+          "full-object"
+        ],
+        "failureModes": [
+          "model has acceptable shape but reads as flat shaded or plastic",
+          "colors are a generic average instead of reference-observed local color zones",
+          "lighting is evenly ambient and cannot reproduce the source value range"
+        ]
+      }
+    ],
+    "visualDeltaChecks": [
+      "silhouette and negative-space delta",
+      "component hierarchy depth delta",
+      "repetition density and distribution delta",
+      "material albedo/roughness/normal response delta",
+      "local feature placement and scale delta"
+    ],
+    "antiShallowSpecRules": [
+      "Do not proceed to code if qualityContract.qualityBar is unassessed.",
+      "Do not proceed to code if the spec only contains a root component for a moderate or complex object.",
+      "Do not proceed to code if required featureGroups are not represented by componentTree, materials, or repetitionSystems.",
+      "Do not proceed to code if visible local features are described only in prose and not attached to components/materials/evidenceRefs.",
+      "Do not proceed past structural-pass if attached child parts lack attachment.parentSocket, localStart, localEnd, embedDepth/overlap, and gapTolerance.",
+      "Do not pass material look-dev when albedo is reused as roughness, height, normal, or AO.",
+      "Do not pass material look-dev without macro, meso, and micro surface frequency bands for close-up materials.",
+      "Do not pass reference-fidelity material look-dev from a source image without usable referencePbr maps or an explicit documented limitation.",
+      "Do not patch a spec with extracted PBR maps when extraction confidence is below the target threshold unless the user explicitly accepts lower fidelity.",
+      "Do not place adjacent separate-geometry parts below 0.02 world-unit seam overlap (source: grimoire/build/geometry_patterns.md).",
+      "Do not satisfy raised or recessed relief, fasteners, or grip structure with a map alone when the feature affects form; use geometry or displacement (source: grimoire/build/geometry_patterns.md).",
+      "Adjacent components must overlap by at least 0.02 world units at shared seams (source: grimoire/build/geometry_patterns.md).",
+      "Raised or recessed relief and fasteners must be geometry, instanced micro-parts, or displacement; a map alone is an approximation (source: grimoire/build/geometry_patterns.md)."
+    ],
+    "mustNotDo": [
+      "Do not proceed to code if qualityContract.qualityBar is unassessed.",
+      "Do not proceed to code if the spec only contains a root component for a moderate or complex object.",
+      "Do not proceed to code if required featureGroups are not represented by componentTree, materials, or repetitionSystems.",
+      "Do not proceed to code if visible local features are described only in prose and not attached to components/materials/evidenceRefs.",
+      "Do not proceed past structural-pass if attached child parts lack attachment.parentSocket, localStart, localEnd, embedDepth/overlap, and gapTolerance.",
+      "Do not pass material look-dev when albedo is reused as roughness, height, normal, or AO.",
+      "Do not pass material look-dev without macro, meso, and micro surface frequency bands for close-up materials.",
+      "Do not pass reference-fidelity material look-dev from a source image without usable referencePbr maps or an explicit documented limitation.",
+      "Do not patch a spec with extracted PBR maps when extraction confidence is below the target threshold unless the user explicitly accepts lower fidelity.",
+      "Do not place adjacent separate-geometry parts below 0.02 world-unit seam overlap (source: grimoire/build/geometry_patterns.md).",
+      "Do not satisfy raised or recessed relief, fasteners, or grip structure with a map alone when the feature affects form; use geometry or displacement (source: grimoire/build/geometry_patterns.md).",
+      "Adjacent components must overlap by at least 0.02 world units at shared seams (source: grimoire/build/geometry_patterns.md).",
+      "Raised or recessed relief and fasteners must be geometry, instanced micro-parts, or displacement; a map alone is an approximation (source: grimoire/build/geometry_patterns.md)."
+    ]
+  },
+  "qualityTargets": {
+    "targetFidelity": 0.7,
+    "mustMatch": [
+      "macro silhouette and proportions",
+      "primary material albedo/roughness response",
+      "reference-derived PBR material response at or above 0.7 confidence when source pixels are usable",
+      "most recognizable local features"
+    ],
+    "niceToHave": [
+      "micro scratches, stains, chips, and dirt masks",
+      "secondary lighting match"
+    ],
+    "fpsTarget": 60,
+    "reviewViewpoints": [
+      "front",
+      "three-quarter",
+      "side",
+      "thickness-axis",
+      "long-axis"
+    ]
+  },
+  "selfCorrectLoop": {
+    "enabled": true,
+    "visualAcceptance": {
+      "reviewer": "ai-vision",
+      "threshold": 0.7,
+      "comparisonArtifactRequired": true,
+      "layerScoresRequired": true,
+      "codePixelDiffIsAcceptanceAuthority": false,
+      "scoringRule": "AI vision must inspect a side-by-side reference/render sheet and score the current pass from 0 to 1. Pixel-diff code may assist diagnostics but cannot approve a pass.",
+      "requiredLayerScores": [
+        "silhouetteProportion",
+        "componentStructure",
+        "formDetail",
+        "materialSurface",
+        "lightingCamera"
+      ],
+      "featureReviewPolicy": {
+        "enabled": true,
+        "reviewUnit": "semantic-subsystem",
+        "maxCriticalFeaturesPerPass": 5,
+        "maxImportantFeaturesPerPass": 3,
+        "criticalDefaultThreshold": 0.8,
+        "importantAverageThreshold": 0.65,
+        "adaptiveEscalation": true,
+        "singleImagePairOnly": true,
+        "selectionRule": "Choose only the most visually salient, identity-defining, user-prioritized, or high-risk semantic systems. Group repeated parts instead of reviewing every mesh. AI vision scores every selected feature from the same full reference/render pair."
+      }
+    },
+    "reviewAfterPasses": [
+      "blockout",
+      "structural-pass",
+      "form-refinement",
+      "material-pass",
+      "surface-pass",
+      "lighting-pass",
+      "interaction-pass",
+      "optimization-pass"
+    ],
+    "allowedActions": [
+      "continue",
+      "refine-spec",
+      "refine-code",
+      "request-input",
+      "stop"
+    ],
+    "specRefineTriggers": [
+      "missing component",
+      "wrong primitive family",
+      "wrong proportions",
+      "material layer under-specified",
+      "local feature not traceable to viewEvidence",
+      "reference ambiguity discovered during implementation"
+    ],
+    "codeRefineTriggers": [
+      "spec is adequate but generated geometry/material does not match",
+      "browser render differs from reference",
+      "performance budget exceeded",
+      "lighting hides geometry or material response"
+    ],
+    "stopCriteria": [
+      "target fidelity reached or user accepts current approximation",
+      "remaining gaps require new reference images or manual art"
+    ],
+    "screenshotPolicy": {
+      "requiredForPasses": [
+        "blockout",
+        "structural-pass",
+        "form-refinement",
+        "material-pass",
+        "surface-pass",
+        "lighting-pass",
+        "interaction-pass"
+      ],
+      "preferredCapture": "in-app-browser-screenshot",
+      "fallbackCapture": "user-supplied-screenshot-path",
+      "minimumEvidence": "Each visual pass needs a reference image, rendered screenshot, side-by-side comparison sheet, AI vision score, layer scores, and critique before choosing continue.",
+      "reviewPairRule": "Compare the same camera/viewpoint whenever possible; do not judge a front reference against a random render angle.",
+      "acceptanceAuthority": "AI vision review of the comparison sheet. Code-generated pixel similarity is not sufficient evidence."
+    }
+  },
+  "featureReviewTargets": [
+    {
+      "id": "body-stack-ratio",
+      "name": "3-sphere diameter ratio (1.95:1.4:1)",
+      "acceptanceNote": "Measured radii must match ratio within 5%.",
+      "tier": "critical"
+    },
+    {
+      "id": "off-center-face",
+      "name": "Eyes+nose offset toward one lateral side, not centered",
+      "acceptanceNote": "Face must NOT read as front-facing/symmetric.",
+      "tier": "critical"
+    },
+    {
+      "id": "rim-light-halo",
+      "name": "Purple rim-light on body + ambient halo behind figure",
+      "acceptanceNote": "Signature accent color must be present, not a generic white/gray render.",
+      "tier": "critical"
+    },
+    {
+      "id": "scarf-tail-flap",
+      "name": "Scarf hanging tail on one side",
+      "acceptanceNote": "Scarf must not be a plain closed ring with no flap.",
+      "tier": "critical"
+    },
+    {
+      "id": "arm-no-cross",
+      "name": "Straight arms socketed high, angled outward without crossing",
+      "acceptanceNote": "Arms must diverge outward from the socket, never cross in front of the torso.",
+      "tier": "critical"
+    },
+    {
+      "id": "hat-fit",
+      "name": "Top hat brim+crown sized to head, minimal floating gap",
+      "acceptanceNote": "Brim should sit close to the head crown.",
+      "tier": "important"
+    },
+    {
+      "id": "whole-figure-lean",
+      "name": "-7deg whole-body tilt",
+      "acceptanceNote": "Figure should read as slightly leaning, not perfectly upright.",
+      "tier": "important"
+    }
+  ],
+  "sculptPipeline": {
+    "passGateMode": "locked-sequential",
+    "passOrder": [
+      "blockout",
+      "structural-pass",
+      "form-refinement",
+      "material-pass",
+      "surface-pass",
+      "lighting-pass",
+      "interaction-pass",
+      "optimization-pass"
+    ],
+    "currentPass": "structural-pass",
+    "completedPasses": [
+      "blockout"
+    ],
+    "lastCompletedPass": "blockout",
+    "blockedReason": "",
+    "nextRequiredEvidence": [
+      "Macro, meso, and repeated structures meet qualityContract.minimumSpecDepth.",
+      "Parent-child relations, joints, seams, sockets, and contact points are explicit.",
+      "Every attached child appendage/connector has parentSocket, localStart/localEnd, contactType, embedDepth or overlap, and gapTolerance.",
+      "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold.",
+      "attachment contracts for child appendages/connectors",
+      "no floating child roots/joints in the browser screenshot",
+      "browser render screenshot from your agent's browser/screenshot tool",
+      "single side-by-side full reference/render comparison sheet",
+      "all critical semantic feature scores at or above their thresholds",
+      "self-correction review appended with action=continue before the next pass"
+    ]
+  },
+  "lookDevTargets": {
+    "qualityPriority": "reference-fidelity",
+    "materialPass": {
+      "albedoPaletteRequired": true,
+      "roughnessVariationRequired": true,
+      "normalOrBumpRequired": true,
+      "localOverridesRequired": true,
+      "minimumTextureResolution": 1024,
+      "preferredTextureResolution": 2048,
+      "independentMapChannels": [
+        "albedo",
+        "roughness",
+        "height",
+        "normal",
+        "ambient-occlusion"
+      ],
+      "requiredSurfaceFrequencyBands": [
+        "macro",
+        "meso",
+        "micro"
+      ],
+      "geometryReliefRequiredWhenSilhouetteAffected": true,
+      "referencePbrExtraction": {
+        "requiredWhenSourceImagePresent": true,
+        "targetThreshold": 0.7,
+        "stopOnLowConfidence": true,
+        "script": "forge/stage1_intake/extract_pbr_evidence.py",
+        "acceptedLimitation": "single-image extraction is reference-derived inference, not exact photogrammetry"
+      },
+      "mustAvoid": [
+        "single flat albedo per material",
+        "uniform roughness",
+        "albedo texture reused as roughness/height/normal/AO",
+        "single-frequency random noise",
+        "plastic-looking smooth bark, stone, cloth, foliage, or aged material",
+        "local color/detail described only in prose without material masks",
+        "claiming exact PBR recovery when confidence is below the target threshold"
+      ]
+    },
+    "lightingPass": {
+      "requiredTerms": [
+        "key light",
+        "fill light",
+        "rim or environment light",
+        "exposure",
+        "tone mapping",
+        "background",
+        "contact shadow"
+      ],
+      "mustAvoid": [
+        "ambient-only lighting",
+        "flat value range",
+        "missing contact shadow",
+        "reference lighting copied without separating material readability"
+      ]
+    },
+    "screenshotReview": [
+      "Compare albedo palette and local color zones.",
+      "Compare roughness/normal/bump response under light.",
+      "Compare cavity dirt, edge wear, stains, moss, scratches, or other local masks.",
+      "Compare key/fill/rim structure, exposure, tone mapping, background, and contact shadows.",
+      "Capture a neutral-light render to verify material readability without reference lighting.",
+      "Capture a grazing-light close-up to expose flat normals, uniform roughness, tiling, and plastic highlights.",
+      "Capture a reference-matched render from the same camera framing as the source."
+    ]
+  },
+  "actionReadiness": {
+    "contract": "Every macro/meso component should be generated as a stable named Object3D pivot node with a mesh child, action metadata, optional sockets, collider proxy, and destruction metadata.",
+    "defaultRigType": "action-ready-static-rig",
+    "rootMotionNode": "root",
+    "requiredComponentFields": [
+      "id",
+      "parent",
+      "transform",
+      "attachment for child appendages, connectors, limbs, tubes, handles, legs, horns, wings, branches, or cables",
+      "actionProfile.animationRole",
+      "actionProfile.pivot",
+      "actionProfile.collider",
+      "actionProfile.destruction"
+    ],
+    "transformChannels": [
+      "translate",
+      "rotate",
+      "scale",
+      "bend",
+      "twist",
+      "detach",
+      "visibility",
+      "material-state"
+    ],
+    "authoringRules": [
+      "Do not collapse independently movable parts into one mesh.",
+      "Put transforms on component pivot groups, not only on raw meshes.",
+      "For attached child parts, put the pivot at the semantic root/socket and build visible geometry from localStart to localEnd.",
+      "Represent hinge, socket, detachable, and breakable intent even when no animation is implemented yet.",
+      "Use simplified collider proxies for runtime physics instead of visual mesh colliders by default."
+    ],
+    "destructionPolicy": {
+      "defaultBreakable": false,
+      "fractureGroupNaming": "Use stable semantic names such as body-shell, left-hinge, glass-panel, branch-segment.",
+      "debrisStrategy": "Prefer detachable component groups and a small number of procedural fragments over random mesh explosion."
+    }
+  },
+  "assumptions": [
+    "Rear/back geometry is authored as a continuation of the same material and radius as the visible front (no separate back reference view exists).",
+    "The reference image's implied lighting (soft key + purple rim + ambient halo) is treated as the target look-dev, not just documentation -- the generated scene should include matching lights."
+  ],
+  "coordinateFrame": {
+    "front": "+Z (camera-facing side in the reference image)",
+    "up": "+Y",
+    "scaleReference": "1 world unit = 14.05rem of the original CSS source; total figure height ~2.0 units"
+  },
+  "silhouette": {
+    "boundingShape": "three stacked spheres of decreasing radius (1.95:1.4:1 ratio) forming a tapered snowman profile",
+    "aspectRatios": [
+      "bottom:middle:head diameter = 1.95:1.4:1",
+      "whole-figure height:head-diameter ~= 3.7:1"
+    ],
+    "symmetry": "bilateral on body/arms; face (eyes+nose) deliberately asymmetric, offset toward one lateral side",
+    "dominantCurves": [
+      "three convex sphere arcs stacked vertically",
+      "flat hat brim disc breaking the curve at the crown",
+      "domed scarf top edge"
+    ],
+    "negativeSpaces": [
+      "gap between each arm and the torso silhouette",
+      "gap under the hat brim overhang"
+    ],
+    "landmarks": [
+      "hat crown apex",
+      "scarf seam line (head/middle sphere join)",
+      "shoulder arm-socket points",
+      "ground contact point at the base of bodyBottom"
+    ]
+  },
+  "viewEvidence": [
+    {
+      "id": "full-object",
+      "view": "primary",
+      "imageRegion": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 1.0,
+        "height": 1.0,
+        "units": "normalized"
+      },
+      "observations": [
+        "Three-tier stacked-sphere body, ratio 1.95:1.4:1, cool-white radial gradient with lavender rim-light.",
+        "Near-black top hat (brim + crown) sized to the head.",
+        "Purple satin scarf band with a hanging tail flap at the neck seam.",
+        "Two eyes + orange nose offset toward the same lateral side of the head.",
+        "Two straight stick arms, brown gradient, socketed high on the middle sphere, symmetric mirror pair.",
+        "3-button vertical row on the middle sphere front.",
+        "Whole figure leans -7deg off vertical.",
+        "Soft purple ambient halo glow behind the figure; not part of the object's own geometry."
+      ],
+      "confidence": 0.9
+    },
+    {
+      "id": "zone-r0c0",
+      "view": "grid-zone",
+      "imageRegion": {
+        "x": 0.0,
+        "y": 0.0,
+        "width": 0.3333333333333333,
+        "height": 0.3333333333333333,
+        "units": "normalized"
+      },
+      "observations": [],
+      "confidence": 0.85
+    },
+    {
+      "id": "zone-r0c1",
+      "view": "grid-zone",
+      "imageRegion": {
+        "x": 0.3333333333333333,
+        "y": 0.0,
+        "width": 0.3333333333333333,
+        "height": 0.3333333333333333,
+        "units": "normalized"
+      },
+      "observations": [],
+      "confidence": 0.85
+    },
+    {
+      "id": "zone-r0c2",
+      "view": "grid-zone",
+      "imageRegion": {
+        "x": 0.6666666666666666,
+        "y": 0.0,
+        "width": 0.3333333333333333,
+        "height": 0.3333333333333333,
+        "units": "normalized"
+      },
+      "observations": [],
+      "confidence": 0.85
+    },
+    {
+      "id": "zone-r1c0",
+      "view": "grid-zone",
+      "imageRegion": {
+        "x": 0.0,
+        "y": 0.3333333333333333,
+        "width": 0.3333333333333333,
+        "height": 0.3333333333333333,
+        "units": "normalized"
+      },
+      "observations": [],
+      "confidence": 0.85
+    },
+    {
+      "id": "zone-r1c1",
+      "view": "grid-zone",
+      "imageRegion": {
+        "x": 0.3333333333333333,
+        "y": 0.3333333333333333,
+        "width": 0.3333333333333333,
+        "height": 0.3333333333333333,
+        "units": "normalized"
+      },
+      "observations": [],
+      "confidence": 0.85
+    },
+    {
+      "id": "zone-r1c2",
+      "view": "grid-zone",
+      "imageRegion": {
+        "x": 0.6666666666666666,
+        "y": 0.3333333333333333,
+        "width": 0.3333333333333333,
+        "height": 0.3333333333333333,
+        "units": "normalized"
+      },
+      "observations": [],
+      "confidence": 0.85
+    },
+    {
+      "id": "zone-r2c0",
+      "view": "grid-zone",
+      "imageRegion": {
+        "x": 0.0,
+        "y": 0.6666666666666666,
+        "width": 0.3333333333333333,
+        "height": 0.3333333333333333,
+        "units": "normalized"
+      },
+      "observations": [],
+      "confidence": 0.85
+    },
+    {
+      "id": "zone-r2c1",
+      "view": "grid-zone",
+      "imageRegion": {
+        "x": 0.3333333333333333,
+        "y": 0.6666666666666666,
+        "width": 0.3333333333333333,
+        "height": 0.3333333333333333,
+        "units": "normalized"
+      },
+      "observations": [],
+      "confidence": 0.85
+    },
+    {
+      "id": "zone-r2c2",
+      "view": "grid-zone",
+      "imageRegion": {
+        "x": 0.6666666666666666,
+        "y": 0.6666666666666666,
+        "width": 0.3333333333333333,
+        "height": 0.3333333333333333,
+        "units": "normalized"
+      },
+      "observations": [],
+      "confidence": 0.85
+    }
+  ],
+  "componentTree": [
+    {
+      "id": "root",
+      "name": "Stylized Snowman Figure (root)",
+      "level": "macro",
+      "role": "body",
+      "importance": 1.0,
+      "confidence": 0.95,
+      "primitive": "box",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "Rigid multi-primitive assembly; root is a pure transform group, not a mesh.",
+      "geometryDescriptor": {
+        "topologyIntent": "non-rendered bounding container / transform group only",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": null,
+      "attachment": null,
+      "dimensions": {
+        "width": 0.001,
+        "height": 0.001,
+        "depth": 0.001,
+        "units": "world",
+        "confidence": 0.95
+      },
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.1222
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "root",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.95
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "base"
+        }
+      },
+      "material": "bodySnow",
+      "materialLayers": [
+        "bodySnow"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": "Whole-figure -7deg screen-plane tilt is a confirmed CSS transform, mapped to root rotation.z."
+      },
+      "evidenceRefs": [
+        "full-object"
+      ],
+      "details": [],
+      "fidelityTier": "structure",
+      "colorMaterialRecipe": {
+        "materialClass": "unknown",
+        "materialClassConfidence": 1.0,
+        "dominantAlbedo": "rgba(128, 128, 128, 1.0)",
+        "secondaryAlbedo": "rgba(128, 128, 128, 1.0)"
+      }
+    },
+    {
+      "id": "bodyBottom",
+      "name": "Body — bottom sphere",
+      "level": "macro",
+      "role": "body",
+      "importance": 1.0,
+      "confidence": 0.95,
+      "primitive": "sphere",
+      "topologyClass": "continuous-sculpt",
+      "topologyRationale": "Largest of the three stacked spheres; continuous rounded volume, not a faceted primitive read.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "root",
+      "attachment": null,
+      "dimensions": {
+        "radius": 0.5267,
+        "units": "world",
+        "confidence": 0.95,
+        "height": 1.0534,
+        "width": 1.0534,
+        "depth": 1.0534
+      },
+      "transform": {
+        "position": [
+          0,
+          0.5267,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "detachable",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.95
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": true,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "sphere",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": true,
+          "fractureGroup": "melt-scatter",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "bodySnow"
+        }
+      },
+      "material": "bodySnow",
+      "materialLayers": [
+        "bodySnow"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": "Confirmed diameter ratio bottom:head = 1.95:1 (14.8rem:7.6rem)."
+      },
+      "evidenceRefs": [
+        "zone-r2c1"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.95,
+        "colorGradient": {
+          "type": "radial",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(255, 255, 255, 1.0)"
+            },
+            {
+              "position": 0.55,
+              "color": "rgba(230, 235, 241, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(195, 204, 214, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(255, 255, 255, 1.0)",
+        "secondaryAlbedo": "rgba(195, 204, 214, 1.0)"
+      }
+    },
+    {
+      "id": "bodyMiddle",
+      "name": "Body — middle sphere",
+      "level": "macro",
+      "role": "body",
+      "importance": 1.0,
+      "confidence": 0.95,
+      "primitive": "sphere",
+      "topologyClass": "continuous-sculpt",
+      "topologyRationale": "Mid-tier stacked sphere, overlaps bodyBottom at the seam.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "root",
+      "attachment": {
+        "parentSocket": "bodyBottom.top",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          0.5267,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.8541,
+          0
+        ],
+        "embedDepth": 0.1495,
+        "gapTolerance": 0.0
+      },
+      "dimensions": {
+        "radius": 0.3772,
+        "units": "world",
+        "confidence": 0.95,
+        "height": 0.7544,
+        "width": 0.7544,
+        "depth": 0.7544
+      },
+      "transform": {
+        "position": [
+          0,
+          1.2313,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "detachable",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.95
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": true,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "sphere",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": true,
+          "fractureGroup": "melt-scatter",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "bodySnow"
+        }
+      },
+      "material": "bodySnow",
+      "materialLayers": [
+        "bodySnow"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": "Confirmed diameter ratio middle:head = 1.4:1 (10.6rem:7.6rem); bottom-offset 12rem from ground."
+      },
+      "evidenceRefs": [
+        "zone-r2c1",
+        "zone-r1c1"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.95,
+        "colorGradient": {
+          "type": "radial",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(255, 255, 255, 1.0)"
+            },
+            {
+              "position": 0.55,
+              "color": "rgba(230, 235, 241, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(195, 204, 214, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(255, 255, 255, 1.0)",
+        "secondaryAlbedo": "rgba(195, 204, 214, 1.0)"
+      }
+    },
+    {
+      "id": "head",
+      "name": "Head sphere",
+      "level": "macro",
+      "role": "body",
+      "importance": 1.0,
+      "confidence": 0.95,
+      "primitive": "sphere",
+      "topologyClass": "continuous-sculpt",
+      "topologyRationale": "Smallest stacked sphere, carries hat/scarf/face sub-assemblies as children.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "root",
+      "attachment": {
+        "parentSocket": "bodyMiddle.top",
+        "contactType": "overlap",
+        "localStart": [
+          0,
+          1.2313,
+          0
+        ],
+        "localEnd": [
+          0,
+          1.4591,
+          0
+        ],
+        "embedDepth": 0.1068,
+        "gapTolerance": 0.0
+      },
+      "dimensions": {
+        "radius": 0.2705,
+        "units": "world",
+        "confidence": 0.95,
+        "height": 0.541,
+        "width": 0.541,
+        "depth": 0.541
+      },
+      "transform": {
+        "position": [
+          0,
+          1.7295,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "detachable",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.95
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": true,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "sphere",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": true,
+          "fractureGroup": "melt-scatter",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "bodySnow"
+        }
+      },
+      "material": "bodySnow",
+      "materialLayers": [
+        "bodySnow"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": "Reference diameter 7.6rem, the unit against which all other proportions are ratioed."
+      },
+      "evidenceRefs": [
+        "zone-r1c1"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.95,
+        "colorGradient": {
+          "type": "radial",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(255, 255, 255, 1.0)"
+            },
+            {
+              "position": 0.55,
+              "color": "rgba(230, 235, 241, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(195, 204, 214, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(255, 255, 255, 1.0)",
+        "secondaryAlbedo": "rgba(195, 204, 214, 1.0)"
+      }
+    },
+    {
+      "id": "hatBrim",
+      "name": "Hat brim",
+      "level": "meso",
+      "role": "sub-assembly",
+      "importance": 0.8,
+      "confidence": 0.9,
+      "primitive": "cylinder",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "Flat wide disc, overhangs the head silhouette on both sides -- a hard-surface flat primitive, not organic.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "head",
+      "attachment": {
+        "parentSocket": "head.top",
+        "contactType": "flush-with",
+        "localStart": [
+          0,
+          0.2136,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.2136,
+          0
+        ],
+        "embedDepth": 0.0285,
+        "gapTolerance": 0.0
+      },
+      "dimensions": {
+        "radius": 0.2704,
+        "height": 0.0641,
+        "units": "world",
+        "confidence": 0.9
+      },
+      "transform": {
+        "position": [
+          0,
+          0.242,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.0698
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "detachable",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.9
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": true,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": true,
+          "fractureGroup": "melt-scatter",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "hatDark"
+        }
+      },
+      "material": "hatDark",
+      "materialLayers": [
+        "hatDark"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": "Brim width 7.6rem = matches head diameter exactly (overhang reads at the very silhouette edge)."
+      },
+      "evidenceRefs": [
+        "zone-r0c1",
+        "zone-r1c1"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.9,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(42, 45, 51, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(23, 25, 28, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(42, 45, 51, 1.0)",
+        "secondaryAlbedo": "rgba(23, 25, 28, 1.0)"
+      }
+    },
+    {
+      "id": "hatTop",
+      "name": "Hat crown (top cylinder)",
+      "level": "meso",
+      "role": "sub-assembly",
+      "importance": 0.7,
+      "confidence": 0.9,
+      "primitive": "cylinder",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "Tall narrow cylinder sitting on the brim.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "head",
+      "attachment": {
+        "parentSocket": "hatBrim.top",
+        "contactType": "flush-with",
+        "localStart": [
+          0,
+          0.242,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.242,
+          0
+        ],
+        "embedDepth": 0.0214,
+        "gapTolerance": 0.0
+      },
+      "dimensions": {
+        "radius": 0.1744,
+        "height": 0.2277,
+        "units": "world",
+        "confidence": 0.9
+      },
+      "transform": {
+        "position": [
+          0,
+          0.3986,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.0698
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "detachable",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.9
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": true,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": true,
+          "fractureGroup": "melt-scatter",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "hatCrown"
+        }
+      },
+      "material": "hatCrown",
+      "materialLayers": [
+        "hatCrown"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": "Crown reads marginally lighter/bluer than brim per confirmed CSS gradient stops."
+      },
+      "evidenceRefs": [
+        "zone-r0c1"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.9,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(51, 54, 61, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(27, 29, 33, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(51, 54, 61, 1.0)",
+        "secondaryAlbedo": "rgba(27, 29, 33, 1.0)"
+      }
+    },
+    {
+      "id": "scarfBand",
+      "name": "Scarf band",
+      "level": "meso",
+      "role": "sub-assembly",
+      "importance": 0.85,
+      "confidence": 0.85,
+      "primitive": "capsule",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Curved band wrapping the head/bodyMiddle seam; domed top edge, near-flat hem -- a capsule/rounded-box hybrid, not a torus (it does not fully encircle at uniform radius).",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "head",
+      "attachment": {
+        "parentSocket": "head-bodyMiddle.seam",
+        "contactType": "embed",
+        "localStart": [
+          0,
+          -0.064,
+          0
+        ],
+        "localEnd": [
+          0,
+          -0.064,
+          0
+        ],
+        "embedDepth": 0.0641,
+        "gapTolerance": 0.0
+      },
+      "dimensions": {
+        "width": 0.6121,
+        "height": 0.121,
+        "depth": 0.2491,
+        "units": "world",
+        "confidence": 0.85
+      },
+      "transform": {
+        "position": [
+          0,
+          -0.064,
+          0.1779
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.85
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "scarfAccent"
+        }
+      },
+      "material": "scarfAccent",
+      "materialLayers": [
+        "scarfAccent"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [
+        "domed-top-edge (border-radius 2.3rem confirmed)",
+        "near-flat hem (border-radius 4px confirmed)"
+      ],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": "Vertical gradient lighter-top-to-darker-hem confirmed from CSS linear-gradient(180deg,...)."
+      },
+      "evidenceRefs": [
+        "zone-r1c1"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "materialClass": "fabric",
+        "materialClassConfidence": 0.9,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(194, 164, 255, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(127, 64, 255, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(194, 164, 255, 1.0)",
+        "secondaryAlbedo": "rgba(127, 64, 255, 1.0)"
+      }
+    },
+    {
+      "id": "scarfTail",
+      "name": "Scarf hanging tail flap",
+      "level": "micro",
+      "role": "detail",
+      "importance": 0.5,
+      "confidence": 0.85,
+      "primitive": "box",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "Small flat rectangular flap hanging from the scarf's distal-lateral edge, free-hanging (not touching the body).",
+      "geometryDescriptor": {
+        "topologyIntent": "low-poly blockout with bevel-ready edges",
+        "edgeTreatment": {
+          "type": "bevel",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "scarfBand",
+      "attachment": {
+        "parentSocket": "scarfBand.lateralEdge",
+        "contactType": "attached-to",
+        "localStart": [
+          0.1423,
+          -0.0143,
+          -0.1779
+        ],
+        "localEnd": [
+          0.1423,
+          -0.1993,
+          -0.1779
+        ],
+        "embedDepth": 0.0142,
+        "gapTolerance": 0.0071
+      },
+      "dimensions": {
+        "width": 0.0712,
+        "height": 0.1851,
+        "depth": 0.0285,
+        "units": "world",
+        "confidence": 0.85
+      },
+      "transform": {
+        "position": [
+          0.1423,
+          -0.0997,
+          0.0214
+        ],
+        "rotation": [
+          0,
+          0,
+          0.157
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.85
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "scarfAccent"
+        }
+      },
+      "material": "scarfAccent",
+      "materialLayers": [
+        "scarfAccent"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone-r1c1"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "materialClass": "fabric",
+        "materialClassConfidence": 0.85,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(194, 164, 255, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(127, 64, 255, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(194, 164, 255, 1.0)",
+        "secondaryAlbedo": "rgba(127, 64, 255, 1.0)"
+      }
+    },
+    {
+      "id": "eyeLeft",
+      "name": "Eye mark (proximal, closer to center)",
+      "level": "micro",
+      "role": "detail",
+      "importance": 0.9,
+      "confidence": 0.9,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Flat applied circular mark conforming to the head's surface -- confirmed from the CSS source as a 2D border-radius circle with an inset box-shadow highlight, not a carved depth cavity. A plane-card decal is the faithful representation; a real SDF-subtract socket would add a physical dent the reference does not show.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "head",
+      "attachment": {
+        "parentSocket": "head.front",
+        "contactType": "flush-with",
+        "localStart": [
+          0,
+          -1.7295,
+          0
+        ],
+        "localEnd": [
+          0,
+          -1.7295,
+          0
+        ],
+        "embedDepth": 0.0214,
+        "gapTolerance": 0.0
+      },
+      "dimensions": {
+        "width": 0.0996,
+        "height": 0.0996,
+        "depth": 0.02,
+        "units": "world",
+        "confidence": 0.9
+      },
+      "transform": {
+        "position": [
+          -0.0356,
+          0.0427,
+          0.2278
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.9
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "sphere",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "darkAccent"
+        }
+      },
+      "material": "darkAccent",
+      "materialLayers": [
+        "darkAccent"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": "Both eyes offset toward the same lateral side of the head -- reads as a turned/three-quarter face, not centered."
+      },
+      "evidenceRefs": [
+        "zone-r1c1"
+      ],
+      "details": [],
+      "fidelityTier": "micro",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.85,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(26, 26, 26, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(26, 26, 26, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(26, 26, 26, 1.0)",
+        "secondaryAlbedo": "rgba(26, 26, 26, 1.0)"
+      }
+    },
+    {
+      "id": "eyeRight",
+      "name": "Eye mark (distal, further from center)",
+      "level": "micro",
+      "role": "detail",
+      "importance": 0.9,
+      "confidence": 0.9,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Flat applied circular mark conforming to the head's surface -- confirmed from the CSS source as a 2D border-radius circle with an inset box-shadow highlight, not a carved depth cavity. A plane-card decal is the faithful representation; a real SDF-subtract socket would add a physical dent the reference does not show.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "head",
+      "attachment": {
+        "parentSocket": "head.front",
+        "contactType": "flush-with",
+        "localStart": [
+          0,
+          -1.7295,
+          0
+        ],
+        "localEnd": [
+          0,
+          -1.7295,
+          0
+        ],
+        "embedDepth": 0.0214,
+        "gapTolerance": 0.0
+      },
+      "dimensions": {
+        "width": 0.0996,
+        "height": 0.0996,
+        "depth": 0.02,
+        "units": "world",
+        "confidence": 0.9
+      },
+      "transform": {
+        "position": [
+          0.0783,
+          0.0427,
+          0.2278
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.9
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "sphere",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "darkAccent"
+        }
+      },
+      "material": "darkAccent",
+      "materialLayers": [
+        "darkAccent"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone-r1c1"
+      ],
+      "details": [],
+      "fidelityTier": "micro",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.85,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(26, 26, 26, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(26, 26, 26, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(26, 26, 26, 1.0)",
+        "secondaryAlbedo": "rgba(26, 26, 26, 1.0)"
+      }
+    },
+    {
+      "id": "pupilLeft",
+      "name": "Pupil highlight (left eye)",
+      "level": "micro",
+      "role": "detail",
+      "importance": 0.3,
+      "confidence": 0.8,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Small flat gloss-highlight decal on top of the eye mark, conforming to the same surface.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "eyeLeft",
+      "attachment": null,
+      "dimensions": {
+        "width": 0.027,
+        "height": 0.027,
+        "depth": 0.01,
+        "units": "world",
+        "confidence": 0.8
+      },
+      "transform": {
+        "position": [
+          0.0071,
+          0.0072,
+          0.0284
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.8
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "sphere",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "pupilLight"
+        }
+      },
+      "material": "pupilLight",
+      "materialLayers": [
+        "pupilLight"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone-r1c1"
+      ],
+      "details": [],
+      "fidelityTier": "micro",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.8,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(234, 229, 236, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(234, 229, 236, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(234, 229, 236, 1.0)",
+        "secondaryAlbedo": "rgba(234, 229, 236, 1.0)"
+      }
+    },
+    {
+      "id": "pupilRight",
+      "name": "Pupil highlight (right eye)",
+      "level": "micro",
+      "role": "detail",
+      "importance": 0.3,
+      "confidence": 0.8,
+      "primitive": "plane-card",
+      "topologyClass": "conforming-shell",
+      "topologyRationale": "Small flat gloss-highlight decal on top of the eye mark, conforming to the same surface.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "eyeRight",
+      "attachment": null,
+      "dimensions": {
+        "width": 0.027,
+        "height": 0.027,
+        "depth": 0.01,
+        "units": "world",
+        "confidence": 0.8
+      },
+      "transform": {
+        "position": [
+          0.0071,
+          0.0072,
+          0.0284
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.8
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "sphere",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "pupilLight"
+        }
+      },
+      "material": "pupilLight",
+      "materialLayers": [
+        "pupilLight"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone-r1c1"
+      ],
+      "details": [],
+      "fidelityTier": "micro",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.8,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(234, 229, 236, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(234, 229, 236, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(234, 229, 236, 1.0)",
+        "secondaryAlbedo": "rgba(234, 229, 236, 1.0)"
+      }
+    },
+    {
+      "id": "nose",
+      "name": "Nose (carrot-style cone)",
+      "level": "micro",
+      "role": "detail",
+      "importance": 0.6,
+      "confidence": 0.85,
+      "primitive": "cone",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "Small saturated-orange cone/triangular wedge, positioned between and slightly below the eyes, pointing away from the face -- reinforces the turned-head read.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "head",
+      "attachment": {
+        "parentSocket": "head.front",
+        "contactType": "embedded-in",
+        "localStart": [
+          0,
+          -1.7295,
+          0
+        ],
+        "localEnd": [
+          0,
+          -1.7295,
+          0
+        ],
+        "embedDepth": 0.0071,
+        "gapTolerance": 0.0
+      },
+      "dimensions": {
+        "radius": 0.0356,
+        "height": 0.0818,
+        "units": "world",
+        "confidence": 0.85
+      },
+      "transform": {
+        "position": [
+          0.0214,
+          0.0214,
+          0.242
+        ],
+        "rotation": [
+          0,
+          0,
+          -1.5708
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.85
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "noseOrange"
+        }
+      },
+      "material": "noseOrange",
+      "materialLayers": [
+        "noseOrange"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone-r1c1"
+      ],
+      "details": [],
+      "fidelityTier": "micro",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.85,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(232, 121, 46, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(232, 121, 46, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(232, 121, 46, 1.0)",
+        "secondaryAlbedo": "rgba(232, 121, 46, 1.0)"
+      }
+    },
+    {
+      "id": "button1",
+      "name": "Coal button (top)",
+      "level": "micro",
+      "role": "detail",
+      "importance": 0.4,
+      "confidence": 0.85,
+      "primitive": "sphere",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "First of 3 small dark spheres in a vertical row on the middle sphere's front.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "bodyMiddle",
+      "attachment": {
+        "parentSocket": "bodyMiddle.front",
+        "contactType": "embedded-in",
+        "localStart": [
+          0,
+          -1.2313,
+          0
+        ],
+        "localEnd": [
+          0,
+          -1.2313,
+          0
+        ],
+        "embedDepth": 0.0107,
+        "gapTolerance": 0.0
+      },
+      "dimensions": {
+        "radius": 0.0302,
+        "units": "world",
+        "confidence": 0.85,
+        "height": 0.0604,
+        "width": 0.0604,
+        "depth": 0.0604
+      },
+      "transform": {
+        "position": [
+          0.0854,
+          0.1566,
+          0.3345
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.85
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "sphere",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "darkAccent"
+        }
+      },
+      "material": "darkAccent",
+      "materialLayers": [
+        "darkAccent"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone-r2c1"
+      ],
+      "details": [],
+      "fidelityTier": "micro",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.8,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(26, 26, 26, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(26, 26, 26, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(26, 26, 26, 1.0)",
+        "secondaryAlbedo": "rgba(26, 26, 26, 1.0)"
+      }
+    },
+    {
+      "id": "armLeft",
+      "name": "Arm (proximal side, socketed at shoulder)",
+      "level": "macro",
+      "role": "body",
+      "importance": 0.7,
+      "confidence": 0.85,
+      "primitive": "capsule",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "Straight rigid stick, no elbow joint, socketed high on bodyMiddle's upper-lateral surface, angled outward-down.",
+      "geometryDescriptor": {
+        "topologyIntent": "low-poly blockout with bevel-ready edges",
+        "edgeTreatment": {
+          "type": "bevel",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "bodyMiddle",
+      "attachment": {
+        "parentSocket": "bodyMiddle.upperLateral",
+        "contactType": "socket",
+        "localStart": [
+          -0.4199,
+          0.3132,
+          0
+        ],
+        "localEnd": [
+          -0.4911,
+          -0.1139,
+          0
+        ],
+        "embedDepth": 0.0214,
+        "gapTolerance": 0.0,
+        "baseRadius": 0.032,
+        "endRadius": 0.02
+      },
+      "dimensions": {
+        "radius": 0.032,
+        "length": 0.427,
+        "units": "world",
+        "confidence": 0.85
+      },
+      "transform": {
+        "position": [
+          -0.4911,
+          0.1993,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          -0.4189
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "detachable",
+        "pivot": {
+          "mode": "custom",
+          "localPosition": [
+            -0.4199,
+            1.5445,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.85
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": true,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [
+          {
+            "id": "shoulderSocket",
+            "localPosition": [
+              -0.4199,
+              1.5445,
+              0
+            ]
+          }
+        ],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": true,
+          "fractureGroup": "melt-scatter",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "armWood"
+        }
+      },
+      "material": "armWood",
+      "materialLayers": [
+        "armWood"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": "Chirality: armRight is the mirror (x -> -x) of this component, not an independent rotation -- both share angle magnitude 24deg."
+      },
+      "evidenceRefs": [
+        "zone-r1c0"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "materialClass": "wood",
+        "materialClassConfidence": 0.9,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(138, 98, 56, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(107, 74, 41, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(138, 98, 56, 1.0)",
+        "secondaryAlbedo": "rgba(107, 74, 41, 1.0)"
+      }
+    },
+    {
+      "id": "armRight",
+      "name": "Arm (distal side, mirror of armLeft)",
+      "level": "macro",
+      "role": "body",
+      "importance": 0.7,
+      "confidence": 0.85,
+      "primitive": "capsule",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "Mirror of armLeft: (x,y,z) -> (-x,y,z), triangle winding flipped to keep correct lighting.",
+      "geometryDescriptor": {
+        "topologyIntent": "low-poly blockout with bevel-ready edges",
+        "edgeTreatment": {
+          "type": "bevel",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "bodyMiddle",
+      "attachment": {
+        "parentSocket": "bodyMiddle.upperLateral",
+        "contactType": "socket",
+        "localStart": [
+          0.4199,
+          0.3132,
+          0
+        ],
+        "localEnd": [
+          0.4911,
+          -0.1139,
+          0
+        ],
+        "embedDepth": 0.0214,
+        "gapTolerance": 0.0,
+        "baseRadius": 0.032,
+        "endRadius": 0.02
+      },
+      "dimensions": {
+        "radius": 0.032,
+        "length": 0.427,
+        "units": "world",
+        "confidence": 0.85
+      },
+      "transform": {
+        "position": [
+          0.4911,
+          0.1993,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0.4189
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "detachable",
+        "pivot": {
+          "mode": "custom",
+          "localPosition": [
+            0.4199,
+            1.5445,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.85
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": true,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [
+          {
+            "id": "shoulderSocket",
+            "localPosition": [
+              0.4199,
+              1.5445,
+              0
+            ]
+          }
+        ],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": true,
+          "fractureGroup": "melt-scatter",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "armWood"
+        }
+      },
+      "material": "armWood",
+      "materialLayers": [
+        "armWood"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone-r1c2"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "materialClass": "wood",
+        "materialClassConfidence": 0.9,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(138, 98, 56, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(107, 74, 41, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(138, 98, 56, 1.0)",
+        "secondaryAlbedo": "rgba(107, 74, 41, 1.0)"
+      }
+    },
+    {
+      "id": "groundShadow",
+      "name": "Ground contact shadow",
+      "level": "macro",
+      "role": "body",
+      "importance": 0.3,
+      "confidence": 0.7,
+      "primitive": "cylinder",
+      "topologyClass": "material-only",
+      "topologyRationale": "Flat, blurred, near-transparent dark ellipse on the ground plane beneath bodyBottom -- not a raised part.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "root",
+      "attachment": {
+        "parentSocket": "bodyBottom.groundContact",
+        "contactType": "below",
+        "localStart": [
+          0,
+          0,
+          0
+        ],
+        "localEnd": [
+          0,
+          0.05,
+          0
+        ],
+        "embedDepth": 0.01,
+        "gapTolerance": 0.0
+      },
+      "dimensions": {
+        "radiusTop": 0.516,
+        "radiusBottom": 0.516,
+        "height": 0.0036,
+        "units": "world",
+        "confidence": 0.7
+      },
+      "transform": {
+        "position": [
+          0,
+          0.0036,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.7
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "box",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "darkAccent"
+        }
+      },
+      "material": "darkAccent",
+      "materialLayers": [
+        "darkAccent"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": "Rendered as a flat radial-gradient-alpha disc (or a soft shadow-catcher plane), not solid geometry with the darkAccent material's normal roughness/gloss -- opacity fades to 0 at the rim."
+      },
+      "evidenceRefs": [
+        "zone-r2c1"
+      ],
+      "details": [],
+      "fidelityTier": "form",
+      "colorMaterialRecipe": {
+        "materialClass": "unknown",
+        "materialClassConfidence": 0.7,
+        "colorGradient": {
+          "type": "radial",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(0, 0, 0, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(0, 0, 0, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(0, 0, 0, 1.0)",
+        "secondaryAlbedo": "rgba(0, 0, 0, 1.0)"
+      }
+    },
+    {
+      "id": "button2",
+      "name": "Coal button (middle)",
+      "level": "micro",
+      "role": "detail",
+      "importance": 0.4,
+      "confidence": 0.85,
+      "primitive": "sphere",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "First of 3 small dark spheres in a vertical row on the middle sphere's front.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "bodyMiddle",
+      "attachment": {
+        "parentSocket": "bodyMiddle.front",
+        "contactType": "embedded-in",
+        "localStart": [
+          0,
+          -1.2313,
+          0
+        ],
+        "localEnd": [
+          0,
+          -1.2313,
+          0
+        ],
+        "embedDepth": 0.0107,
+        "gapTolerance": 0.0
+      },
+      "dimensions": {
+        "radius": 0.0302,
+        "units": "world",
+        "confidence": 0.85,
+        "height": 0.0604,
+        "width": 0.0604,
+        "depth": 0.0604
+      },
+      "transform": {
+        "position": [
+          0.0854,
+          -0.0308,
+          0.3345
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.85
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "sphere",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "darkAccent"
+        }
+      },
+      "material": "darkAccent",
+      "materialLayers": [
+        "darkAccent"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone-r2c1"
+      ],
+      "details": [],
+      "fidelityTier": "micro",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.8,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(26, 26, 26, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(26, 26, 26, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(26, 26, 26, 1.0)",
+        "secondaryAlbedo": "rgba(26, 26, 26, 1.0)"
+      }
+    },
+    {
+      "id": "button3",
+      "name": "Coal button (bottom)",
+      "level": "micro",
+      "role": "detail",
+      "importance": 0.4,
+      "confidence": 0.85,
+      "primitive": "sphere",
+      "topologyClass": "assembled-solid",
+      "topologyRationale": "First of 3 small dark spheres in a vertical row on the middle sphere's front.",
+      "geometryDescriptor": {
+        "topologyIntent": "smooth continuous surface, standard tessellation",
+        "edgeTreatment": {
+          "type": "rounded",
+          "bevelRadius": 0.01,
+          "segments": 2
+        },
+        "deformationStack": [],
+        "uvStrategy": "generated procedural coordinates",
+        "normalStrategy": "vertex normals from generated geometry"
+      },
+      "parent": "bodyMiddle",
+      "attachment": {
+        "parentSocket": "bodyMiddle.front",
+        "contactType": "embedded-in",
+        "localStart": [
+          0,
+          -1.2313,
+          0
+        ],
+        "localEnd": [
+          0,
+          -1.2313,
+          0
+        ],
+        "embedDepth": 0.0107,
+        "gapTolerance": 0.0
+      },
+      "dimensions": {
+        "radius": 0.0302,
+        "units": "world",
+        "confidence": 0.85,
+        "height": 0.0604,
+        "width": 0.0604,
+        "depth": 0.0604
+      },
+      "transform": {
+        "position": [
+          0.0854,
+          -0.2181,
+          0.3345
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      },
+      "actionProfile": {
+        "animationRole": "static",
+        "pivot": {
+          "mode": "center",
+          "localPosition": [
+            0,
+            0,
+            0
+          ],
+          "axis": [
+            0,
+            1,
+            0
+          ],
+          "confidence": 0.85
+        },
+        "transformChannels": {
+          "translate": true,
+          "rotate": true,
+          "scale": true,
+          "bend": false,
+          "twist": false,
+          "detach": false,
+          "visibility": true,
+          "materialState": true
+        },
+        "sockets": [],
+        "collider": {
+          "type": "sphere",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ],
+          "isTrigger": false,
+          "notes": "Decorative prop -- proxy collider only, no physics interaction required."
+        },
+        "constraints": [],
+        "destruction": {
+          "breakable": false,
+          "fractureGroup": "root",
+          "seamRefs": [],
+          "detachableFragments": [],
+          "breakImpulse": 0.0,
+          "debrisMaterial": "darkAccent"
+        }
+      },
+      "material": "darkAccent",
+      "materialLayers": [
+        "darkAccent"
+      ],
+      "deformations": [],
+      "joints": [],
+      "seams": [],
+      "localFeatures": [],
+      "surfaceDetail": {
+        "macroRoughness": 0.15,
+        "microRoughness": 0.05,
+        "bumpAmplitude": 0.0,
+        "normalPattern": "none",
+        "displacementPattern": "none",
+        "occlusionPattern": "contact-seam-darkening",
+        "edgeWearPattern": "none",
+        "notes": ""
+      },
+      "evidenceRefs": [
+        "zone-r2c1"
+      ],
+      "details": [],
+      "fidelityTier": "micro",
+      "colorMaterialRecipe": {
+        "materialClass": "plastic",
+        "materialClassConfidence": 0.8,
+        "colorGradient": {
+          "type": "linear",
+          "stops": [
+            {
+              "position": 0.0,
+              "color": "rgba(26, 26, 26, 1.0)"
+            },
+            {
+              "position": 1.0,
+              "color": "rgba(26, 26, 26, 1.0)"
+            }
+          ]
+        },
+        "dominantAlbedo": "rgba(26, 26, 26, 1.0)",
+        "secondaryAlbedo": "rgba(26, 26, 26, 1.0)"
+      }
+    }
+  ],
+  "materials": [
+    {
+      "id": "bodySnow",
+      "name": "Snow body (satin cool-white gradient)",
+      "type": "physical",
+      "shaderModel": "MeshPhysicalMaterial",
+      "baseColor": "#FFFFFF",
+      "color": "#FFFFFF",
+      "albedo": {
+        "dominant": "#FFFFFF",
+        "secondary": [
+          "#E6EBF1",
+          "#C3CCD6"
+        ],
+        "samplingNotes": "Confirmed exact stop from the object's own CSS gradient source -- overrides the pixel-extraction guess, which mis-sampled background.",
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\bodysnow_albedo.png",
+          "url": "bodysnow_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "colorVariation": {
+        "palette": [
+          "#FFFFFF",
+          "#E6EBF1",
+          "#C3CCD6"
+        ],
+        "pattern": "reference-derived pixel palette",
+        "amplitude": 0.098,
+        "heightCorrelation": 0.42
+      },
+      "roughness": {
+        "base": 0.686,
+        "variation": 0.05,
+        "map": "independent-procedural-radial-falloff",
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother"
+      },
+      "metalness": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\bodysnow_ao.png",
+          "url": "bodysnow_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0.0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0.0,
+        "cavityBias": 0.0,
+        "color": "#2F2A22"
+      },
+      "clearcoat": 0.15,
+      "localOverrides": [
+        {
+          "id": "rimLight",
+          "region": "lateral edge of each body sphere",
+          "description": "Soft lavender rim-light glow, additive, not part of base albedo",
+          "color": "#C2A4FF",
+          "opacity": 0.6
+        },
+        {
+          "id": "reference-pbr-pixel-evidence",
+          "type": "material-map-evidence",
+          "evidenceRefs": [
+            "full-object"
+          ],
+          "channels": [
+            "albedo",
+            "roughness",
+            "height",
+            "normal",
+            "ambient-occlusion"
+          ],
+          "notes": "Use generated maps as material evidence, then refine after browser screenshot comparison."
+        }
+      ],
+      "shaderNotes": [
+        "MeshPhysicalMaterial chosen for the soft satin sheen and the clearcoat-like rim response seen on the body spheres.",
+        "Albedo is the confirmed CSS gradient; roughness/AO authored independently, not aliased from color.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "Radial gradient highlight at ~66%/30% of each sphere face, confirmed from CSS radial-gradient stops.",
+      "textureless": {
+        "declared": true,
+        "evidence": [
+          "Full-object reference view (full-object); the subject is the site's own CSS radial/linear-gradient fill for material 'bodySnow', confirmed flat/gradient color with no photographed surface micro-texture."
+        ]
+      }
+    },
+    {
+      "id": "hatDark",
+      "name": "Hat (matte near-black)",
+      "type": "physical",
+      "shaderModel": "MeshPhysicalMaterial",
+      "baseColor": "#2A2D33",
+      "color": "#2A2D33",
+      "albedo": {
+        "dominant": "#2A2D33",
+        "secondary": [
+          "#17191C"
+        ],
+        "samplingNotes": "Confirmed exact stop from the object's own CSS gradient source -- overrides the pixel-extraction guess, which mis-sampled background.",
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatdark_albedo.png",
+          "url": "hatdark_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "colorVariation": {
+        "palette": [
+          "#2A2D33",
+          "#17191C"
+        ],
+        "pattern": "reference-derived pixel palette",
+        "amplitude": 0.08,
+        "heightCorrelation": 0.42
+      },
+      "roughness": {
+        "base": 0.684,
+        "variation": 0.05,
+        "map": "independent-procedural-radial-falloff",
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother"
+      },
+      "metalness": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatdark_ao.png",
+          "url": "hatdark_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0.0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0.0,
+        "cavityBias": 0.0,
+        "color": "#2F2A22"
+      },
+      "clearcoat": 0.0,
+      "localOverrides": [
+        {
+          "id": "reference-pbr-pixel-evidence",
+          "type": "material-map-evidence",
+          "evidenceRefs": [
+            "full-object"
+          ],
+          "channels": [
+            "albedo",
+            "roughness",
+            "height",
+            "normal",
+            "ambient-occlusion"
+          ],
+          "notes": "Use generated maps as material evidence, then refine after browser screenshot comparison."
+        }
+      ],
+      "shaderNotes": [
+        "MeshPhysicalMaterial chosen for the soft satin sheen and the clearcoat-like rim response seen on the body spheres.",
+        "Albedo is the confirmed CSS gradient; roughness/AO authored independently, not aliased from color.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "Brim linear-gradient(#2a2d33,#17191c); crown linear-gradient(#33363d,#1b1d21) is marginally lighter -- modeled as a second material stop.",
+      "textureless": {
+        "declared": true,
+        "evidence": [
+          "Full-object reference view (full-object); the subject is the site's own CSS radial/linear-gradient fill for material 'hatDark', confirmed flat/gradient color with no photographed surface micro-texture."
+        ]
+      }
+    },
+    {
+      "id": "hatCrown",
+      "name": "Hat crown (marginally lighter than brim)",
+      "type": "physical",
+      "shaderModel": "MeshPhysicalMaterial",
+      "baseColor": "#33363D",
+      "color": "#33363D",
+      "albedo": {
+        "dominant": "#33363D",
+        "secondary": [
+          "#1B1D21"
+        ],
+        "samplingNotes": "Confirmed exact stop from the object's own CSS gradient source -- overrides the pixel-extraction guess, which mis-sampled background.",
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatcrown_albedo.png",
+          "url": "hatcrown_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "colorVariation": {
+        "palette": [
+          "#33363D",
+          "#1B1D21"
+        ],
+        "pattern": "reference-derived pixel palette",
+        "amplitude": 0.08,
+        "heightCorrelation": 0.42
+      },
+      "roughness": {
+        "base": 0.684,
+        "variation": 0.05,
+        "map": "independent-procedural-radial-falloff",
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother"
+      },
+      "metalness": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatcrown_ao.png",
+          "url": "hatcrown_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0.0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0.0,
+        "cavityBias": 0.0,
+        "color": "#2F2A22"
+      },
+      "clearcoat": 0.0,
+      "localOverrides": [
+        {
+          "id": "reference-pbr-pixel-evidence",
+          "type": "material-map-evidence",
+          "evidenceRefs": [
+            "full-object"
+          ],
+          "channels": [
+            "albedo",
+            "roughness",
+            "height",
+            "normal",
+            "ambient-occlusion"
+          ],
+          "notes": "Use generated maps as material evidence, then refine after browser screenshot comparison."
+        }
+      ],
+      "shaderNotes": [
+        "MeshPhysicalMaterial chosen for the soft satin sheen and the clearcoat-like rim response seen on the body spheres.",
+        "Albedo is the confirmed CSS gradient; roughness/AO authored independently, not aliased from color.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "Top cylinder reads slightly bluer/lighter than the brim.",
+      "textureless": {
+        "declared": true,
+        "evidence": [
+          "Full-object reference view (full-object); the subject is the site's own CSS radial/linear-gradient fill for material 'hatCrown', confirmed flat/gradient color with no photographed surface micro-texture."
+        ]
+      }
+    },
+    {
+      "id": "scarfAccent",
+      "name": "Scarf (satin purple accent gradient)",
+      "type": "physical",
+      "shaderModel": "MeshPhysicalMaterial",
+      "baseColor": "#C2A4FF",
+      "color": "#C2A4FF",
+      "albedo": {
+        "dominant": "#C2A4FF",
+        "secondary": [
+          "#7F40FF"
+        ],
+        "samplingNotes": "Confirmed exact stop from the object's own CSS gradient source -- overrides the pixel-extraction guess, which mis-sampled background.",
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\scarfaccent_albedo.png",
+          "url": "scarfaccent_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "colorVariation": {
+        "palette": [
+          "#C2A4FF",
+          "#7F40FF"
+        ],
+        "pattern": "reference-derived pixel palette",
+        "amplitude": 0.12,
+        "heightCorrelation": 0.42
+      },
+      "roughness": {
+        "base": 0.68,
+        "variation": 0.05,
+        "map": "independent-procedural-radial-falloff",
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother"
+      },
+      "metalness": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\scarfaccent_ao.png",
+          "url": "scarfaccent_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0.0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0.0,
+        "cavityBias": 0.0,
+        "color": "#2F2A22"
+      },
+      "clearcoat": 0.1,
+      "localOverrides": [
+        {
+          "id": "reference-pbr-pixel-evidence",
+          "type": "material-map-evidence",
+          "evidenceRefs": [
+            "full-object"
+          ],
+          "channels": [
+            "albedo",
+            "roughness",
+            "height",
+            "normal",
+            "ambient-occlusion"
+          ],
+          "notes": "Use generated maps as material evidence, then refine after browser screenshot comparison."
+        }
+      ],
+      "shaderNotes": [
+        "MeshPhysicalMaterial chosen for the soft satin sheen and the clearcoat-like rim response seen on the body spheres.",
+        "Albedo is the confirmed CSS gradient; roughness/AO authored independently, not aliased from color.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "linear-gradient(180deg,#C2A4FF,#7F40FF), lighter lavender at top edge to deeper violet at hem.",
+      "textureless": {
+        "declared": true,
+        "evidence": [
+          "Full-object reference view (full-object); the subject is the site's own CSS radial/linear-gradient fill for material 'scarfAccent', confirmed flat/gradient color with no photographed surface micro-texture."
+        ]
+      }
+    },
+    {
+      "id": "armWood",
+      "name": "Arm (satin wood gradient)",
+      "type": "physical",
+      "shaderModel": "MeshPhysicalMaterial",
+      "baseColor": "#8A6238",
+      "color": "#8A6238",
+      "albedo": {
+        "dominant": "#8A6238",
+        "secondary": [
+          "#6B4A29"
+        ],
+        "samplingNotes": "Confirmed exact stop from the object's own CSS gradient source -- overrides the pixel-extraction guess, which mis-sampled background.",
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\armwood_albedo.png",
+          "url": "armwood_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "colorVariation": {
+        "palette": [
+          "#8A6238",
+          "#6B4A29"
+        ],
+        "pattern": "reference-derived pixel palette",
+        "amplitude": 0.266,
+        "heightCorrelation": 0.42
+      },
+      "roughness": {
+        "base": 0.683,
+        "variation": 0.05,
+        "map": "independent-procedural-radial-falloff",
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother"
+      },
+      "metalness": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\armwood_ao.png",
+          "url": "armwood_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0.0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0.0,
+        "cavityBias": 0.0,
+        "color": "#2F2A22"
+      },
+      "clearcoat": 0.0,
+      "localOverrides": [
+        {
+          "id": "reference-pbr-pixel-evidence",
+          "type": "material-map-evidence",
+          "evidenceRefs": [
+            "full-object"
+          ],
+          "channels": [
+            "albedo",
+            "roughness",
+            "height",
+            "normal",
+            "ambient-occlusion"
+          ],
+          "notes": "Use generated maps as material evidence, then refine after browser screenshot comparison."
+        }
+      ],
+      "shaderNotes": [
+        "MeshPhysicalMaterial chosen for the soft satin sheen and the clearcoat-like rim response seen on the body spheres.",
+        "Albedo is the confirmed CSS gradient; roughness/AO authored independently, not aliased from color.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "linear-gradient(#8a6238,#6b4a29), lighter at the shoulder socket end.",
+      "textureless": {
+        "declared": true,
+        "evidence": [
+          "Full-object reference view (full-object); the subject is the site's own CSS radial/linear-gradient fill for material 'armWood', confirmed flat/gradient color with no photographed surface micro-texture."
+        ]
+      }
+    },
+    {
+      "id": "darkAccent",
+      "name": "Buttons / eye sockets (near-black, small gloss)",
+      "type": "physical",
+      "shaderModel": "MeshPhysicalMaterial",
+      "baseColor": "#1A1A1A",
+      "color": "#1A1A1A",
+      "albedo": {
+        "dominant": "#1A1A1A",
+        "secondary": [
+          "#232323"
+        ],
+        "samplingNotes": "Confirmed exact stop from the object's own CSS gradient source -- overrides the pixel-extraction guess, which mis-sampled background.",
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\darkaccent_albedo.png",
+          "url": "darkaccent_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "colorVariation": {
+        "palette": [
+          "#1A1A1A",
+          "#232323"
+        ],
+        "pattern": "reference-derived pixel palette",
+        "amplitude": 0.24,
+        "heightCorrelation": 0.42
+      },
+      "roughness": {
+        "base": 0.68,
+        "variation": 0.05,
+        "map": "independent-procedural-radial-falloff",
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother"
+      },
+      "metalness": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\darkaccent_ao.png",
+          "url": "darkaccent_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0.0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0.0,
+        "cavityBias": 0.0,
+        "color": "#2F2A22"
+      },
+      "clearcoat": 0.25,
+      "localOverrides": [
+        {
+          "id": "eyeHighlight",
+          "region": "upper-inner rim of each eye socket",
+          "description": "small inset gloss catchlight",
+          "color": "#FFFFFF",
+          "opacity": 0.2
+        },
+        {
+          "id": "reference-pbr-pixel-evidence",
+          "type": "material-map-evidence",
+          "evidenceRefs": [
+            "full-object"
+          ],
+          "channels": [
+            "albedo",
+            "roughness",
+            "height",
+            "normal",
+            "ambient-occlusion"
+          ],
+          "notes": "Use generated maps as material evidence, then refine after browser screenshot comparison."
+        }
+      ],
+      "shaderNotes": [
+        "MeshPhysicalMaterial chosen for the soft satin sheen and the clearcoat-like rim response seen on the body spheres.",
+        "Albedo is the confirmed CSS gradient; roughness/AO authored independently, not aliased from color.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "Confirmed inset box-shadow highlight on eyes; buttons share the same dark tone without the highlight.",
+      "textureless": {
+        "declared": true,
+        "evidence": [
+          "Full-object reference view (full-object); the subject is the site's own CSS radial/linear-gradient fill for material 'darkAccent', confirmed flat/gradient color with no photographed surface micro-texture."
+        ]
+      }
+    },
+    {
+      "id": "pupilLight",
+      "name": "Pupil highlight",
+      "type": "physical",
+      "shaderModel": "MeshPhysicalMaterial",
+      "baseColor": "#EAE5EC",
+      "color": "#EAE5EC",
+      "albedo": {
+        "dominant": "#EAE5EC",
+        "secondary": [],
+        "samplingNotes": "Confirmed exact stop from the object's own CSS gradient source -- overrides the pixel-extraction guess, which mis-sampled background.",
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\pupillight_albedo.png",
+          "url": "pupillight_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "colorVariation": {
+        "palette": [
+          "#EAE5EC"
+        ],
+        "pattern": "reference-derived pixel palette",
+        "amplitude": 0.08,
+        "heightCorrelation": 0.42
+      },
+      "roughness": {
+        "base": 0.68,
+        "variation": 0.05,
+        "map": "independent-procedural-radial-falloff",
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother"
+      },
+      "metalness": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\pupillight_ao.png",
+          "url": "pupillight_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0.0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0.0,
+        "cavityBias": 0.0,
+        "color": "#2F2A22"
+      },
+      "clearcoat": 0.0,
+      "localOverrides": [
+        {
+          "id": "reference-pbr-pixel-evidence",
+          "type": "material-map-evidence",
+          "evidenceRefs": [
+            "full-object"
+          ],
+          "channels": [
+            "albedo",
+            "roughness",
+            "height",
+            "normal",
+            "ambient-occlusion"
+          ],
+          "notes": "Use generated maps as material evidence, then refine after browser screenshot comparison."
+        }
+      ],
+      "shaderNotes": [
+        "MeshPhysicalMaterial chosen for the soft satin sheen and the clearcoat-like rim response seen on the body spheres.",
+        "Albedo is the confirmed CSS gradient; roughness/AO authored independently, not aliased from color.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "Near-white warm-neutral gloss dot inside each eye.",
+      "textureless": {
+        "declared": true,
+        "evidence": [
+          "Full-object reference view (full-object); the subject is the site's own CSS radial/linear-gradient fill for material 'pupilLight', confirmed flat/gradient color with no photographed surface micro-texture."
+        ]
+      }
+    },
+    {
+      "id": "noseOrange",
+      "name": "Nose (satin orange)",
+      "type": "physical",
+      "shaderModel": "MeshPhysicalMaterial",
+      "baseColor": "#E8792E",
+      "color": "#E8792E",
+      "albedo": {
+        "dominant": "#E8792E",
+        "secondary": [],
+        "samplingNotes": "Confirmed exact stop from the object's own CSS gradient source -- overrides the pixel-extraction guess, which mis-sampled background.",
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\noseorange_albedo.png",
+          "url": "noseorange_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        }
+      },
+      "colorVariation": {
+        "palette": [
+          "#E8792E"
+        ],
+        "pattern": "reference-derived pixel palette",
+        "amplitude": 0.113,
+        "heightCorrelation": 0.42
+      },
+      "roughness": {
+        "base": 0.68,
+        "variation": 0.051,
+        "map": "independent-procedural-radial-falloff",
+        "localResponse": "reference-derived roughness estimate; cavities and textured zones trend rougher, bright highlights trend smoother"
+      },
+      "metalness": {
+        "base": 0.0,
+        "variation": 0.0
+      },
+      "ambientOcclusion": {
+        "cavityStrength": 0.38,
+        "contactShadowBias": 0.35,
+        "map": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\noseorange_ao.png",
+          "url": "noseorange_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        },
+        "notes": "Reference-derived cavity estimate from local height minima; verify against grazing-light screenshot."
+      },
+      "wear": {
+        "edgeWear": 0.0,
+        "scratches": [],
+        "chips": []
+      },
+      "dirt": {
+        "amount": 0.0,
+        "cavityBias": 0.0,
+        "color": "#2F2A22"
+      },
+      "clearcoat": 0.0,
+      "localOverrides": [
+        {
+          "id": "reference-pbr-pixel-evidence",
+          "type": "material-map-evidence",
+          "evidenceRefs": [
+            "full-object"
+          ],
+          "channels": [
+            "albedo",
+            "roughness",
+            "height",
+            "normal",
+            "ambient-occlusion"
+          ],
+          "notes": "Use generated maps as material evidence, then refine after browser screenshot comparison."
+        }
+      ],
+      "shaderNotes": [
+        "MeshPhysicalMaterial chosen for the soft satin sheen and the clearcoat-like rim response seen on the body spheres.",
+        "Albedo is the confirmed CSS gradient; roughness/AO authored independently, not aliased from color.",
+        "Reference-derived maps are estimates from image pixels; verify with neutral, grazing, and reference-matched renders.",
+        "Do not treat baked image shadows as final albedo; rerun extraction with a tighter material crop if highlights/shadows pollute the maps."
+      ],
+      "notes": "Solid saturated orange cone, no gradient observed.",
+      "textureless": {
+        "declared": true,
+        "evidence": [
+          "Full-object reference view (full-object); the subject is the site's own CSS radial/linear-gradient fill for material 'noseOrange', confirmed flat/gradient color with no photographed surface micro-texture."
+        ]
+      }
+    }
+  ],
+  "repetitionSystems": [
+    {
+      "id": "armMirrorPair",
+      "kind": "mirror",
+      "baseComponent": "armLeft",
+      "members": [
+        "armLeft",
+        "armRight"
+      ],
+      "mirrorAxis": "x",
+      "count": 2,
+      "notes": "True reflection (x,y,z)->(-x,y,z), not a rotation; triangle winding flipped on armRight per the chirality rule."
+    },
+    {
+      "id": "buttonRow",
+      "kind": "linear-array",
+      "baseComponent": "button1",
+      "members": [
+        "button1",
+        "button2",
+        "button3"
+      ],
+      "count": 3,
+      "spacing": {
+        "axis": "y",
+        "step": 0.2562
+      },
+      "notes": "3 buttons at bottom-offset 20%/46%/72% of bodyMiddle's height, confirmed from CSS nth-child rules; button2/button3 generated from button1 by the array, not authored individually."
+    }
+  ],
+  "buildPasses": [
+    {
+      "id": "blockout",
+      "goal": "Match macro silhouette and proportions.",
+      "componentRefs": [
+        "root",
+        "bodyBottom",
+        "bodyMiddle",
+        "head",
+        "hatBrim",
+        "hatTop",
+        "scarfBand",
+        "scarfTail",
+        "eyeLeft",
+        "eyeRight",
+        "pupilLeft",
+        "pupilRight",
+        "nose",
+        "button1",
+        "armLeft",
+        "armRight",
+        "groundShadow",
+        "button2",
+        "button3"
+      ],
+      "acceptance": [
+        "Silhouette reads correctly without materials.",
+        "Quality contract has named all required macro feature groups before code generation.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "structural-pass",
+      "goal": "Build the component hierarchy implied by the pre-spec complexity assessment.",
+      "componentRefs": [
+        "root",
+        "bodyBottom",
+        "bodyMiddle",
+        "head",
+        "hatBrim",
+        "hatTop",
+        "scarfBand",
+        "scarfTail",
+        "eyeLeft",
+        "eyeRight",
+        "pupilLeft",
+        "pupilRight",
+        "nose",
+        "button1",
+        "armLeft",
+        "armRight",
+        "groundShadow",
+        "button2",
+        "button3"
+      ],
+      "acceptance": [
+        "Macro, meso, and repeated structures meet qualityContract.minimumSpecDepth.",
+        "Parent-child relations, joints, seams, sockets, and contact points are explicit.",
+        "Every attached child appendage/connector has parentSocket, localStart/localEnd, contactType, embedDepth or overlap, and gapTolerance.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "form-refinement",
+      "goal": "Refine shape, deformation, bevels, tapers, curves, asymmetry, and visible local geometry.",
+      "componentRefs": [
+        "root",
+        "bodyBottom",
+        "bodyMiddle",
+        "head",
+        "hatBrim",
+        "hatTop",
+        "scarfBand",
+        "scarfTail",
+        "eyeLeft",
+        "eyeRight",
+        "pupilLeft",
+        "pupilRight",
+        "nose",
+        "button1",
+        "armLeft",
+        "armRight",
+        "groundShadow",
+        "button2",
+        "button3"
+      ],
+      "acceptance": [
+        "Important visible forms are represented in component geometryDescriptor, deformations, localFeatures, or repetitionSystems.",
+        "Endpoint-based child parts are rooted at their attachment sockets and do not visibly float away from parents.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "material-pass",
+      "goal": "Match material color, roughness, bump, and local variation.",
+      "componentRefs": [
+        "root",
+        "bodyBottom",
+        "bodyMiddle",
+        "head",
+        "hatBrim",
+        "hatTop",
+        "scarfBand",
+        "scarfTail",
+        "eyeLeft",
+        "eyeRight",
+        "pupilLeft",
+        "pupilRight",
+        "nose",
+        "button1",
+        "armLeft",
+        "armRight",
+        "groundShadow",
+        "button2",
+        "button3"
+      ],
+      "acceptance": [
+        "Reference-derived albedo palette records dominant, secondary, and accent colors per visible material.",
+        "Each important material defines roughness variation and at least one normal/bump/displacement response.",
+        "Local material overrides, dirt/wear/stains/moss/chips/scratches or equivalent masks are tied to evidenceRefs.",
+        "Thin, transparent, reflective, wet, or fibrous materials document alpha/transmission/clearcoat/metalness/fiber response when relevant.",
+        "Generated preview uses procedural albedo/roughness/bump texture or vertex color variation instead of one flat color.",
+        "Generated preview uses independent PBR maps at 1024px or higher for the quality-first tier.",
+        "If source pixels are available, referencePbr extraction passed at confidence >= 0.7 or the pass is stopped/requesting better references.",
+        "Macro, meso, and micro surface frequency bands are visible at the intended review distance without obvious tiling.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "surface-pass",
+      "goal": "Add procedural surface locality such as normal/bump/displacement, AO, dirt, stains, chips, grain, moss, scratches, and wear.",
+      "componentRefs": [
+        "root",
+        "bodyBottom",
+        "bodyMiddle",
+        "head",
+        "hatBrim",
+        "hatTop",
+        "scarfBand",
+        "scarfTail",
+        "eyeLeft",
+        "eyeRight",
+        "pupilLeft",
+        "pupilRight",
+        "nose",
+        "button1",
+        "armLeft",
+        "armRight",
+        "groundShadow",
+        "button2",
+        "button3"
+      ],
+      "acceptance": [
+        "Every required material feature group has local overrides or surfaceDetail tied to evidenceRefs.",
+        "A grazing-angle close-up proves that normal/height detail breaks highlights naturally and does not read as smooth plastic.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "lighting-pass",
+      "goal": "Make material and form readable under neutral turntable lighting plus optional reference lighting.",
+      "componentRefs": [
+        "root",
+        "bodyBottom",
+        "bodyMiddle",
+        "head",
+        "hatBrim",
+        "hatTop",
+        "scarfBand",
+        "scarfTail",
+        "eyeLeft",
+        "eyeRight",
+        "pupilLeft",
+        "pupilRight",
+        "nose",
+        "button1",
+        "armLeft",
+        "armRight",
+        "groundShadow",
+        "button2",
+        "button3"
+      ],
+      "acceptance": [
+        "lightingFromPhoto identifies key light direction/color/intensity, fill light, rim or environment light, and ambient color.",
+        "Exposure, tone mapping, background color/gradient, shadow softness, and contact shadow behavior are specified.",
+        "Lighting does not hide geometry/material gaps and screenshots can be compared fairly to the reference.",
+        "Neutral, grazing, and reference-matched lighting checks distinguish material errors from lighting errors.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "interaction-pass",
+      "goal": "Make the model ready for future animation, transformation, physics, or destruction.",
+      "componentRefs": [
+        "root",
+        "bodyBottom",
+        "bodyMiddle",
+        "head",
+        "hatBrim",
+        "hatTop",
+        "scarfBand",
+        "scarfTail",
+        "eyeLeft",
+        "eyeRight",
+        "pupilLeft",
+        "pupilRight",
+        "nose",
+        "button1",
+        "armLeft",
+        "armRight",
+        "groundShadow",
+        "button2",
+        "button3"
+      ],
+      "acceptance": [
+        "Macro and movable meso components have stable pivot nodes.",
+        "Sockets, collider proxies, and destruction metadata are present for future runtime actions.",
+        "AI vision comparison score meets selfCorrectLoop.visualAcceptance.threshold."
+      ]
+    },
+    {
+      "id": "optimization-pass",
+      "goal": "Protect runtime performance after visual fidelity is accepted.",
+      "componentRefs": [
+        "root",
+        "bodyBottom",
+        "bodyMiddle",
+        "head",
+        "hatBrim",
+        "hatTop",
+        "scarfBand",
+        "scarfTail",
+        "eyeLeft",
+        "eyeRight",
+        "pupilLeft",
+        "pupilRight",
+        "nose",
+        "button1",
+        "armLeft",
+        "armRight",
+        "groundShadow",
+        "button2",
+        "button3"
+      ],
+      "acceptance": [
+        "Triangle count, draw calls, instancing, LOD strategy, and FPS target are documented or verified.",
+        "Repeated detail is instanced or simplified where possible without breaking silhouette/material believability."
+      ]
+    }
+  ],
+  "visualEvidence": [
+    {
+      "timestamp": "2026-08-25T13:21:05.584255+00:00",
+      "passId": "blockout",
+      "estimatedFidelity": 0.72,
+      "aiVisionScore": 0.72,
+      "visualAcceptanceThreshold": 0.7,
+      "layerScores": {
+        "silhouetteProportion": 0.85,
+        "componentStructure": 0.75,
+        "formDetail": 0.55,
+        "materialSurface": 0.55,
+        "lightingCamera": 0.3
+      },
+      "featureReviews": [],
+      "referenceScreenshot": "reference-snowman.png",
+      "renderScreenshot": "renders/blockout-front-clean.png",
+      "comparisonImage": "renders/comparison-sheet.png",
+      "cameraView": "",
+      "notes": "",
+      "aiVisionNotes": ""
+    }
+  ],
+  "reviewHistory": [
+    {
+      "timestamp": "2026-08-25T13:21:05.584255+00:00",
+      "passId": "blockout",
+      "estimatedFidelity": 0.72,
+      "aiVisionScore": 0.72,
+      "visualAcceptanceThreshold": 0.7,
+      "layerScores": {
+        "silhouetteProportion": 0.85,
+        "componentStructure": 0.75,
+        "formDetail": 0.55,
+        "materialSurface": 0.55,
+        "lightingCamera": 0.3
+      },
+      "featureReviews": [],
+      "action": "continue",
+      "summary": "Blockout matches the reference macro silhouette and proportions well: 3-sphere body ratio, hat placement, mirrored arm attachment (bilateralSymmetryError=0.0), buttons, nose, and confirmed body/hat/arm colors all read correctly (silhouetteIoU=0.8061). Two structural gaps remain for the next pass: the scarf renders as a thin sliver instead of a wrapped band, and the eye plane-cards are near edge-on to the camera instead of facing outward. The reference's purple ambient rim-light/halo is correctly deferred to the lighting-pass.",
+      "matched": [
+        "confirmed body/hat/arm/nose colors"
+      ],
+      "mismatches": [
+        "purple ambient rim-light/halo not yet implemented (lighting-pass)"
+      ],
+      "specFixes": [],
+      "codeFixes": [],
+      "evidence": [],
+      "mapStrippedRender": "renders/blockout-unlit.png",
+      "visualEvidence": {
+        "referenceScreenshot": "reference-snowman.png",
+        "renderScreenshot": "renders/blockout-front-clean.png",
+        "comparisonImage": "renders/comparison-sheet.png",
+        "cameraView": "",
+        "notes": "",
+        "aiVisionNotes": ""
+      }
+    }
+  ],
+  "lodPlan": [
+    {
+      "tier": "near",
+      "distance": 0,
+      "strategy": "full component tree and material layers"
+    },
+    {
+      "tier": "far",
+      "distance": 30,
+      "strategy": "merge static components and reduce local feature geometry"
+    }
+  ],
+  "performanceBudget": {
+    "qualityPriority": "reference-fidelity",
+    "targetTriangles": 250000,
+    "maxDrawCalls": 160,
+    "textureSize": 2048,
+    "fpsTarget": 30,
+    "optimizationPolicy": "Reach accepted visual fidelity first, then optimize without removing reference-critical geometry or surface layers."
+  },
+  "lightingFromPhoto": [
+    {
+      "role": "key",
+      "description": "Soft warm-white key light from upper-front-lateral (matches each sphere's ~66%/30% highlight position); ACES filmic tone mapping, exposure ~1.0",
+      "colorTemp": "neutral-cool",
+      "intensity": "medium-high",
+      "confidence": 0.8
+    },
+    {
+      "role": "rim",
+      "description": "Purple/lavender rim light along one lateral edge of the body spheres, color #C2A4FF",
+      "color": "#C2A4FF",
+      "intensity": "medium",
+      "confidence": 0.85
+    },
+    {
+      "role": "ambient",
+      "description": "Soft purple ambient fill/halo glow surrounding the whole figure (large soft area light or emissive backdrop), color #7F40FF",
+      "color": "#7F40FF",
+      "intensity": "low-medium",
+      "confidence": 0.8
+    },
+    {
+      "role": "environment",
+      "description": "Dark near-black background with minimal environment reflection on these low-specular satin materials; renderer uses ACES filmic tone mapping at exposure 1.0",
+      "confidence": 0.9
+    },
+    {
+      "role": "shadow",
+      "description": "Soft contact shadow / ground shadow beneath bodyBottom (groundShadow component), ambient occlusion darkening at every sphere-stack seam",
+      "confidence": 0.85
+    }
+  ],
+  "proceduralStrategy": [
+    "Block out the 3 body spheres at the confirmed 1.95:1.4:1 ratio first; verify silhouette before adding hat/scarf/face.",
+    "Add hat (brim+crown), scarf (band+tail), face assembly (eyes+pupils+nose) and button row as children of head/bodyMiddle with explicit attachment sockets.",
+    "Mirror armRight from armLeft via the chirality helper (negate x, flip triangle winding) -- author once, reflect, never hand-duplicate.",
+    "Apply MeshPhysicalMaterial per material id with the confirmed hex gradient stops; add the rim-light local override as a second light-facing shell or a fresnel-driven emissive tint, not a second texture.",
+    "Add the purple ambient halo as a large soft point/area light plus a faint background emissive plane, not a procedural texture on the body.",
+    "Run reference PBR extraction only if a rendered pass reads noticeably flatter than the reference; the source CSS values are already confirmed, so this is a fallback, not a required step.",
+    "Preserve the -7deg root lean and the off-center face offset exactly -- both are identity-defining, not stylistic slack."
+  ],
+  "animationAnchors": [
+    "root pivot node supports whole-object translation, rotation, scale, and visibility changes (idle sway + click-jump, matching the site's existing CSS keyframes)",
+    "armLeft/armRight each expose a shoulderSocket pivot for a raise/lower hover animation",
+    "hatBrim+hatTop share a lift pivot for a hover 'tip the hat' animation",
+    "bodyBottom/bodyMiddle/head/hatBrim/hatTop/armLeft/armRight are each independently detachable for the click-to-melt-and-reform interaction"
+  ],
+  "destructionAnchors": [
+    "actionProfile.destruction.fractureGroup='melt-scatter' marks every body/hat/arm component as part of the click-triggered melt/scatter effect",
+    "seams at bodyBottom-bodyMiddle, bodyMiddle-head, head-hatBrim, hatBrim-hatTop, bodyMiddle-armLeft/armRight are the break points -- matches the existing CSS disassemble/melt keyframes this model is meant to replace/extend"
+  ],
+  "risks": [
+    {
+      "id": "flat-render-risk",
+      "description": "MeshPhysicalMaterial without the rim-light/halo lights could read as flat/generic white spheres, losing the signature purple accent.",
+      "mitigation": "Explicit rim + ambient halo lights are mandatory in buildPasses' lighting pass, not optional polish."
+    },
+    {
+      "id": "face-centering-risk",
+      "description": "A default/naive face placement would center the eyes+nose, contradicting the confirmed off-center read.",
+      "mitigation": "eyeLeft/eyeRight/nose transform.position.x values are locked to the confirmed offset, flagged as a critical featureReviewTarget."
+    }
+  ],
+  "localSpecSearch": {
+    "collection": "core_3d",
+    "query": "Stylized Snowman Figure sphere primitive stacking satin dielectric material rim light purple accent",
+    "index": {
+      "status": "rebuilt",
+      "reason": "missing",
+      "fingerprint": "ac4f0bc9028e34083dbb5d5531ae3df7699c8e7641d5f8e6d42e7492ea1be1d0"
+    },
+    "matches": [
+      {
+        "record_id": "core.pbr-hand-painted-vs-pbr-texture",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.material_pbr[12]",
+        "score": 4.289263125007,
+        "snippets": [
+          "Distinguishes textures with lighting baked directly into color (static, stylized) from textures that respond dynamically to scene lighting via separate PBR channels. Phân biệt kết cấu có ánh sáng được nướng trực tiếp vào màu (tĩnh, cách điệu) ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.material_pbr[12]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      },
+      {
+        "record_id": "core.pbr-subsurface-scattering-sss",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.material_pbr[5]",
+        "score": 4.021074036509,
+        "snippets": [
+          "Light transport property for opaque dielectrics where light penetrates and scatters internally before exiting (skin, wax, marble, some polymers). Đặc tính truyền ánh sáng của vật liệu điện môi mờ đục, ánh sáng xuyên vào và tán xạ bên trong trước ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.material_pbr[5]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      },
+      {
+        "record_id": "core.pbr-metalness",
+        "file_path": "docs/raw/img2threejs-skill-dataset.json",
+        "heading": null,
+        "key_path": "categories.material_pbr[0]",
+        "score": 3.840409335344,
+        "snippets": [
+          "Binary or scalar property defining whether a surface is dielectric (0.0) or conductive metal (1.0); intermediate values blend the two. Thuộc tính nhị phân hoặc vô hướng xác định bề mặt là điện môi (0.0) hay kim loại dẫn điện (1.0); giá trị trung ..."
+        ],
+        "source_refs": [
+          {
+            "path": "docs/raw/img2threejs-skill-dataset.json",
+            "heading": null,
+            "key_path": "categories.material_pbr[0]"
+          }
+        ],
+        "evidence_refs": [
+          {
+            "kind": "source",
+            "ref": "docs/raw/img2threejs-skill-dataset.json",
+            "note": "img2threejs NotebookLM research distillation"
+          }
+        ]
+      }
+    ]
+  },
+  "pbrExtractionHistory": [
+    {
+      "materialId": "bodySnow",
+      "confidence": 0.745,
+      "verdict": "pass",
+      "usable": true,
+      "maps": {
+        "albedo": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\bodysnow_albedo.png",
+          "url": "bodysnow_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\bodysnow_roughness.png",
+          "url": "bodysnow_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\bodysnow_height.png",
+          "url": "bodysnow_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\bodysnow_normal.png",
+          "url": "bodysnow_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\bodysnow_ao.png",
+          "url": "bodysnow_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "materialId": "hatDark",
+      "confidence": 0.751,
+      "verdict": "pass",
+      "usable": true,
+      "maps": {
+        "albedo": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatdark_albedo.png",
+          "url": "hatdark_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatdark_roughness.png",
+          "url": "hatdark_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatdark_height.png",
+          "url": "hatdark_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatdark_normal.png",
+          "url": "hatdark_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatdark_ao.png",
+          "url": "hatdark_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "materialId": "hatCrown",
+      "confidence": 0.751,
+      "verdict": "pass",
+      "usable": true,
+      "maps": {
+        "albedo": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatcrown_albedo.png",
+          "url": "hatcrown_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatcrown_roughness.png",
+          "url": "hatcrown_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatcrown_height.png",
+          "url": "hatcrown_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatcrown_normal.png",
+          "url": "hatcrown_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\hatcrown_ao.png",
+          "url": "hatcrown_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "materialId": "scarfAccent",
+      "confidence": 0.84,
+      "verdict": "pass",
+      "usable": true,
+      "maps": {
+        "albedo": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\scarfaccent_albedo.png",
+          "url": "scarfaccent_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\scarfaccent_roughness.png",
+          "url": "scarfaccent_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\scarfaccent_height.png",
+          "url": "scarfaccent_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\scarfaccent_normal.png",
+          "url": "scarfaccent_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\scarfaccent_ao.png",
+          "url": "scarfaccent_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "materialId": "armWood",
+      "confidence": 0.86,
+      "verdict": "pass",
+      "usable": true,
+      "maps": {
+        "albedo": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\armwood_albedo.png",
+          "url": "armwood_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\armwood_roughness.png",
+          "url": "armwood_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\armwood_height.png",
+          "url": "armwood_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\armwood_normal.png",
+          "url": "armwood_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\armwood_ao.png",
+          "url": "armwood_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "materialId": "darkAccent",
+      "confidence": 0.805,
+      "verdict": "pass",
+      "usable": true,
+      "maps": {
+        "albedo": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\darkaccent_albedo.png",
+          "url": "darkaccent_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\darkaccent_roughness.png",
+          "url": "darkaccent_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\darkaccent_height.png",
+          "url": "darkaccent_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\darkaccent_normal.png",
+          "url": "darkaccent_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\darkaccent_ao.png",
+          "url": "darkaccent_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "materialId": "pupilLight",
+      "confidence": 0.612,
+      "verdict": "pass",
+      "usable": true,
+      "maps": {
+        "albedo": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\pupillight_albedo.png",
+          "url": "pupillight_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\pupillight_roughness.png",
+          "url": "pupillight_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\pupillight_height.png",
+          "url": "pupillight_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\pupillight_normal.png",
+          "url": "pupillight_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\pupillight_ao.png",
+          "url": "pupillight_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    },
+    {
+      "materialId": "noseOrange",
+      "confidence": 0.857,
+      "verdict": "pass",
+      "usable": true,
+      "maps": {
+        "albedo": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\noseorange_albedo.png",
+          "url": "noseorange_albedo.png",
+          "channel": "albedo",
+          "source": "reference-pixel-extraction"
+        },
+        "roughness": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\noseorange_roughness.png",
+          "url": "noseorange_roughness.png",
+          "channel": "roughness",
+          "source": "reference-pixel-extraction"
+        },
+        "height": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\noseorange_height.png",
+          "url": "noseorange_height.png",
+          "channel": "height",
+          "source": "reference-pixel-extraction"
+        },
+        "normal": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\noseorange_normal.png",
+          "url": "noseorange_normal.png",
+          "channel": "normal",
+          "source": "reference-pixel-extraction"
+        },
+        "ao": {
+          "path": "C:\\Users\\Camara\\Desktop\\Portifolio\\DESING_05\\threejs-snowman\\pbr-evidence\\noseorange_ao.png",
+          "url": "noseorange_ao.png",
+          "channel": "ao",
+          "source": "reference-pixel-extraction"
+        }
+      }
+    }
+  ],
+  "tier1Results": [
+    {
+      "passed": false,
+      "checks": {
+        "silhouetteIoU": 0.8061,
+        "aspectRatioDelta": 0.0856,
+        "scaleDelta": 0.0936,
+        "bilateralSymmetryError": 0.0,
+        "colorDelta": {
+          "checked": 19,
+          "maxDeltaE": 54.25,
+          "perComponent": [
+            {
+              "componentId": null,
+              "deltaE": 20.82
+            },
+            {
+              "componentId": null,
+              "deltaE": 6.51
+            },
+            {
+              "componentId": null,
+              "deltaE": 6.51
+            },
+            {
+              "componentId": null,
+              "deltaE": 6.51
+            },
+            {
+              "componentId": null,
+              "deltaE": 5.59
+            },
+            {
+              "componentId": null,
+              "deltaE": 7.97
+            },
+            {
+              "componentId": null,
+              "deltaE": 54.25
+            },
+            {
+              "componentId": null,
+              "deltaE": 54.25
+            },
+            {
+              "componentId": null,
+              "deltaE": 7.06
+            },
+            {
+              "componentId": null,
+              "deltaE": 7.06
+            },
+            {
+              "componentId": null,
+              "deltaE": 4.31
+            },
+            {
+              "componentId": null,
+              "deltaE": 4.31
+            },
+            {
+              "componentId": null,
+              "deltaE": 49.61
+            },
+            {
+              "componentId": null,
+              "deltaE": 7.06
+            },
+            {
+              "componentId": null,
+              "deltaE": 16.97
+            },
+            {
+              "componentId": null,
+              "deltaE": 16.97
+            },
+            {
+              "componentId": null,
+              "deltaE": 3.08
+            },
+            {
+              "componentId": null,
+              "deltaE": 7.06
+            },
+            {
+              "componentId": null,
+              "deltaE": 7.06
+            }
+          ],
+          "gated": false
+        }
+      },
+      "failures": [
+        "silhouette IoU 0.806 is below threshold 0.85",
+        "aspect-ratio delta 0.086 exceeds threshold 0.05",
+        "scale delta 0.094 exceeds threshold 0.08",
+        "blockout requires --map-stripped-render evidence"
+      ],
+      "maskWarnings": [
+        "render: image is not clearly isolated from background; using most pixels as material evidence"
+      ],
+      "renderHash": "470d609afdbf1da0",
+      "passId": "blockout"
+    }
+  ]
+}

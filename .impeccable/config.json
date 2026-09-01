@@ -110,6 +110,15 @@
         ],
         "createdAt": "2026-08-19T14:14:06.289Z",
         "reason": "Same pinned-reference justification as Geist itself: DESING_04 is modeled on redoyanulhaque.me's real computed CSS, not a default font choice. Registered at root too since the hook has resolved files from both scopes this session."
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "DESING_04/index.html"
+        ],
+        "createdAt": "2026-08-20T16:04:46.386Z",
+        "reason": "lightbox #lightboxImg intentionally starts with empty src; populated by JS on thumbnail click, stays hidden (opacity:0, pointer-events:none) until then"
       }
     ]
   }
