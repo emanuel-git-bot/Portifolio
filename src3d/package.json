@@ -1,0 +1,15 @@
+{
+  "name": "portfolio-emanuel-3d",
+  "private": true,
+  "description": "Cenas 3D do portfólio (Three.js). Gera assets/vendor/scene3d.min.js — o site em si continua sem build step.",
+  "scripts": {
+    "build": "esbuild main.js --bundle --minify --format=iife --target=es2020 --loader:.svg=dataurl --define:DEBUG=false --outfile=../assets/vendor/scene3d.min.js",
+    "build:debug": "esbuild main.js --bundle --format=iife --target=es2020 --loader:.svg=dataurl --define:DEBUG=true --outfile=../assets/vendor/scene3d.min.js"
+  },
+  "dependencies": {
+    "three": "0.169.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.24.0"
+  }
+}
